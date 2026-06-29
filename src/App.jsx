@@ -208,6 +208,8 @@ function Hero({ progress, text, language }) {
   const scale = 1 - eased * endScale;
   const translateY = eased * 30;
   const headsetOpacity = eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
+  const heroVideoId = "vxftJHccISY";
+  const heroVideoSrc = `https://www.youtube.com/embed/${heroVideoId}?autoplay=1&mute=1&loop=1&playlist=${heroVideoId}&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`;
 
   return (
     <section className="hero" id="top">
@@ -215,10 +217,18 @@ function Hero({ progress, text, language }) {
         <div
           className="vr-container"
           style={{
-            backgroundImage: `url("${assetPath("images_videos/herosectionbackground.gif")}")`,
             transform: `translate(-50%, -50%) translateY(${translateY}px) scale(${scale})`,
           }}
         >
+          <iframe
+            className="hero-video"
+            src={heroVideoSrc}
+            title="Hero background video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerPolicy="strict-origin-when-cross-origin"
+            aria-hidden="true"
+            tabIndex="-1"
+          />
           <div className="vr-world">
             <div className="hero-section">
               <div className="hero-content">
