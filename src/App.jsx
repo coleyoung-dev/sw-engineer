@@ -24,8 +24,34 @@ function slugify(value) {
     .replace(/(^-|-$)/g, "");
 }
 
+function getProjectSlug(project) {
+  return slugify(project.title);
+}
+
 function getProjectDetailId(project) {
-  return `project-${slugify(project.title)}`;
+  return `project-${getProjectSlug(project)}`;
+}
+
+function getProjectHref(project) {
+  return `#/projects/${getProjectSlug(project)}`;
+}
+
+function getCurrentHashRoute() {
+  if (typeof window === "undefined") return "";
+  return window.location.hash.replace(/^#/, "");
+}
+
+function getProjectFromRoute(route) {
+  const normalizedRoute = route.replace(/^\//, "");
+  let slug = "";
+
+  if (normalizedRoute.startsWith("projects/")) {
+    slug = normalizedRoute.replace(/^projects\//, "");
+  } else if (normalizedRoute.startsWith("project-")) {
+    slug = normalizedRoute.replace(/^project-/, "");
+  }
+
+  return projects.find((project) => getProjectSlug(project) === slug) ?? null;
 }
 
 function useScrollProgress() {
@@ -259,17 +285,16 @@ function Tags({ tags, className = "tags", itemClass = "tag" }) {
   );
 }
 
-function ProjectCard({ project, language, text, onSelect }) {
+function ProjectCard({ project, language, text }) {
   const title = pickLocalized(project, "title", language);
   const highlight = pickLocalized(project, "highlight", language);
   const location = pickLocalized(project, "location", language);
   const description = pickLocalized(project, "description", language);
 
   return (
-    <button
-      type="button"
+    <a
+      href={getProjectHref(project)}
       className="featured-projects-showcase project-card-button"
-      onClick={() => onSelect(project)}
       aria-label={`${title} ${text.projectDetail.open}`}
     >
       <div className="image">
@@ -295,18 +320,18 @@ function ProjectCard({ project, language, text, onSelect }) {
           <i className="bi bi-arrow-right-short" aria-hidden="true" />
         </div>
       </div>
-    </button>
+    </a>
   );
 }
 
-function FeaturedProjects({ language, text, onProjectSelect }) {
+function FeaturedProjects({ language, text }) {
   return (
     <section className="individual-section featured-projects" id="featuredproject">
       <h1 className="featured-projects-header">{text.sections.featuredProjects}</h1>
       <div className="featured-projects-tabs" />
       <div className="featured-projects-showcases">
         {projects.map((project) => (
-          <ProjectCard project={project} language={language} text={text} onSelect={onProjectSelect} key={project.title} />
+          <ProjectCard project={project} language={language} text={text} key={project.title} />
         ))}
       </div>
     </section>
@@ -498,7 +523,7 @@ function Footer({ text }) {
 
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
-  const [selectedProjectId, setSelectedProjectId] = useState("");
+  const [route, setRoute] = useState(getCurrentHashRoute);
   const { progress, activeSection } = useScrollProgress();
   const reducedMotion = useMemo(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -506,10 +531,7 @@ export default function App() {
   );
   const heroProgress = reducedMotion ? 1 : progress;
   const text = uiText[language] ?? uiText.en;
-  const selectedProject = useMemo(
-    () => projects.find((project) => getProjectDetailId(project) === selectedProjectId) ?? null,
-    [selectedProjectId],
-  );
+  const selectedProject = useMemo(() => getProjectFromRoute(route), [route]);
 
   useEffect(() => {
     document.documentElement.lang = language === "ko" ? "ko" : "en";
@@ -517,67 +539,62 @@ export default function App() {
   }, [language]);
 
   useEffect(() => {
-    const syncProjectFromHash = () => {
-      const hashId = window.location.hash.replace("#", "");
-      if (!hashId.startsWith("project-")) {
-        setSelectedProjectId("");
-        return;
-      }
+    const syncRouteFromHash = () => setRoute(getCurrentHashRoute());
 
-      const project = projects.find((item) => getProjectDetailId(item) === hashId);
-      setSelectedProjectId(project ? hashId : "");
-    };
-
-    syncProjectFromHash();
-    window.addEventListener("hashchange", syncProjectFromHash);
-    window.addEventListener("popstate", syncProjectFromHash);
+    syncRouteFromHash();
+    window.addEventListener("hashchange", syncRouteFromHash);
+    window.addEventListener("popstate", syncRouteFromHash);
     return () => {
-      window.removeEventListener("hashchange", syncProjectFromHash);
-      window.removeEventListener("popstate", syncProjectFromHash);
+      window.removeEventListener("hashchange", syncRouteFromHash);
+      window.removeEventListener("popstate", syncRouteFromHash);
     };
   }, []);
 
   useEffect(() => {
-    if (!selectedProject) return;
-
     window.requestAnimationFrame(() => {
-      document.getElementById(getProjectDetailId(selectedProject))?.scrollIntoView({
+      if (selectedProject) {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+        return;
+      }
+
+      const sectionId = getCurrentHashRoute();
+      if (!sectionId || sectionId.startsWith("/projects/") || sectionId.startsWith("projects/")) {
+        return;
+      }
+
+      document.getElementById(sectionId)?.scrollIntoView({
         behavior: reducedMotion ? "auto" : "smooth",
         block: "start",
       });
     });
-  }, [reducedMotion, selectedProject]);
-
-  const openProjectDetail = (project) => {
-    const detailId = getProjectDetailId(project);
-    setSelectedProjectId(detailId);
-    window.history.pushState(null, "", `#${detailId}`);
-  };
+  }, [reducedMotion, route, selectedProject]);
 
   const closeProjectDetail = () => {
-    setSelectedProjectId("");
-    window.history.pushState(null, "", "#featuredproject");
-    window.requestAnimationFrame(() => {
-      document.getElementById("featuredproject")?.scrollIntoView({
-        behavior: reducedMotion ? "auto" : "smooth",
-        block: "start",
-      });
-    });
+    window.location.hash = "#featuredproject";
   };
+
+  const headerProgress = selectedProject ? 1 : heroProgress;
+  const headerActiveSection = selectedProject ? "" : activeSection;
 
   return (
     <>
       <LanguageToggle language={language} onLanguageChange={setLanguage} />
-      <Header progress={heroProgress} activeSection={activeSection} language={language} text={text} />
-      <main>
-        <Hero progress={heroProgress} text={text} language={language} />
-        <FeaturedProjects language={language} text={text} onProjectSelect={openProjectDetail} />
+      <Header progress={headerProgress} activeSection={headerActiveSection} language={language} text={text} />
+      <main className={selectedProject ? "project-page" : ""}>
         {selectedProject ? (
-          <ProjectDetail project={selectedProject} language={language} text={text} onBack={closeProjectDetail} />
-        ) : null}
-        <TechStack language={language} text={text} />
-        <WorkExperience language={language} text={text} />
-        <Footer text={text} />
+          <>
+            <ProjectDetail project={selectedProject} language={language} text={text} onBack={closeProjectDetail} />
+            <Footer text={text} />
+          </>
+        ) : (
+          <>
+            <Hero progress={heroProgress} text={text} language={language} />
+            <FeaturedProjects language={language} text={text} />
+            <TechStack language={language} text={text} />
+            <WorkExperience language={language} text={text} />
+            <Footer text={text} />
+          </>
+        )}
       </main>
     </>
   );

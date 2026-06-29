@@ -446,11 +446,13 @@ a {
 }
 
 .featured-projects .featured-projects-showcases .project-card-button {
+  appearance: none;
   border: 0;
   padding: 0;
   color: inherit;
   font: inherit;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
@@ -458,6 +460,7 @@ a {
 .featured-projects .featured-projects-showcases .project-card-button:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 1.25rem 1.6rem rgba(0, 0, 0, 0.24);
+  text-decoration: none;
 }
 
 .featured-projects .featured-projects-showcases .project-card-button:focus-visible {
@@ -604,6 +607,15 @@ a {
 
 .project-detail {
   scroll-margin-top: 5rem;
+}
+
+.project-page {
+  min-height: 100vh;
+}
+
+.project-page .project-detail {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
 }
 
 .project-detail-container {
