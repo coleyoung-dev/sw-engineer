@@ -17,6 +17,17 @@ function assetPath(path) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 }
 
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getProjectDetailId(project) {
+  return `project-${slugify(project.title)}`;
+}
+
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
@@ -248,19 +259,22 @@ function Tags({ tags, className = "tags", itemClass = "tag" }) {
   );
 }
 
-function ProjectCard({ project, language }) {
+function ProjectCard({ project, language, text, onSelect }) {
   const title = pickLocalized(project, "title", language);
   const highlight = pickLocalized(project, "highlight", language);
   const location = pickLocalized(project, "location", language);
   const description = pickLocalized(project, "description", language);
 
   return (
-    <div className="featured-projects-showcase">
+    <button
+      type="button"
+      className="featured-projects-showcase project-card-button"
+      onClick={() => onSelect(project)}
+      aria-label={`${title} ${text.projectDetail.open}`}
+    >
       <div className="image">
         {project.image ? (
-          <a href={project.link ?? "#featuredproject"}>
-            <img src={project.image} alt={project.imageAlt} />
-          </a>
+          <img src={project.image} alt={project.imageAlt} />
         ) : (
           <div className="project-thumb">
             <i className={`bi ${project.icon}`} />
@@ -276,27 +290,125 @@ function ProjectCard({ project, language }) {
         <div className="location">{location}</div>
         <div className="description">{description}</div>
         <Tags tags={project.tags} />
-        <div className="play">
-          {project.storeLinks?.map((link) => (
-            <a href={link.href} className="btn" key={link.href}>
-              <img src={link.src} alt={link.alt} />
-            </a>
-          ))}
+        <div className="card-action">
+          <span>{text.projectDetail.open}</span>
+          <i className="bi bi-arrow-right-short" aria-hidden="true" />
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
-function FeaturedProjects({ language, text }) {
+function FeaturedProjects({ language, text, onProjectSelect }) {
   return (
     <section className="individual-section featured-projects" id="featuredproject">
       <h1 className="featured-projects-header">{text.sections.featuredProjects}</h1>
       <div className="featured-projects-tabs" />
       <div className="featured-projects-showcases">
         {projects.map((project) => (
-          <ProjectCard project={project} language={language} key={project.title} />
+          <ProjectCard project={project} language={language} text={text} onSelect={onProjectSelect} key={project.title} />
         ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectDetail({ project, language, text, onBack }) {
+  const detailId = getProjectDetailId(project);
+  const title = pickLocalized(project, "title", language);
+  const location = pickLocalized(project, "location", language);
+  const description = pickLocalized(project, "description", language);
+  const role = pickLocalized(project, "role", language);
+  const timeline = pickLocalized(project, "timeline", language);
+  const team = pickLocalized(project, "team", language);
+  const category = pickLocalized(project, "category", language);
+  const focus = pickLocalized(project, "focus", language) ?? [];
+  const process = pickLocalized(project, "process", language) ?? [];
+  const outcomes = pickLocalized(project, "outcomes", language) ?? [];
+  const metaItems = [
+    [text.projectDetail.role, role],
+    [text.projectDetail.timeline, timeline],
+    [text.projectDetail.team, team],
+    [text.projectDetail.category, category],
+  ];
+
+  return (
+    <section className="individual-section project-detail" id={detailId} aria-labelledby={`${detailId}-title`}>
+      <div className="project-detail-container">
+        <nav aria-label="Breadcrumb" className="detail-breadcrumbs">
+          <button type="button" className="detail-back-button" onClick={onBack}>
+            <i className="bi bi-arrow-left" aria-hidden="true" />
+            {text.projectDetail.back}
+          </button>
+        </nav>
+
+        <h1 className="project-detail-title" id={`${detailId}-title`}>
+          {title}
+        </h1>
+        <p className="project-detail-subtitle">{description}</p>
+        <Tags tags={project.tags} className="detail-chips" itemClass="detail-badge" />
+
+        <div className="detail-card project-detail-hero">
+          <div className="project-detail-visual">
+            <i className={`bi ${project.icon}`} aria-hidden="true" />
+            <span>{title}</span>
+            <small>{category}</small>
+          </div>
+        </div>
+
+        <div className="project-detail-grid">
+          <aside className="detail-card project-detail-aside">
+            <h2>{text.projectDetail.metaTitle}</h2>
+            <dl className="project-detail-meta">
+              {metaItems.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+
+          <article className="project-detail-body">
+            <section className="project-detail-section">
+              <h2>{text.projectDetail.overview}</h2>
+              <p>{description}</p>
+              <p className="project-detail-location">{location}</p>
+            </section>
+
+            <section className="project-detail-section">
+              <h2>{text.projectDetail.focus}</h2>
+              <ul>
+                {focus.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="project-detail-section">
+              <h2>{text.projectDetail.process}</h2>
+              <ul>
+                {process.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="project-detail-section">
+              <h2>{text.projectDetail.outcomes}</h2>
+              <ul>
+                {outcomes.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="project-detail-section">
+              <h2>{text.projectDetail.reflection}</h2>
+              <p>{text.projectDetail.reflectionCopy}</p>
+            </section>
+          </article>
+        </div>
       </div>
     </section>
   );
@@ -386,6 +498,7 @@ function Footer({ text }) {
 
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
+  const [selectedProjectId, setSelectedProjectId] = useState("");
   const { progress, activeSection } = useScrollProgress();
   const reducedMotion = useMemo(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -393,11 +506,64 @@ export default function App() {
   );
   const heroProgress = reducedMotion ? 1 : progress;
   const text = uiText[language] ?? uiText.en;
+  const selectedProject = useMemo(
+    () => projects.find((project) => getProjectDetailId(project) === selectedProjectId) ?? null,
+    [selectedProjectId],
+  );
 
   useEffect(() => {
     document.documentElement.lang = language === "ko" ? "ko" : "en";
     window.localStorage.setItem("lang", language);
   }, [language]);
+
+  useEffect(() => {
+    const syncProjectFromHash = () => {
+      const hashId = window.location.hash.replace("#", "");
+      if (!hashId.startsWith("project-")) {
+        setSelectedProjectId("");
+        return;
+      }
+
+      const project = projects.find((item) => getProjectDetailId(item) === hashId);
+      setSelectedProjectId(project ? hashId : "");
+    };
+
+    syncProjectFromHash();
+    window.addEventListener("hashchange", syncProjectFromHash);
+    window.addEventListener("popstate", syncProjectFromHash);
+    return () => {
+      window.removeEventListener("hashchange", syncProjectFromHash);
+      window.removeEventListener("popstate", syncProjectFromHash);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    window.requestAnimationFrame(() => {
+      document.getElementById(getProjectDetailId(selectedProject))?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  }, [reducedMotion, selectedProject]);
+
+  const openProjectDetail = (project) => {
+    const detailId = getProjectDetailId(project);
+    setSelectedProjectId(detailId);
+    window.history.pushState(null, "", `#${detailId}`);
+  };
+
+  const closeProjectDetail = () => {
+    setSelectedProjectId("");
+    window.history.pushState(null, "", "#featuredproject");
+    window.requestAnimationFrame(() => {
+      document.getElementById("featuredproject")?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  };
 
   return (
     <>
@@ -405,7 +571,10 @@ export default function App() {
       <Header progress={heroProgress} activeSection={activeSection} language={language} text={text} />
       <main>
         <Hero progress={heroProgress} text={text} language={language} />
-        <FeaturedProjects language={language} text={text} />
+        <FeaturedProjects language={language} text={text} onProjectSelect={openProjectDetail} />
+        {selectedProject ? (
+          <ProjectDetail project={selectedProject} language={language} text={text} onBack={closeProjectDetail} />
+        ) : null}
         <TechStack language={language} text={text} />
         <WorkExperience language={language} text={text} />
         <Footer text={text} />
