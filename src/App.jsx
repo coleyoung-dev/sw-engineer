@@ -1,5 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { contactLinks, experiences, languages, navItems, platformIcons, projects, techStacks, uiText } from "./data.js";
+import {
+  contactLinks,
+  experiences,
+  languages,
+  navItems,
+  platformIcons,
+  projects,
+  sideProjects,
+  techStacks,
+  uiText,
+} from "./data.js";
 
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
@@ -36,6 +46,10 @@ function getProjectHref(project) {
   return `#/projects/${getProjectSlug(project)}`;
 }
 
+function getAllProjectItems() {
+  return [...projects, ...sideProjects];
+}
+
 function getCurrentHashRoute() {
   if (typeof window === "undefined") return "";
   return window.location.hash.replace(/^#/, "");
@@ -51,7 +65,11 @@ function getProjectFromRoute(route) {
     slug = normalizedRoute.replace(/^project-/, "");
   }
 
-  return projects.find((project) => getProjectSlug(project) === slug) ?? null;
+  return getAllProjectItems().find((project) => getProjectSlug(project) === slug) ?? null;
+}
+
+function isSideProject(project) {
+  return sideProjects.some((item) => getProjectSlug(item) === getProjectSlug(project));
 }
 
 function useScrollProgress() {
@@ -334,17 +352,36 @@ function ProjectCard({ project, language, text }) {
   );
 }
 
-function FeaturedProjects({ language, text }) {
+function ProjectSection({ id, title, items, language, text, className = "" }) {
   return (
-    <section className="individual-section featured-projects" id="featuredproject">
-      <h1 className="featured-projects-header">{text.sections.featuredProjects}</h1>
+    <section className={`individual-section featured-projects ${className}`.trim()} id={id}>
+      <h1 className="featured-projects-header">{title}</h1>
       <div className="featured-projects-tabs" />
       <div className="featured-projects-showcases">
-        {projects.map((project) => (
+        {items.map((project) => (
           <ProjectCard project={project} language={language} text={text} key={project.title} />
         ))}
       </div>
     </section>
+  );
+}
+
+function FeaturedProjects({ language, text }) {
+  return (
+    <ProjectSection id="featuredproject" title={text.sections.featuredProjects} items={projects} language={language} text={text} />
+  );
+}
+
+function SideProjects({ language, text }) {
+  return (
+    <ProjectSection
+      id="sideprojects"
+      title={text.sections.sideProjects}
+      items={sideProjects}
+      language={language}
+      text={text}
+      className="side-projects"
+    />
   );
 }
 
@@ -580,7 +617,7 @@ export default function App() {
   }, [reducedMotion, route, selectedProject]);
 
   const closeProjectDetail = () => {
-    window.location.hash = "#featuredproject";
+    window.location.hash = selectedProject && isSideProject(selectedProject) ? "#sideprojects" : "#featuredproject";
   };
 
   const headerProgress = selectedProject ? 1 : heroProgress;
@@ -600,6 +637,7 @@ export default function App() {
           <>
             <Hero progress={heroProgress} text={text} language={language} />
             <FeaturedProjects language={language} text={text} />
+            <SideProjects language={language} text={text} />
             <TechStack language={language} text={text} />
             <WorkExperience language={language} text={text} />
             <Footer text={text} />
