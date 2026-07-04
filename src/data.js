@@ -465,24 +465,24 @@ export const experiences = [
   {
     date: "Apr 2025 - Present",
     koDate: "2025.04 ~ 재직 중",
-    title: "Unity Client Programmer",
-    koTitle: "Unity 클라이언트 개발자",
-    company: "Klevion",
-    companyUrl: "#workexperience",
+    title: "Unity XR Engineer",
+    koTitle: "Unity XR Engineer",
+    company: "Skyve",
+    companyUrl: "http://www.skyve.co.kr/",
     description:
       "Working in the Medical Technology Innovation Team on Unity-based AR/VR applications. Developed Android and Windows clients for SagarVision AR System, integrated socket communication, introduced UniRx and MVP architecture, built custom build automation, and improved runtime performance and heat behavior.",
     koDescription:
       "의료기술혁신팀에서 Unity 기반 AR/VR 앱을 개발하고 있습니다. SagarVision AR System의 Android 및 Windows 클라이언트 개발, Socket 통신 연동, UniRx와 MVP 아키텍처 도입, 커스텀 빌드 자동화, 성능 및 발열 개선을 담당했습니다.",
     apps: [["SagarVision AR System", "#featuredproject"]],
-    skills: ["Unity", "C#", "AR/VR", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL"],
+    skills: ["Unity", "C#", "AR", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL"],
   },
   {
     date: "Mar 2022 - Jun 2024",
     koDate: "2022.03 ~ 2024.06",
-    title: "AR & VR Client Engineer",
-    koTitle: "AR & VR 클라이언트 엔지니어",
+    title: "Unity XR Engineer",
+    koTitle: "Unity XR Engineer",
     company: "HyperCloud",
-    companyUrl: "#workexperience",
+    companyUrl: "https://www.hyper-cloud.kr/",
     description:
       "Built Unity-based AR/VR apps in the XR Team. Worked on Hyundai Duty Free AR content, Seoul AR navigation, Gyeongjuro ON AR store scanning, and SPC Secta9ine Happyreal.",
     koDescription:
@@ -494,19 +494,5 @@ export const experiences = [
       ["SPC Secta9ine", "#featuredproject"],
     ],
     skills: ["Unity", "C#", "ARFoundation", "WebGL", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS"],
-  },
-  {
-    date: "Aug 2021 - Feb 2022",
-    koDate: "2021.08 ~ 2022.02",
-    title: "VR/AR Software Development Training",
-    koTitle: "가상증강현실 응용 SW 개발자 양성 과정",
-    company: "Kyungil Game Academy",
-    companyUrl: "#workexperience",
-    description:
-      "Completed a VR/AR application software development program before entering professional Unity client development.",
-    koDescription:
-      "경일게임아카데미에서 가상증강현실 응용 SW 개발자 양성 과정을 이수하며 Unity 클라이언트 개발의 기반을 다졌습니다.",
-    apps: [["Training Program", "#workexperience"]],
-    skills: ["Unity", "C#", "AR/VR", "Client Development"],
   },
 ];
