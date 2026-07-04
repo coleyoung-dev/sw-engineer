@@ -11,6 +11,12 @@ import {
   uiText,
 } from "./data.js";
 
+const detailMarkdownFiles = import.meta.glob("./content/**/*.md", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+});
+
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
   const savedLanguage = window.localStorage.getItem("lang");
@@ -46,6 +52,14 @@ function getProjectHref(project) {
   return `#/projects/${getProjectSlug(project)}`;
 }
 
+function getProjectDetailContentSlug(content) {
+  return slugify(content.slug ?? content.title);
+}
+
+function getProjectDetailContentHref(project, content) {
+  return `#/projects/${getProjectSlug(project)}/details/${getProjectDetailContentSlug(content)}`;
+}
+
 function getAllProjectItems() {
   return [...projects, ...sideProjects];
 }
@@ -55,21 +69,135 @@ function getCurrentHashRoute() {
   return window.location.hash.replace(/^#/, "");
 }
 
+function getRouteParts(route) {
+  return route.replace(/^\//, "").split("/").filter(Boolean);
+}
+
 function getProjectFromRoute(route) {
-  const normalizedRoute = route.replace(/^\//, "");
+  const routeParts = getRouteParts(route);
   let slug = "";
 
-  if (normalizedRoute.startsWith("projects/")) {
-    slug = normalizedRoute.replace(/^projects\//, "");
-  } else if (normalizedRoute.startsWith("project-")) {
-    slug = normalizedRoute.replace(/^project-/, "");
+  if (routeParts[0] === "projects") {
+    slug = routeParts[1] ?? "";
+  } else if (routeParts[0]?.startsWith("project-")) {
+    slug = routeParts[0].replace(/^project-/, "");
   }
 
   return getAllProjectItems().find((project) => getProjectSlug(project) === slug) ?? null;
 }
 
+function hasDetailContent(content) {
+  const hasMarkdown = Boolean(content.markdownPath || content.koMarkdownPath);
+  const hasBody = Boolean(content.body || content.koBody);
+  const hasBullets =
+    (Array.isArray(content.bullets) && content.bullets.length > 0) ||
+    (Array.isArray(content.koBullets) && content.koBullets.length > 0);
+
+  return hasMarkdown || hasBody || hasBullets;
+}
+
+function getProjectDetailContents(project) {
+  return Array.isArray(project.detailContents) ? project.detailContents.filter(hasDetailContent) : [];
+}
+
+function getDetailContentFromRoute(route) {
+  const routeParts = getRouteParts(route);
+  if (routeParts[0] !== "projects" || routeParts[2] !== "details") return null;
+
+  const project = getProjectFromRoute(route);
+  const contentSlug = routeParts[3] ?? "";
+  const content =
+    project && getProjectDetailContents(project).find((item) => getProjectDetailContentSlug(item) === contentSlug);
+
+  return project && content ? { project, content } : null;
+}
+
 function isSideProject(project) {
   return sideProjects.some((item) => getProjectSlug(item) === getProjectSlug(project));
+}
+
+function getDetailMarkdown(content, language) {
+  const markdownPath = pickLocalized(content, "markdownPath", language);
+  if (!markdownPath) return "";
+
+  const normalizedPath = markdownPath.startsWith("./") ? markdownPath : `./${markdownPath.replace(/^\/+/, "")}`;
+  return detailMarkdownFiles[normalizedPath] ?? "";
+}
+
+function parseMarkdownBlocks(markdown) {
+  const blocks = [];
+  const lines = markdown.split(/\r?\n/);
+  let paragraphLines = [];
+  let listItems = [];
+
+  const flushParagraph = () => {
+    if (paragraphLines.length === 0) return;
+    blocks.push({ type: "paragraph", text: paragraphLines.join(" ") });
+    paragraphLines = [];
+  };
+
+  const flushList = () => {
+    if (listItems.length === 0) return;
+    blocks.push({ type: "list", items: listItems });
+    listItems = [];
+  };
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      return;
+    }
+
+    const headingMatch = trimmed.match(/^(#{2,4})\s+(.+)$/);
+    if (headingMatch) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: "heading", level: headingMatch[1].length, text: headingMatch[2] });
+      return;
+    }
+
+    const listMatch = trimmed.match(/^[-*]\s+(.+)$/);
+    if (listMatch) {
+      flushParagraph();
+      listItems.push(listMatch[1]);
+      return;
+    }
+
+    flushList();
+    paragraphLines.push(trimmed);
+  });
+
+  flushParagraph();
+  flushList();
+  return blocks;
+}
+
+function MarkdownContent({ markdown }) {
+  if (!markdown.trim()) return null;
+
+  return parseMarkdownBlocks(markdown).map((block, index) => {
+    const key = `${block.type}-${index}`;
+
+    if (block.type === "heading") {
+      const HeadingTag = `h${block.level}`;
+      return <HeadingTag key={key}>{block.text}</HeadingTag>;
+    }
+
+    if (block.type === "list") {
+      return (
+        <ul key={key}>
+          {block.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return <p key={key}>{block.text}</p>;
+  });
 }
 
 function useScrollProgress() {
@@ -397,6 +525,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const focus = pickLocalized(project, "focus", language) ?? [];
   const process = pickLocalized(project, "process", language) ?? [];
   const outcomes = pickLocalized(project, "outcomes", language) ?? [];
+  const detailContents = getProjectDetailContents(project);
   const metaItems = [
     [text.projectDetail.role, role],
     [text.projectDetail.timeline, timeline],
@@ -439,6 +568,30 @@ function ProjectDetail({ project, language, text, onBack }) {
                 </div>
               ))}
             </dl>
+            {detailContents.length > 0 ? (
+              <div className="project-detail-content-links">
+                <h3>{text.projectDetail.detailContentTitle}</h3>
+                <div className="detail-content-buttons">
+                  {detailContents.map((content) => {
+                    const contentTitle = pickLocalized(content, "title", language);
+                    const contentSummary = pickLocalized(content, "summary", language);
+
+                    return (
+                      <a
+                        className="detail-content-button"
+                        href={getProjectDetailContentHref(project, content)}
+                        key={getProjectDetailContentSlug(content)}
+                        aria-label={`${contentTitle} ${text.projectDetail.openDetailContent}`}
+                      >
+                        <span>{contentTitle}</span>
+                        {contentSummary ? <small>{contentSummary}</small> : null}
+                        <i className="bi bi-arrow-right-short" aria-hidden="true" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
           </aside>
 
           <article className="project-detail-body">
@@ -481,6 +634,51 @@ function ProjectDetail({ project, language, text, onBack }) {
             </section>
           </article>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectDetailContentPage({ project, content, language, text, onBackToProject }) {
+  const projectTitle = pickLocalized(project, "title", language);
+  const title = pickLocalized(content, "title", language);
+  const summary = pickLocalized(content, "summary", language);
+  const markdown = getDetailMarkdown(content, language);
+  const body = pickLocalized(content, "body", language);
+  const bullets = pickLocalized(content, "bullets", language) ?? [];
+
+  return (
+    <section className="individual-section project-detail detail-content-page" aria-labelledby="detail-content-title">
+      <div className="project-detail-container">
+        <nav aria-label="Breadcrumb" className="detail-breadcrumbs">
+          <button type="button" className="detail-back-button" onClick={onBackToProject}>
+            <i className="bi bi-arrow-left" aria-hidden="true" />
+            {text.projectDetail.backToProject}
+          </button>
+        </nav>
+
+        <p className="detail-content-kicker">{projectTitle}</p>
+        <h1 className="project-detail-title" id="detail-content-title">
+          {title}
+        </h1>
+        {summary ? <p className="project-detail-subtitle">{summary}</p> : null}
+
+        <article className="detail-card detail-content-article">
+          {markdown ? (
+            <MarkdownContent markdown={markdown} />
+          ) : (
+            <>
+              {body ? <p>{body}</p> : null}
+              {bullets.length > 0 ? (
+                <ul>
+                  {bullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </>
+          )}
+        </article>
       </div>
     </section>
   );
@@ -579,6 +777,7 @@ export default function App() {
   const heroProgress = reducedMotion ? 1 : progress;
   const text = uiText[language] ?? uiText.en;
   const selectedProject = useMemo(() => getProjectFromRoute(route), [route]);
+  const selectedDetailContent = useMemo(() => getDetailContentFromRoute(route), [route]);
 
   useEffect(() => {
     document.documentElement.lang = language === "ko" ? "ko" : "en";
@@ -617,18 +816,36 @@ export default function App() {
   }, [reducedMotion, route, selectedProject]);
 
   const closeProjectDetail = () => {
-    window.location.hash = selectedProject && isSideProject(selectedProject) ? "#sideprojects" : "#featuredproject";
+    const project = selectedDetailContent?.project ?? selectedProject;
+    window.location.hash = project && isSideProject(project) ? "#sideprojects" : "#featuredproject";
   };
 
-  const headerProgress = selectedProject ? 1 : heroProgress;
-  const headerActiveSection = selectedProject ? "" : activeSection;
+  const closeProjectDetailContent = () => {
+    const project = selectedDetailContent?.project;
+    if (!project) return;
+    window.location.hash = getProjectHref(project);
+  };
+
+  const headerProgress = selectedProject || selectedDetailContent ? 1 : heroProgress;
+  const headerActiveSection = selectedProject || selectedDetailContent ? "" : activeSection;
 
   return (
     <>
       <LanguageToggle language={language} onLanguageChange={setLanguage} />
       <Header progress={headerProgress} activeSection={headerActiveSection} language={language} text={text} />
-      <main className={selectedProject ? "project-page" : ""}>
-        {selectedProject ? (
+      <main className={selectedProject || selectedDetailContent ? "project-page" : ""}>
+        {selectedDetailContent ? (
+          <>
+            <ProjectDetailContentPage
+              project={selectedDetailContent.project}
+              content={selectedDetailContent.content}
+              language={language}
+              text={text}
+              onBackToProject={closeProjectDetailContent}
+            />
+            <Footer text={text} />
+          </>
+        ) : selectedProject ? (
           <>
             <ProjectDetail project={selectedProject} language={language} text={text} onBack={closeProjectDetail} />
             <Footer text={text} />
