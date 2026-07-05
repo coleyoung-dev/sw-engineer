@@ -472,6 +472,47 @@ function Hero({ progress, text, language }) {
                 className="headset-rim headset-rim-inner"
                 d="M154 320 C170 218 256 132 402 102 C610 64 794 90 960 96 C1126 90 1310 64 1518 102 C1664 132 1750 218 1766 320 C1778 412 1706 492 1554 526 C1348 572 1130 536 960 514 C790 536 572 572 366 526 C214 492 142 412 154 320 Z"
               />
+              <g className="headset-armature">
+                <path d="M160 222 L224 134 L342 82 L468 58 L508 82 L398 112 L292 152 L230 226 Z" />
+                <path d="M1760 222 L1696 134 L1578 82 L1452 58 L1412 82 L1522 112 L1628 152 L1690 226 Z" />
+                <path d="M162 410 L246 506 L392 560 L520 574 L558 548 L412 518 L294 474 L226 398 Z" />
+                <path d="M1758 410 L1674 506 L1528 560 L1400 574 L1362 548 L1508 518 L1626 474 L1694 398 Z" />
+              </g>
+              <g className="headset-rim-segments">
+                {[
+                  [282, 102, 144, 18],
+                  [456, 72, 166, 16],
+                  [650, 64, 160, 14],
+                  [1110, 64, 160, 14],
+                  [1298, 72, 166, 16],
+                  [1494, 102, 144, 18],
+                  [296, 514, 170, 18],
+                  [510, 548, 178, 14],
+                  [1232, 548, 178, 14],
+                  [1454, 514, 170, 18],
+                ].map(([x, y, width, height], index) => (
+                  <rect key={`rim-segment-${index}`} x={x} y={y} width={width} height={height} rx="7" />
+                ))}
+              </g>
+              <g className="headset-side-modules">
+                <path d="M88 260 L152 218 L184 252 L168 382 L118 420 L78 374 Z" />
+                <path d="M1832 260 L1768 218 L1736 252 L1752 382 L1802 420 L1842 374 Z" />
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <line key={`left-vent-${index}`} x1="118" x2="152" y1={276 + index * 14} y2={268 + index * 14} />
+                ))}
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <line key={`right-vent-${index}`} x1="1802" x2="1768" y1={276 + index * 14} y2={268 + index * 14} />
+                ))}
+              </g>
+              <g className="headset-circuit-lines">
+                <path d="M420 84 H610 L642 104 H820" />
+                <path d="M1500 84 H1310 L1278 104 H1100" />
+                <path d="M458 556 H682 L718 536 H850" />
+                <path d="M1462 556 H1238 L1202 536 H1070" />
+                {Array.from({ length: 14 }).map((_, index) => (
+                  <circle key={`top-node-${index}`} cx={520 + index * 62} cy={86 + (index % 2) * 10} r="3" />
+                ))}
+              </g>
               <path
                 className="headset-lens-highlight"
                 d="M244 118 C410 70 700 58 922 78 M998 78 C1220 58 1510 70 1676 118"
@@ -479,12 +520,16 @@ function Hero({ progress, text, language }) {
               <g className="headset-hud headset-hud-left">
                 <circle cx="300" cy="250" r="48" />
                 <circle cx="300" cy="250" r="24" />
+                <circle cx="300" cy="250" r="66" className="headset-hud-faint" />
+                <path className="headset-hud-faint" d="M254 204 A66 66 0 0 1 354 206 M248 294 A66 66 0 0 0 356 292" />
                 <path d="M300 190 V310 M240 250 H360" />
                 <path d="M210 128 H366 L404 164 H470" />
                 <path d="M204 392 H322 L350 420 H424" />
                 <path d="M188 456 H320" />
                 <path d="M166 520 H324" />
                 <path d="M428 164 h72" />
+                <rect x="382" y="206" width="92" height="12" rx="2" />
+                <rect x="382" y="230" width="58" height="10" rx="2" />
                 {Array.from({ length: 18 }).map((_, index) => (
                   <line
                     key={`left-bar-${index}`}
@@ -506,12 +551,16 @@ function Hero({ progress, text, language }) {
               <g className="headset-hud headset-hud-right">
                 <circle cx="1620" cy="250" r="48" />
                 <circle cx="1620" cy="250" r="24" />
+                <circle cx="1620" cy="250" r="66" className="headset-hud-faint" />
+                <path className="headset-hud-faint" d="M1574 204 A66 66 0 0 1 1674 206 M1568 294 A66 66 0 0 0 1676 292" />
                 <path d="M1620 190 V310 M1560 250 H1680" />
                 <path d="M1710 128 H1554 L1516 164 H1450" />
                 <path d="M1716 392 H1598 L1570 420 H1496" />
                 <path d="M1732 456 H1600" />
                 <path d="M1754 520 H1596" />
                 <path d="M1492 164 h-72" />
+                <rect x="1422" y="206" width="92" height="12" rx="2" />
+                <rect x="1482" y="230" width="58" height="10" rx="2" />
                 <rect x="1490" y="438" width="164" height="18" rx="2" />
                 <rect x="1490" y="468" width="220" height="18" rx="2" />
                 {Array.from({ length: 9 }).map((_, index) => (

@@ -326,6 +326,44 @@ a {
   stroke-width: 2.2;
 }
 
+.hero .scene .vr-container .headset .headset-armature {
+  fill: rgba(5, 38, 74, 0.18);
+  stroke: rgba(122, 225, 255, 0.32);
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+  filter: url(#headsetBlueGlow);
+}
+
+.hero .scene .vr-container .headset .headset-rim-segments rect {
+  fill: rgba(204, 249, 255, 0.22);
+  stroke: rgba(0, 183, 255, 0.52);
+  stroke-width: 1.2;
+  filter: url(#headsetBlueGlow);
+}
+
+.hero .scene .vr-container .headset .headset-side-modules {
+  fill: rgba(0, 53, 103, 0.32);
+  stroke: rgba(92, 227, 255, 0.68);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  filter: url(#headsetBlueGlow);
+}
+
+.hero .scene .vr-container .headset .headset-side-modules line {
+  stroke-width: 1.1;
+  opacity: 0.72;
+}
+
+.hero .scene .vr-container .headset .headset-circuit-lines {
+  fill: rgba(0, 198, 255, 0.5);
+  stroke: rgba(4, 166, 236, 0.58);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+  filter: url(#headsetBlueGlow);
+}
+
 .hero .scene .vr-container .headset .headset-lens-highlight {
   fill: none;
   stroke: rgba(245, 253, 255, 0.28);
@@ -345,6 +383,10 @@ a {
 .hero .scene .vr-container .headset .headset-hud circle,
 .hero .scene .vr-container .headset .headset-hud rect {
   fill: rgba(0, 178, 255, 0.22);
+}
+
+.hero .scene .vr-container .headset .headset-hud .headset-hud-faint {
+  opacity: 0.42;
 }
 
 .hero .scene .vr-container .vr-world .hero-section {
