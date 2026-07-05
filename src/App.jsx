@@ -407,13 +407,12 @@ function Hero({ progress, text, language }) {
                   </div>
                 </div>
                 <div className="hero-profile-card" aria-label={text.hero.name}>
-                  <div className="profile-initials">{text.hero.initials}</div>
-                  <div className="profile-kicker">{text.hero.profileKicker}</div>
-                  <div className="profile-tags">
-                    {text.hero.profileTags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
+                  <img
+                    className="hero-profile-image"
+                    src={assetPath("images_videos/hero-profile-updated.jpg")}
+                    alt={text.hero.name}
+                    decoding="async"
+                  />
                 </div>
               </div>
               <p className="scroll-down">
@@ -422,7 +421,114 @@ function Hero({ progress, text, language }) {
               </p>
             </div>
           </div>
-          <img className="headset" src={assetPath("images_videos/vrgoogles.png")} alt="" style={{ opacity: headsetOpacity }} />
+          <div className="headset" style={{ opacity: headsetOpacity }} aria-hidden="true">
+            <svg className="headset-visual" viewBox="0 0 1920 631" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <linearGradient id="headsetLensGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#f3fbff" stopOpacity="0.34" />
+                  <stop offset="42%" stopColor="#a9b9c3" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#738594" stopOpacity="0.58" />
+                </linearGradient>
+                <radialGradient id="headsetLensGlow" cx="50%" cy="50%" r="62%">
+                  <stop offset="0%" stopColor="#e9f7ff" stopOpacity="0.16" />
+                  <stop offset="100%" stopColor="#7d91a0" stopOpacity="0" />
+                </radialGradient>
+                <linearGradient id="headsetRimGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#6ff4ff" />
+                  <stop offset="42%" stopColor="#00b8ff" />
+                  <stop offset="100%" stopColor="#0572d9" />
+                </linearGradient>
+                <filter id="headsetBlueGlow" x="-10%" y="-25%" width="120%" height="150%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feColorMatrix
+                    in="blur"
+                    result="glow"
+                    type="matrix"
+                    values="0 0 0 0 0  0 0 0 0 0.68  0 0 0 0 1  0 0 0 0.8 0"
+                  />
+                  <feMerge>
+                    <feMergeNode in="glow" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <path
+                className="headset-lens-pane"
+                d="M118 318 C135 205 224 108 370 58 C548 32 760 42 960 54 C1160 42 1372 32 1550 58 C1696 108 1785 205 1802 318 C1818 417 1754 514 1608 560 C1394 614 1168 590 960 552 C752 590 526 614 312 560 C166 514 102 417 118 318 Z"
+              />
+              <path
+                className="headset-lens-glow"
+                d="M118 318 C135 205 224 108 370 58 C548 32 760 42 960 54 C1160 42 1372 32 1550 58 C1696 108 1785 205 1802 318 C1818 417 1754 514 1608 560 C1394 614 1168 590 960 552 C752 590 526 614 312 560 C166 514 102 417 118 318 Z"
+              />
+              <path
+                className="headset-rim headset-rim-glow"
+                d="M82 318 C98 166 226 62 386 34 C612 -6 800 28 960 42 C1120 28 1308 -6 1534 34 C1694 62 1822 166 1838 318 C1854 464 1750 572 1578 604 C1352 646 1136 596 960 570 C784 596 568 646 342 604 C170 572 66 464 82 318 Z"
+              />
+              <path
+                className="headset-rim headset-rim-core"
+                d="M104 318 C120 188 232 92 392 62 C606 24 794 56 960 68 C1126 56 1314 24 1528 62 C1688 92 1800 188 1816 318 C1830 442 1738 540 1570 574 C1358 616 1136 574 960 548 C784 574 562 616 350 574 C182 540 90 442 104 318 Z"
+              />
+              <path
+                className="headset-rim headset-rim-inner"
+                d="M154 320 C170 218 256 132 402 102 C610 64 794 90 960 96 C1126 90 1310 64 1518 102 C1664 132 1750 218 1766 320 C1778 412 1706 492 1554 526 C1348 572 1130 536 960 514 C790 536 572 572 366 526 C214 492 142 412 154 320 Z"
+              />
+              <path
+                className="headset-lens-highlight"
+                d="M244 118 C410 70 700 58 922 78 M998 78 C1220 58 1510 70 1676 118"
+              />
+              <g className="headset-hud headset-hud-left">
+                <circle cx="300" cy="250" r="48" />
+                <circle cx="300" cy="250" r="24" />
+                <path d="M300 190 V310 M240 250 H360" />
+                <path d="M210 128 H366 L404 164 H470" />
+                <path d="M204 392 H322 L350 420 H424" />
+                <path d="M188 456 H320" />
+                <path d="M166 520 H324" />
+                <path d="M428 164 h72" />
+                {Array.from({ length: 18 }).map((_, index) => (
+                  <line
+                    key={`left-bar-${index}`}
+                    x1={148 + index * 10}
+                    x2={148 + index * 10}
+                    y1={520 - ((index * 17) % 58)}
+                    y2="548"
+                  />
+                ))}
+                {Array.from({ length: 18 }).map((_, index) => (
+                  <circle
+                    key={`left-dot-${index}`}
+                    cx={168 + (index % 6) * 18}
+                    cy={330 + Math.floor(index / 6) * 18}
+                    r="3.5"
+                  />
+                ))}
+              </g>
+              <g className="headset-hud headset-hud-right">
+                <circle cx="1620" cy="250" r="48" />
+                <circle cx="1620" cy="250" r="24" />
+                <path d="M1620 190 V310 M1560 250 H1680" />
+                <path d="M1710 128 H1554 L1516 164 H1450" />
+                <path d="M1716 392 H1598 L1570 420 H1496" />
+                <path d="M1732 456 H1600" />
+                <path d="M1754 520 H1596" />
+                <path d="M1492 164 h-72" />
+                <rect x="1490" y="438" width="164" height="18" rx="2" />
+                <rect x="1490" y="468" width="220" height="18" rx="2" />
+                {Array.from({ length: 9 }).map((_, index) => (
+                  <circle key={`right-dot-${index}`} cx={1498 + index * 24} cy="514" r="3.5" />
+                ))}
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <line
+                    key={`right-tick-${index}`}
+                    x1={1680 + index * 10}
+                    x2={1692 + index * 10}
+                    y1={126}
+                    y2={106}
+                  />
+                ))}
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
