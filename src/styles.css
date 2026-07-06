@@ -1,7 +1,10 @@
 :root {
-  --primary-color: #0b1026;
-  --secondary-color: #00e5ff;
+  --primary-color: #071a3d;
+  --secondary-color: #0d6efd;
   --additional-color: #f7c948;
+  --hero-blue: #0d6efd;
+  --hero-blue-soft: #dff1ff;
+  --hero-ink: #061833;
   --button-font-size: 0.6265rem;
   --xsmall-font-size: 0.5rem;
   --small-font-size: 0.625rem;
@@ -258,8 +261,21 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgb(255, 255, 255, 0.7);
+  background:
+    linear-gradient(115deg, rgba(221, 243, 255, 0.86) 0%, rgba(242, 249, 255, 0.74) 45%, rgba(206, 229, 255, 0.82) 100%),
+    rgba(255, 255, 255, 0.58);
   z-index: 1;
+}
+
+.hero .scene .vr-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(13, 110, 253, 0.16) 0%, rgba(13, 110, 253, 0.03) 42%, rgba(13, 110, 253, 0.13) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(185, 218, 255, 0.16));
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero .scene .vr-container .vr-world {
@@ -394,7 +410,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 2.75rem;
   position: relative;
   width: auto;
   height: auto;
@@ -406,18 +422,22 @@ a {
   flex-wrap: wrap;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
 }
 
 .hero .scene .vr-container .vr-world .hero-section .scroll-down {
   font-size: var(--xsmall-font-size);
+  color: rgba(6, 24, 51, 0.78);
+  margin: 0;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .left-side {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.875rem;
+  max-width: 44rem;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-header {
@@ -426,33 +446,43 @@ a {
   text-transform: uppercase;
   font-weight: bold;
   text-indent: -0.035em;
+  line-height: 0.96;
+  color: var(--hero-ink);
+  text-shadow: 0 0.12rem 0 rgba(13, 110, 253, 0.1);
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-subheader {
   font-size: var(--medium-font-size);
+  line-height: 1.12;
+  color: #08245a;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-description {
   font-size: var(--small-font-size);
-  color: #494949;
-  max-width: 15rem;
+  color: rgba(7, 26, 61, 0.74);
+  max-width: 21rem;
+  line-height: 1.35;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-details {
   font-size: var(--xsmall-font-size);
-  color: #808080;
+  color: rgba(7, 26, 61, 0.58);
+  font-weight: 700;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-platforms {
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 0.15rem;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-platforms .hero-platform-icon {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.65rem;
+  max-width: 42rem;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-platforms .hero-platform-icon .platform-chip {
@@ -460,20 +490,22 @@ a {
   align-items: center;
   gap: 0.25rem;
   width: auto;
-  min-height: 1.5rem;
-  padding: 0.25rem 0.5rem;
-  border: 1px solid rgba(11, 16, 38, 0.24);
+  min-height: 1.65rem;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid rgba(13, 110, 253, 0.2);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.76);
   color: var(--primary-color);
   font-size: var(--xsmall-font-size);
   font-weight: 700;
   white-space: nowrap;
+  box-shadow: 0 0.35rem 1rem rgba(13, 110, 253, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
 .call-to-action-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.7rem;
+  padding-top: 0.25rem;
 }
 
 .hero-social-button {
@@ -482,20 +514,20 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(11, 16, 38, 0.14);
+  border: 1px solid rgba(13, 110, 253, 0.24);
   border-radius: 50%;
-  background: var(--primary-color);
+  background: #061833;
   color: white;
   font-size: 1.1rem;
   text-decoration: none;
-  box-shadow: 0 0.45rem 1rem rgba(11, 16, 38, 0.14);
+  box-shadow: 0 0.65rem 1.2rem rgba(13, 110, 253, 0.18), 0 0.25rem 0.7rem rgba(6, 24, 51, 0.22);
   transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .hero-social-button:hover {
   transform: translateY(-2px);
-  background-color: var(--additional-color);
-  color: var(--primary-color);
+  background-color: var(--hero-blue);
+  color: white;
 }
 
 .hero-social-button:focus-visible {
@@ -524,10 +556,14 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid rgba(11, 16, 38, 0.18);
-  border-radius: 0.5rem;
-  background: #ffffff;
-  box-shadow: 0 0.75rem 1.5rem rgba(11, 16, 38, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(218, 236, 255, 0.82));
+  box-shadow:
+    0 1.65rem 3.5rem rgba(7, 26, 61, 0.28),
+    0 0.8rem 1.45rem rgba(13, 110, 253, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+  padding: 0.12rem;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-profile-image {
@@ -536,6 +572,7 @@ a {
   display: block;
   object-fit: cover;
   object-position: center;
+  border-radius: 0.62rem;
 }
 
 .individual-section {
