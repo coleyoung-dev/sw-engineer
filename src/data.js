@@ -42,7 +42,7 @@ export const uiText = {
       role: "Role",
       timeline: "Timeline",
       team: "Team",
-      category: "Category",
+      category: "Target Platform",
       overview: "Overview",
       focus: "Goals & Constraints",
       process: "Process",
@@ -87,7 +87,7 @@ export const uiText = {
       role: "역할",
       timeline: "기간",
       team: "팀",
-      category: "분야",
+      category: "타겟 플랫폼",
       overview: "개요",
       focus: "목표 및 제약",
       process: "진행 과정",
@@ -105,11 +105,13 @@ export const uiText = {
 };
 
 export const platformIcons = [
-  { icon: "bi-phone", label: "Android / iOS", koLabel: "Android / iOS" },
-  { icon: "bi-badge-vr", label: "AR / VR", koLabel: "AR / VR" },
+  { icon: "bi-phone", label: "Android", koLabel: "Android" },
+  { icon: "bi-phone", label: "iOS", koLabel: "iOS" },
+  { icon: "bi-badge-vr", label: "Android XR", koLabel: "Android XR" },
+  { icon: "bi-badge-vr", label: "Vision OS", koLabel: "Vision OS" },
+  { icon: "bi-badge-vr", label: "Horizon OS", koLabel: "Horizon OS" },
   { icon: "bi-window", label: "Windows", koLabel: "Windows" },
   { icon: "bi-globe2", label: "WebGL", koLabel: "WebGL" },
-  { icon: "bi-cpu", label: "Native Integration", koLabel: "네이티브 연동" },
 ];
 
 export const contactLinks = [
@@ -134,8 +136,8 @@ export const projects = [
     koTimeline: "2025.04 ~ 진행 중",
     team: "Klevion Medical Technology Innovation Team",
     koTeam: "클레비온 의료기술혁신팀",
-    category: "Medical AR System",
-    koCategory: "의료 AR 시스템",
+    category: "Android (XREAL) / Windows",
+    koCategory: "Android (XREAL) / Windows",
     focus: [
       "Support stable operation across Android and Windows clients used in a medical-assistance workflow.",
       "Connect real-time device communication through TCP/IP and UDP sockets.",
@@ -222,8 +224,8 @@ export const projects = [
     koTimeline: "2024.02 ~ 2024.04",
     team: "1 Client Programmer, 1 Technical Artist, 1 Planner",
     koTeam: "클라이언트 프로그래머 1명, TA 1명, 기획 1명",
-    category: "WebGL Minigame / Market Validation",
-    koCategory: "WebGL 미니게임 / Market Validation",
+    category: "WebGL (Mobile Target)",
+    koCategory: "WebGL (Mobile Target)",
     focus: [
       "Build a lightweight WebGL minigame that could run smoothly on mobile browsers.",
       "Connect Unity gameplay with a React-based service surface and REST API data.",
@@ -272,8 +274,8 @@ export const projects = [
     koTimeline: "2023.10 ~ 2024.02",
     team: "HyperCloud XR Team",
     koTeam: "하이퍼클라우드 XR Team",
-    category: "Retail AR / XR Experience",
-    koCategory: "리테일 AR / XR 체험",
+    category: "Mobile (Android / iOS), Meta Quest 3, Android AR Glass",
+    koCategory: "Mobile (Android / iOS), Meta Quest 3, Android AR Glass",
     focus: [
       "Build AR app content and XR device demos for a retail brand campaign.",
       "Connect image recognition, voice recognition, Quest 3, and AR Glass implementations in Unity.",
@@ -322,8 +324,8 @@ export const projects = [
     koTimeline: "2023.08 ~ 2023.10",
     team: "HyperCloud XR Team",
     koTeam: "하이퍼클라우드 XR Team",
-    category: "AR Navigation PoC",
-    koCategory: "AR 내비게이션 PoC",
+    category: "Mobile (Android) / Flutter Embedded Unity",
+    koCategory: "Mobile (Android) / Flutter Embedded Unity",
     focus: [
       "Prototype outdoor AR navigation using GPS and VPS around Cheonggyecheon.",
       "Embed Unity inside a Flutter app and define a reliable communication boundary.",
@@ -372,8 +374,8 @@ export const projects = [
     koTimeline: "2023.01 ~ 2023.02",
     team: "HyperCloud XR Team",
     koTeam: "하이퍼클라우드 XR Team",
-    category: "Mobile AR Store Discovery",
-    koCategory: "모바일 AR 상점 탐색",
+    category: "Mobile (Android / iOS) / Flutter Embedded Unity",
+    koCategory: "Mobile (Android / iOS) / Flutter Embedded Unity",
     focus: [
       "Visualize nearby stores in AR using GPS and compass sensor data.",
       "Embed Unity AR content into a Flutter app for Android and iOS.",
@@ -422,8 +424,8 @@ export const projects = [
     koTimeline: "2022.08 ~ 2022.12",
     team: "HyperCloud XR Team",
     koTeam: "하이퍼클라우드 XR Team",
-    category: "AR Shooting Game",
-    koCategory: "AR 슈팅 게임",
+    category: "Mobile AR",
+    koCategory: "Mobile AR",
     focus: [
       "Build AR shooting gameplay that reacts to detected physical planes.",
       "Use dynamic navigation data so entities could move believably in AR space.",
@@ -475,8 +477,8 @@ export const sideProjects = [
     koTimeline: "2025.08 ~ 2026.03",
     team: "3 Client Programmers, 3 Planning/Design Members",
     koTeam: "클라이언트 프로그래머 3명, 기획/디자인 3명",
-    category: "Vision OS VR Training",
-    koCategory: "Vision OS VR 훈련 시스템",
+    category: "Vision OS / Apple Vision Pro",
+    koCategory: "Vision OS / Apple Vision Pro",
     focus: [
       "Build a VR training system for cochlear implant patients on Vision OS.",
       "Validate Vision Pro technical constraints and interaction feasibility.",
@@ -527,7 +529,7 @@ export const techStacks = [
     icon: "bi-phone",
     title: "Platforms",
     koTitle: "플랫폼",
-    skills: ["Android", "iOS", "Windows", "Android XR", "Vision OS", "WebGL"],
+    skills: ["Android", "iOS", "Android XR", "Vision OS", "Horizon OS", "Windows", "WebGL"],
   },
   {
     icon: "bi-kanban",

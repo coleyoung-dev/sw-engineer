@@ -17,6 +17,19 @@ const detailMarkdownFiles = import.meta.glob("./content/**/*.md", {
   query: "?raw",
 });
 
+const heroSocialLinks = [
+  {
+    href: "https://www.linkedin.com/in/chanyoung-hong-51890a271",
+    icon: "bi-linkedin",
+    label: "LinkedIn",
+  },
+  {
+    href: "https://github.com/coleyoung-game",
+    icon: "bi-github",
+    label: "GitHub",
+  },
+];
+
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
   const savedLanguage = window.localStorage.getItem("lang");
@@ -411,16 +424,19 @@ function Hero({ progress, text, language }) {
                     </div>
                   </div>
                   <div className="call-to-action-buttons">
-                    <a href={text.footer.contactHref}>
-                      <button className="call-to-action btn" type="button">
-                        {text.hero.contact}
-                      </button>
-                    </a>
-                    <a href="#featuredproject">
-                      <button className="call-to-action btn" type="button">
-                        {text.hero.projects}
-                      </button>
-                    </a>
+                    {heroSocialLinks.map((link) => (
+                      <a
+                        className="hero-social-button btn"
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={link.label}
+                        title={link.label}
+                        key={link.href}
+                      >
+                        <i className={`bi ${link.icon}`} aria-hidden="true" />
+                      </a>
+                    ))}
                   </div>
                 </div>
                 <div className="hero-profile-card" aria-label={text.hero.name}>

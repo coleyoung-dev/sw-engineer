@@ -476,6 +476,33 @@ a {
   gap: 0.5rem;
 }
 
+.hero-social-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(11, 16, 38, 0.14);
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 0.45rem 1rem rgba(11, 16, 38, 0.14);
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-social-button:hover {
+  transform: translateY(-2px);
+  background-color: var(--additional-color);
+  color: var(--primary-color);
+}
+
+.hero-social-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.36), 0 0.45rem 1rem rgba(11, 16, 38, 0.14);
+}
+
 .call-to-action {
   background-color: var(--primary-color);
   text-align: center;
