@@ -441,10 +441,17 @@ function Hero({ progress, text, language }) {
                 </div>
                 <div className="hero-profile-card" aria-label={text.hero.name}>
                   <img
-                    className="hero-profile-image"
+                    className="hero-profile-image hero-profile-image-default"
                     src={assetPath("images_videos/hero-profile-updated.jpg")}
                     alt={text.hero.name}
                     decoding="async"
+                  />
+                  <img
+                    className="hero-profile-image hero-profile-image-hover"
+                    src={assetPath("images_videos/hero-profile-hover.jpg")}
+                    alt=""
+                    decoding="async"
+                    aria-hidden="true"
                   />
                 </div>
               </div>

@@ -557,6 +557,7 @@ a {
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-profile-card {
+  position: relative;
   width: 10rem;
   height: 15.5rem;
   display: flex;
@@ -574,12 +575,32 @@ a {
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-profile-image {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0.12rem;
+  width: calc(100% - 0.24rem);
+  height: calc(100% - 0.24rem);
   display: block;
   object-fit: cover;
   object-position: center;
   border-radius: 0.62rem;
+  opacity: 1;
+  transition: opacity 0.42s ease;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.hero .scene .vr-container .vr-world .hero-section .hero-profile-image-hover {
+  opacity: 0;
+}
+
+.hero .scene .vr-container .vr-world .hero-section .hero-profile-card:hover .hero-profile-image-default,
+.hero .scene .vr-container .vr-world .hero-section .hero-profile-card:focus-within .hero-profile-image-default {
+  opacity: 0;
+}
+
+.hero .scene .vr-container .vr-world .hero-section .hero-profile-card:hover .hero-profile-image-hover,
+.hero .scene .vr-container .vr-world .hero-section .hero-profile-card:focus-within .hero-profile-image-hover {
+  opacity: 1;
 }
 
 .individual-section {
