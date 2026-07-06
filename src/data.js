@@ -129,6 +129,9 @@ export const projects = [
     koDescription:
       "인공 관절 수술 보조 시스템의 Unity 기반 Android, Windows 클라이언트 앱을 개발했습니다. TCP/IP 및 UDP Socket 통신을 연동하고, UniRx 기반 MVP 아키텍처를 도입했으며, IMGUI 커스텀 빌드 자동화 툴과 Unity HLSL 시각 효과를 구현했습니다. 기존 클라이언트의 발열을 줄이고 평균 15프레임 수준의 성능을 평균 60프레임 동작으로 개선했습니다.",
     icon: "bi-activity",
+    image: "images_videos/sagarvision.png",
+    imageAlt: "SagarVision AR System thumbnail",
+    koImageAlt: "SagarVision AR System 썸네일",
     tags: ["Unity", "C#", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL", "IMGUI"],
     role: "Unity Client Programmer",
     koRole: "Unity 클라이언트 개발자",
@@ -217,6 +220,9 @@ export const projects = [
     koDescription:
       "Market Validation에 활용할 모바일 타깃 Unity WebGL 미니게임을 개발했습니다. 전체 게임 로직을 구현하고, 공통 Unity WebGL CMS Module을 개발했으며, Unity와 React 간 통신을 위한 jslib 코드 작성과 REST API 연동을 담당했습니다. WebGL 환경에서 안정적인 60프레임 동작을 목표로 그래픽스 및 물리 최적화를 진행했습니다.",
     icon: "bi-controller",
+    image: "images_videos/webgl.png",
+    imageAlt: "Market Validation WebGL Minigame thumbnail",
+    koImageAlt: "Market Validation WebGL 미니게임 썸네일",
     tags: ["Unity", "WebGL", "Mobile", "React", "jslib", "REST API", "Profiling", "Optimization"],
     role: "Unity WebGL Client Developer",
     koRole: "Unity WebGL 클라이언트 개발자",
@@ -267,6 +273,9 @@ export const projects = [
     koDescription:
       "현대백화점 면세점 앱 내 AR 콘텐츠와 XR 기기 체험 콘텐츠를 개발했습니다. TFLite library 기반 브랜드 캐처 이미지 인식 로직 초안을 구현하고, OVR Toolkit으로 Meta Quest 3 XR 콘텐츠를 개발했습니다. Snapdragon Spaces SDK 기반 AR Glass 콘텐츠와 Android 음성인식 플러그인을 Unity에 결합했으며, QA 및 체험 부스 운영 가이드 작성과 교육까지 진행했습니다.",
     icon: "bi-bag-check",
+    image: "images_videos/hyundai.png",
+    imageAlt: "Hyundai Duty Free AR Adventure Pass thumbnail",
+    koImageAlt: "현대백화점 면세점 AR 어드벤처 패스 썸네일",
     tags: ["Unity", "ARFoundation", "TFLite", "Meta Quest 3", "OVR Toolkit", "Snapdragon Spaces", "Android Plugin", "QA"],
     role: "AR & VR Client Engineer",
     koRole: "AR & VR 클라이언트 엔지니어",
@@ -317,6 +326,9 @@ export const projects = [
     koDescription:
       "GPS 기반 AR 내비게이션 프로토타입과 서울 청계천 지역 VPS 기반 AR 내비게이션을 개발했습니다. Flutter App에 Unity가 Embedded될 수 있도록 Flutter와 Unity 통신 인터페이스를 구성하고, LBS Tech 및 SKT와 협업하며 SKT VLAM VPS 모듈을 기반으로 AR 내비게이션을 구현했습니다. Rest API를 바탕으로 경로 동적 생성 로직도 개발했습니다.",
     icon: "bi-signpost-split",
+    image: "images_videos/seoul.png",
+    imageAlt: "Seoul AR Navigation PoC thumbnail",
+    koImageAlt: "서울시 AR 내비게이션 PoC 썸네일",
     tags: ["Unity", "AR Navigation", "GPS", "VPS", "VLAM", "Flutter", "Unity Embedded", "REST API"],
     role: "Unity AR Navigation Engineer",
     koRole: "Unity AR 내비게이션 엔지니어",
@@ -367,6 +379,9 @@ export const projects = [
     koDescription:
       "경주로 ON 앱에 포함되는 AR 상점 스캔 콘텐츠를 개발했습니다. Compass 값과 GPS를 활용해 플레이어 근처 상점을 AR로 시각화하고, Rest API로 가장 가까운 상점 정보를 표현했습니다. Flutter 앱에 Embedded되는 형태로 개발하며 Android와 iOS Native 통신 인터페이스를 설계하고 구현했습니다.",
     icon: "bi-shop",
+    image: "images_videos/gyungju.png",
+    imageAlt: "Gyeongjuro ON AR Store Scan thumbnail",
+    koImageAlt: "경주로 ON AR 상점 스캔 썸네일",
     tags: ["Unity", "AR", "GPS", "Compass", "Flutter", "Android", "iOS", "REST API"],
     role: "Unity AR Client Engineer",
     koRole: "Unity AR 클라이언트 엔지니어",
@@ -417,6 +432,9 @@ export const projects = [
     koDescription:
       "AR Shooting Game 콘텐츠를 개발했습니다. Dynamic Navmesh Bake System을 활용해 동적 내비게이션 메시 시스템을 구현하고, 인식된 ARPlane Mesh 기준 특정 위치에서만 오브젝트가 스폰되도록 개발했습니다. Logic Pro를 활용한 Sound Layering 및 Mixing 등 사운드 디자인 업무도 진행했습니다.",
     icon: "bi-bullseye",
+    image: "images_videos/secta9ine.png",
+    imageAlt: "SPC Secta9ine Happyreal thumbnail",
+    koImageAlt: "SPC 섹타나인 Happyreal 썸네일",
     tags: ["Unity", "ARFoundation", "Dynamic NavMesh", "ARPlane", "Sound Design", "Logic Pro"],
     role: "Unity AR Game Developer",
     koRole: "Unity AR 게임 개발자",
@@ -470,6 +488,9 @@ export const sideProjects = [
     koDescription:
       "KAKAO IMPACT에서 주관하는 TECH FOR IMPACT 프로젝트에 참여해 인공 와우 수술 환자들을 위한 Vision OS 기반 VR 훈련 시스템 개발을 리드했습니다.",
     icon: "bi-badge-vr",
+    image: "images_videos/side_kakaoImpact.png",
+    imageAlt: "Vision Lingo KAKAO IMPACT thumbnail",
+    koImageAlt: "Vision Lingo KAKAO IMPACT 썸네일",
     tags: ["Unity", "Vision OS", "Vision Pro", "VR Training", "TestFlight", "Team Lead"],
     role: "Unity Client Lead",
     koRole: "Unity 클라이언트 개발 리드",

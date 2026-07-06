@@ -641,6 +641,12 @@ function ProjectCard({ project, language, text }) {
   const highlight = pickLocalized(project, "highlight", language);
   const location = pickLocalized(project, "location", language);
   const description = pickLocalized(project, "description", language);
+  const imageAlt = pickLocalized(project, "imageAlt", language) ?? title;
+  const imageSrc = project.image
+    ? project.image.startsWith("http") || project.image.startsWith("data:")
+      ? project.image
+      : assetPath(project.image)
+    : "";
 
   return (
     <a
@@ -649,8 +655,8 @@ function ProjectCard({ project, language, text }) {
       aria-label={`${title} ${text.projectDetail.open}`}
     >
       <div className="image">
-        {project.image ? (
-          <img src={project.image} alt={project.imageAlt} />
+        {imageSrc ? (
+          <img src={imageSrc} alt={imageAlt} />
         ) : (
           <div className="project-thumb">
             <i className={`bi ${project.icon}`} />
