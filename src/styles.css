@@ -1053,6 +1053,21 @@ a {
   padding-left: 1.25rem;
 }
 
+.detail-content-figure {
+  margin: 0.5rem 0 1rem;
+  overflow-x: auto;
+}
+
+.detail-content-figure img {
+  display: block;
+  width: 100%;
+  min-width: 44rem;
+  height: auto;
+  border: 1px solid rgba(11, 16, 38, 0.12);
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
 .tech-stack {
   display: flex;
   flex-direction: column;

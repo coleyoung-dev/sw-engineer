@@ -159,6 +159,14 @@ function parseMarkdownBlocks(markdown) {
       return;
     }
 
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: "image", alt: imageMatch[1], src: imageMatch[2] });
+      return;
+    }
+
     const listMatch = trimmed.match(/^[-*]\s+(.+)$/);
     if (listMatch) {
       flushParagraph();
@@ -193,6 +201,15 @@ function MarkdownContent({ markdown }) {
             <li key={item}>{item}</li>
           ))}
         </ul>
+      );
+    }
+
+    if (block.type === "image") {
+      const src = block.src.startsWith("http") || block.src.startsWith("data:") ? block.src : assetPath(block.src);
+      return (
+        <figure className="detail-content-figure" key={key}>
+          <img src={src} alt={block.alt} />
+        </figure>
       );
     }
 
