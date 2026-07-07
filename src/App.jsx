@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   contactLinks,
   experiences,
@@ -29,6 +29,23 @@ const heroSocialLinks = [
     label: "GitHub",
   },
 ];
+
+const heroVideoSources = [
+  "images_videos/videos/0_sagarvision_landmark.mp4",
+  "images_videos/videos/1_sagarvision_gap.mp4",
+  "images_videos/videos/2_sagarvision_resection.mp4",
+  "images_videos/videos/3_timeSale.mp4",
+  "images_videos/videos/4_portal_0.mp4",
+  "images_videos/videos/4_portal_1.mp4",
+  "images_videos/videos/5_storeScan.mp4",
+  "images_videos/videos/6_brandCatcher.mp4",
+];
+
+const heroVideoFadeSeconds = 0.9;
+
+function getNextHeroVideoIndex(currentIndex) {
+  return (currentIndex + 1) % heroVideoSources.length;
+}
 
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
@@ -376,6 +393,11 @@ function Header({ progress, activeSection, language, text }) {
 }
 
 function Hero({ progress, text, language }) {
+  const heroVideoRefs = useRef([]);
+  const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
+  const [activeHeroVideoSlot, setActiveHeroVideoSlot] = useState(0);
+  const [transitionHeroVideoSlot, setTransitionHeroVideoSlot] = useState(null);
+  const [transitionSourceHeroVideoSlot, setTransitionSourceHeroVideoSlot] = useState(null);
   const eased = Math.max((progress - 0.15) / 0.85, 0);
   let endScale = 0.85;
   if (typeof window !== "undefined" && window.innerWidth >= 1440) endScale = 0.5;
@@ -384,8 +406,96 @@ function Hero({ progress, text, language }) {
   const scale = 1 - eased * endScale;
   const translateY = eased * 30;
   const headsetOpacity = eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
-  const heroVideoId = "vxftJHccISY";
-  const heroVideoSrc = `https://www.youtube.com/embed/${heroVideoId}?autoplay=1&mute=1&loop=1&playlist=${heroVideoId}&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`;
+  const playNextHeroVideo = () => {
+    if (transitionHeroVideoSlot !== null) return;
+
+    const nextSlot = activeHeroVideoSlot === 0 ? 1 : 0;
+    const nextVideoIndex = getNextHeroVideoIndex(heroVideoSlots[activeHeroVideoSlot]);
+    setHeroVideoSlots((slots) => {
+      const nextSlots = [...slots];
+      nextSlots[nextSlot] = nextVideoIndex;
+      return nextSlots;
+    });
+    setTransitionSourceHeroVideoSlot(activeHeroVideoSlot);
+    setTransitionHeroVideoSlot(nextSlot);
+  };
+
+  const handleHeroVideoTimeUpdate = (slot, event) => {
+    if (slot !== activeHeroVideoSlot || transitionHeroVideoSlot !== null) return;
+
+    const video = event.currentTarget;
+    if (!Number.isFinite(video.duration)) return;
+
+    if (video.duration - video.currentTime <= heroVideoFadeSeconds) {
+      playNextHeroVideo();
+    }
+  };
+
+  const handleHeroVideoError = (slot) => {
+    if (slot === transitionHeroVideoSlot) {
+      setHeroVideoSlots((slots) => {
+        const nextSlots = [...slots];
+        nextSlots[slot] = getNextHeroVideoIndex(slots[slot]);
+        return nextSlots;
+      });
+      return;
+    }
+
+    if (slot === activeHeroVideoSlot) {
+      playNextHeroVideo();
+    }
+  };
+
+  const completeHeroVideoTransition = (slot, event) => {
+    if (event.propertyName !== "opacity" || slot !== transitionHeroVideoSlot) return;
+
+    const previousVideo = heroVideoRefs.current[transitionSourceHeroVideoSlot];
+    if (previousVideo) {
+      previousVideo.pause();
+      previousVideo.currentTime = 0;
+    }
+
+    setTransitionHeroVideoSlot(null);
+    setTransitionSourceHeroVideoSlot(null);
+  };
+
+  useEffect(() => {
+    const activeVideo = heroVideoRefs.current[activeHeroVideoSlot];
+    if (!activeVideo) return;
+
+    activeVideo.play().catch(() => {});
+  }, [activeHeroVideoSlot]);
+
+  useEffect(() => {
+    if (transitionHeroVideoSlot === null) return undefined;
+
+    const nextVideo = heroVideoRefs.current[transitionHeroVideoSlot];
+    if (!nextVideo) return undefined;
+
+    let cancelled = false;
+    let started = false;
+
+    const startFade = () => {
+      if (cancelled || started) return;
+      started = true;
+      window.requestAnimationFrame(() => setActiveHeroVideoSlot(transitionHeroVideoSlot));
+    };
+
+    nextVideo.currentTime = 0;
+    nextVideo.load();
+    nextVideo.play().catch(() => {});
+
+    if (nextVideo.readyState >= 2) {
+      startFade();
+    } else {
+      nextVideo.addEventListener("canplay", startFade, { once: true });
+    }
+
+    return () => {
+      cancelled = true;
+      nextVideo.removeEventListener("canplay", startFade);
+    };
+  }, [transitionHeroVideoSlot, heroVideoSlots]);
 
   return (
     <section className="hero" id="top">
@@ -396,15 +506,25 @@ function Hero({ progress, text, language }) {
             transform: `translate(-50%, -50%) translateY(${translateY}px) scale(${scale})`,
           }}
         >
-          <iframe
-            className="hero-video"
-            src={heroVideoSrc}
-            title="Hero background video"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            aria-hidden="true"
-            tabIndex="-1"
-          />
+          {heroVideoSlots.map((videoIndex, slot) => (
+            <video
+              key={`hero-video-${slot}-${videoIndex}`}
+              ref={(element) => {
+                heroVideoRefs.current[slot] = element;
+              }}
+              className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""}`}
+              src={assetPath(heroVideoSources[videoIndex])}
+              autoPlay={slot === activeHeroVideoSlot}
+              muted
+              playsInline
+              preload="auto"
+              onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
+              onEnded={playNextHeroVideo}
+              onError={() => handleHeroVideoError(slot)}
+              onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
+              aria-hidden="true"
+            />
+          ))}
           <div className="vr-world">
             <div className="hero-section">
               <div className="hero-content">

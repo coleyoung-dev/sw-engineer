@@ -5,6 +5,7 @@
   --hero-blue: #0d6efd;
   --hero-blue-soft: #dff1ff;
   --hero-ink: #061833;
+  --hero-video-fade-duration: 900ms;
   --button-font-size: 0.6265rem;
   --xsmall-font-size: 0.5rem;
   --small-font-size: 0.625rem;
@@ -250,11 +251,20 @@ a {
   top: 50%;
   left: 50%;
   width: 100%;
-  height: 216.35%;
+  height: 100%;
   border: 0;
   transform: translate(-50%, -50%);
+  object-fit: contain;
+  display: block;
+  background: #111827;
+  opacity: 0;
+  transition: opacity var(--hero-video-fade-duration) ease;
   z-index: 0;
   pointer-events: none;
+}
+
+.hero .scene .vr-container .hero-video.is-active {
+  opacity: 1;
 }
 
 .hero .scene .vr-container .vr-world {
