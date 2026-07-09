@@ -182,6 +182,15 @@ export const projects = [
         koMarkdownPath: "./content/project-details/sagarvision/graphics.ko.md",
       },
       {
+        slug: "mvp-architecture",
+        title: "UniRx-Based MVP Architecture",
+        koTitle: "UniRx 기반 MVP 아키텍처",
+        summary: "Reactive MVP structure for separating Unity UI, workflow state, and network-driven data.",
+        koSummary: "Unity UI, 워크플로우 상태, 네트워크 기반 데이터를 분리한 Reactive MVP 구조",
+        markdownPath: "./content/project-details/sagarvision/mvp-architecture.en.md",
+        koMarkdownPath: "./content/project-details/sagarvision/mvp-architecture.ko.md",
+      },
+      {
         slug: "network-protocol-automation-tcp",
         title: "Network Protocol Automation and TCP Communication",
         koTitle: "네트워크 프로토콜 자동화 및 TCP 통신",
