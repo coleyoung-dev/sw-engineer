@@ -177,11 +177,27 @@ export const projects = [
       "Improved the existing client from roughly 15 FPS to stable 60 FPS.",
       "Reduced device heat during runtime through profiling-driven optimization.",
       "Created a clearer client architecture for ongoing feature work.",
+      {
+        text: "Joined the AAOS 2026 exhibition in the United States, providing technical support and product explanations for SagarVision AR technology.",
+        href: "https://economist.co.kr/article/view/ecn202603090048",
+      },
+      {
+        text: "Contributed to SagarVision's Best Award recognition from the Korean Orthopaedic Association.",
+        href: "https://www.rapportian.com/news/articleView.html?idxno=234946",
+      },
     ],
     koOutcomes: [
       "기존 클라이언트를 평균 15프레임 수준에서 안정적인 60프레임 동작으로 개선했습니다.",
       "프로파일링 기반 최적화로 런타임 발열을 줄였습니다.",
       "향후 기능 확장을 위한 클라이언트 구조를 더 명확하게 정리했습니다.",
+      {
+        text: "2026 미국정형외과학회(AAOS) 전시 참가 과정에서 SagarVision AR 기술 지원 및 설명을 진행했습니다.",
+        href: "https://economist.co.kr/article/view/ecn202603090048",
+      },
+      {
+        text: "대한정형외과학회 최우수상 수상 성과에 기여했습니다.",
+        href: "https://www.rapportian.com/news/articleView.html?idxno=234946",
+      },
     ],
     detailContents: [
       {

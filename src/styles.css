@@ -1123,6 +1123,30 @@ a {
   padding-left: 1.25rem;
 }
 
+.project-detail-section-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--secondary-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.project-detail-section-link:hover {
+  text-decoration: underline;
+}
+
+.project-detail-section-link:focus-visible {
+  outline: 3px solid rgba(13, 110, 253, 0.22);
+  outline-offset: 3px;
+  border-radius: 0.2rem;
+}
+
+.project-detail-section-link i {
+  font-size: 0.85em;
+  line-height: 1;
+}
+
 .project-detail-location {
   margin-top: 1rem;
   color: #5b6472;

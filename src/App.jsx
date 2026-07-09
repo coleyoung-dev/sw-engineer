@@ -793,6 +793,23 @@ function Tags({ tags, className = "tags", itemClass = "tag" }) {
   );
 }
 
+function LinkedListItem({ item }) {
+  if (typeof item === "string") {
+    return <>{item}</>;
+  }
+
+  if (item?.href) {
+    return (
+      <a className="project-detail-section-link" href={item.href} target="_blank" rel="noreferrer">
+        <span>{item.text}</span>
+        <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+      </a>
+    );
+  }
+
+  return <>{item?.text}</>;
+}
+
 function ProjectCard({ project, language, text }) {
   const title = pickLocalized(project, "title", language);
   const highlight = pickLocalized(project, "highlight", language);
@@ -992,7 +1009,9 @@ function ProjectDetail({ project, language, text, onBack }) {
               <h2>{text.projectDetail.outcomes}</h2>
               <ul>
                 {outcomes.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={typeof item === "string" ? item : item.text}>
+                    <LinkedListItem item={item} />
+                  </li>
                 ))}
               </ul>
             </section>
