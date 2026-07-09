@@ -43,6 +43,7 @@ export const uiText = {
       timeline: "Timeline",
       team: "Team",
       category: "Target Platform",
+      relatedPage: "Related Page",
       overview: "Overview",
       focus: "Goals & Constraints",
       process: "Process",
@@ -91,6 +92,7 @@ export const uiText = {
       timeline: "기간",
       team: "팀",
       category: "타겟 플랫폼",
+      relatedPage: "관련 페이지",
       overview: "개요",
       focus: "목표 및 제약",
       process: "진행 과정",
@@ -147,6 +149,10 @@ export const projects = [
     koTeam: "클레비온 의료기술혁신팀",
     category: "Android (XREAL) / Windows",
     koCategory: "Android (XREAL) / Windows",
+    relatedPage: {
+      label: "Sagarvision",
+      href: "https://www.mkhealth.co.kr/news/articleView.html?idxno=75963",
+    },
     focus: [
       "Support stable operation across Android and Windows clients used in a medical-assistance workflow.",
       "Connect real-time device communication through TCP/IP and UDP sockets.",
@@ -247,6 +253,10 @@ export const projects = [
     koTeam: "하이퍼클라우드 XR Team",
     category: "Mobile (Android / iOS), Meta Quest 3, Android AR Glass",
     koCategory: "Mobile (Android / iOS), Meta Quest 3, Android AR Glass",
+    relatedPage: {
+      label: "현대백화점 면세점 AR 어드벤처 패스",
+      href: "https://www.hyper-cloud.kr/ko/blog/Hyundai-Popup-Stamprally",
+    },
     focus: [
       "Build AR app content and XR device demos for a retail brand campaign.",
       "Connect image recognition, voice recognition, Quest 3, and AR Glass implementations in Unity.",
@@ -320,6 +330,10 @@ export const projects = [
     koTeam: "하이퍼클라우드 XR Team",
     category: "Mobile (Android) / Flutter Embedded Unity",
     koCategory: "Mobile (Android) / Flutter Embedded Unity",
+    relatedPage: {
+      label: "서울시 디지털 재단 실증 사업 AR 내비게이션",
+      href: "https://zdnet.co.kr/view/?no=20240105133427",
+    },
     focus: [
       "Prototype outdoor AR navigation using GPS and VPS around Cheonggyecheon.",
       "Embed Unity inside a Flutter app and define a reliable communication boundary.",
@@ -350,6 +364,17 @@ export const projects = [
       "Flutter 기반 모바일 앱에서 Unity Embedded 통신 구조를 검증했습니다.",
       "위치 기반 AR에서 협력사 SDK를 연동하는 경험을 쌓았습니다.",
     ],
+    detailContents: [
+      {
+        slug: "ar-navigation-logic",
+        title: "AR Navigation Logic Flow",
+        koTitle: "AR 내비게이션 로직 플로우",
+        summary: "GPS/VPS localization, REST route data, and Unity Embedded guidance flow.",
+        koSummary: "GPS/VPS 위치 보정, REST 경로 데이터, Unity Embedded 안내 흐름",
+        markdownPath: "./content/project-details/seoul/ar-navigation-logic.en.md",
+        koMarkdownPath: "./content/project-details/seoul/ar-navigation-logic.ko.md",
+      },
+    ],
   },
   {
     title: "Gyeongjuro ON AR Store Scan",
@@ -373,6 +398,10 @@ export const projects = [
     koTeam: "하이퍼클라우드 XR Team",
     category: "Mobile (Android / iOS) / Flutter Embedded Unity",
     koCategory: "Mobile (Android / iOS) / Flutter Embedded Unity",
+    relatedPage: {
+      label: "경주로 ON AR 상점 스캔",
+      href: "https://www.gyeongju.go.kr/tour/page.do?mnu_uid=4085",
+    },
     focus: [
       "Visualize nearby stores in AR using GPS and compass sensor data.",
       "Embed Unity AR content into a Flutter app for Android and iOS.",
@@ -426,6 +455,10 @@ export const projects = [
     koTeam: "하이퍼클라우드 XR Team",
     category: "Mobile (Android / iOS) / Unity Embedded",
     koCategory: "Mobile (Android / iOS) / Unity Embedded",
+    relatedPage: {
+      label: "HARS / HYPER SOLUTION",
+      href: "https://m.blog.naver.com/hyper_cloud/223115741683",
+    },
     focus: [
       "Develop reusable Unity client modules for an AR marketing CMS solution.",
       "Support multiple AR content types: Store Scan, Time Sale, Portal, coupons, and minigame-linked experiences.",
@@ -511,6 +544,10 @@ export const sideProjects = [
     koTeam: "클라이언트 프로그래머 3명, 기획/디자인 3명",
     category: "Vision OS / Apple Vision Pro",
     koCategory: "Vision OS / Apple Vision Pro",
+    relatedPage: {
+      label: "VISION LINGO",
+      href: "https://www.notion.so/unitycoleyoung/Apple-Vision-Pro-Onsori-Sphere-30e5bf6278f0804a89ccec7406106ae0?source=copy_link",
+    },
     focus: [
       "Build a VR training system for cochlear implant patients on Vision OS.",
       "Validate Vision Pro technical constraints and interaction feasibility.",

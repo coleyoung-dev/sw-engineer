@@ -880,6 +880,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const timeline = pickLocalized(project, "timeline", language);
   const team = pickLocalized(project, "team", language);
   const category = pickLocalized(project, "category", language);
+  const relatedPage = pickLocalized(project, "relatedPage", language);
   const focus = pickLocalized(project, "focus", language) ?? [];
   const process = pickLocalized(project, "process", language) ?? [];
   const outcomes = pickLocalized(project, "outcomes", language) ?? [];
@@ -889,7 +890,8 @@ function ProjectDetail({ project, language, text, onBack }) {
     [text.projectDetail.timeline, timeline],
     [text.projectDetail.team, team],
     [text.projectDetail.category, category],
-  ];
+    relatedPage ? [text.projectDetail.relatedPage, relatedPage] : null,
+  ].filter(Boolean);
 
   return (
     <section className="individual-section project-detail" id={detailId} aria-labelledby={`${detailId}-title`}>
@@ -922,7 +924,16 @@ function ProjectDetail({ project, language, text, onBack }) {
               {metaItems.map(([label, value]) => (
                 <div key={label}>
                   <dt>{label}</dt>
-                  <dd>{value}</dd>
+                  <dd>
+                    {value?.href ? (
+                      <a className="project-detail-meta-link" href={value.href} target="_blank" rel="noreferrer">
+                        <span>{value.label}</span>
+                        <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>

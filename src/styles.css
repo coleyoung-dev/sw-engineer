@@ -996,6 +996,31 @@ a {
   line-height: 1.45;
 }
 
+.project-detail-meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-detail-meta-link:hover {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.project-detail-meta-link:focus-visible {
+  outline: 3px solid rgba(13, 110, 253, 0.45);
+  outline-offset: 0.2rem;
+  border-radius: 0.25rem;
+}
+
+.project-detail-meta-link i {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
 .project-detail-content-links {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
@@ -1182,6 +1207,13 @@ a {
   border: 1px solid rgba(11, 16, 38, 0.12);
   border-radius: 0.5rem;
   background: #ffffff;
+}
+
+.detail-content-figure img[alt*="구동 장면"],
+.detail-content-figure img[alt*="runtime scene"] {
+  width: min(100%, 24rem);
+  min-width: 0;
+  margin: 0 auto;
 }
 
 .detail-content-video {
