@@ -926,14 +926,6 @@ function ProjectDetail({ project, language, text, onBack }) {
         <p className="project-detail-subtitle">{description}</p>
         <Tags tags={project.tags} className="detail-chips" itemClass="detail-badge" />
 
-        <div className="detail-card project-detail-hero">
-          <div className="project-detail-visual">
-            <i className={`bi ${project.icon}`} aria-hidden="true" />
-            <span>{title}</span>
-            <small>{category}</small>
-          </div>
-        </div>
-
         <div className="project-detail-grid">
           <aside className="detail-card project-detail-aside">
             <h2>{text.projectDetail.metaTitle}</h2>
