@@ -31,14 +31,14 @@ const heroSocialLinks = [
 ];
 
 const heroVideoSources = [
-  "images_videos/videos/0_sagarvision_landmark.mp4",
+  "images_videos/videos/0_sagarvision_landmark_0_imageless.mp4",
+  "images_videos/videos/0_sagarvision_landmark_1.mp4",
   "images_videos/videos/1_sagarvision_gap.mp4",
   "images_videos/videos/2_sagarvision_resection.mp4",
   "images_videos/videos/3_timeSale.mp4",
   "images_videos/videos/4_portal_0.mp4",
   "images_videos/videos/4_portal_1.mp4",
   "images_videos/videos/5_storeScan.mp4",
-  "images_videos/videos/6_brandCatcher.mp4",
 ];
 
 const heroVideoFadeSeconds = 0.9;
@@ -512,7 +512,9 @@ function Hero({ progress, text, language }) {
               ref={(element) => {
                 heroVideoRefs.current[slot] = element;
               }}
-              className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""}`}
+              className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
+                videoIndex === 0 ? "is-zoomed-out" : ""
+              }`}
               src={assetPath(heroVideoSources[videoIndex])}
               autoPlay={slot === activeHeroVideoSlot}
               muted
