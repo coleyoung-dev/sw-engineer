@@ -197,6 +197,19 @@ function parseMarkdownBlocks(markdown) {
       return;
     }
 
+    const videoMatch = trimmed.match(/^@\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]+)")?\)$/);
+    if (videoMatch) {
+      flushParagraph();
+      flushList();
+      blocks.push({
+        type: "video",
+        label: videoMatch[1],
+        src: videoMatch[2],
+        caption: videoMatch[3] ?? "",
+      });
+      return;
+    }
+
     const listMatch = trimmed.match(/^[-*]\s+(.+)$/);
     if (listMatch) {
       flushParagraph();
@@ -211,6 +224,18 @@ function parseMarkdownBlocks(markdown) {
   flushParagraph();
   flushList();
   return blocks;
+}
+
+function renderInlineText(text) {
+  const parts = text.split(/(`[^`]+`)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("`") && part.endsWith("`")) {
+      return <code key={`${part}-${index}`}>{part.slice(1, -1)}</code>;
+    }
+
+    return part;
+  });
 }
 
 function MarkdownContent({ markdown }) {
@@ -228,7 +253,7 @@ function MarkdownContent({ markdown }) {
       return (
         <ul key={key}>
           {block.items.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>{renderInlineText(item)}</li>
           ))}
         </ul>
       );
@@ -243,7 +268,17 @@ function MarkdownContent({ markdown }) {
       );
     }
 
-    return <p key={key}>{block.text}</p>;
+    if (block.type === "video") {
+      const src = block.src.startsWith("http") || block.src.startsWith("data:") ? block.src : assetPath(block.src);
+      return (
+        <figure className="detail-content-video" key={key}>
+          <video src={src} controls muted loop playsInline preload="metadata" aria-label={block.label} />
+          {block.caption ? <figcaption>{block.caption}</figcaption> : null}
+        </figure>
+      );
+    }
+
+    return <p key={key}>{renderInlineText(block.text)}</p>;
   });
 }
 
