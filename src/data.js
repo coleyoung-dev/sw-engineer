@@ -211,7 +211,7 @@ export const projects = [
       {
         slug: "continuous-deployment",
         title: "Continuous Deployment Configuration",
-        koTitle: "CD(continuous deployment/deploy) 구성",
+        koTitle: "CI/CD System 구성",
         summary: "Custom build and deployment flow for repeatable client delivery.",
         koSummary: "반복 가능한 클라이언트 전달을 위한 커스텀 빌드 및 배포 흐름",
         markdownPath: "./content/project-details/sagarvision/continuous-deployment.en.md",
