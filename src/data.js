@@ -47,6 +47,9 @@ export const uiText = {
       focus: "Goals & Constraints",
       process: "Process",
       outcomes: "Outcomes",
+      detailContentTitle: "Case Study Details",
+      openDetailContent: "Open Detail",
+      backToProject: "Back to Project",
       reflection: "Reflection",
       reflectionCopy:
         "This project strengthened my ability to turn product goals into stable Unity client features while balancing platform constraints, native integration, and practical runtime performance.",
@@ -92,6 +95,9 @@ export const uiText = {
       focus: "목표 및 제약",
       process: "진행 과정",
       outcomes: "성과",
+      detailContentTitle: "상세 사례",
+      openDetailContent: "상세 보기",
+      backToProject: "프로젝트로 돌아가기",
       reflection: "회고",
       reflectionCopy:
         "이 프로젝트를 통해 제품 목표를 안정적인 Unity 클라이언트 기능으로 구현하고, 플랫폼 제약과 네이티브 연동, 런타임 성능 사이의 균형을 맞추는 경험을 쌓았습니다.",
@@ -270,6 +276,26 @@ export const projects = [
       "현대백화점 면세점 경험을 위한 여러 AR/XR 접점을 구현했습니다.",
       "QA와 부스 운영 자료를 준비해 운영 단계의 커뮤니케이션 비용을 줄였습니다.",
       "모바일 AR, VR, AR Glass 전반의 실무 경험을 확장했습니다.",
+    ],
+    detailContents: [
+      {
+        slug: "mobile-brand-catcher",
+        title: "Mobile Signboard Recognition",
+        koTitle: "Mobile 간판 인식",
+        summary: "TFLite-based brand catcher recognition flow for mobile AR.",
+        koSummary: "모바일 AR 브랜드 캐처를 위한 TFLite 기반 간판 인식 흐름",
+        markdownPath: "./content/project-details/hyundai/mobile-brand-catcher.en.md",
+        koMarkdownPath: "./content/project-details/hyundai/mobile-brand-catcher.ko.md",
+      },
+      {
+        slug: "metaquest-exhibition",
+        title: "Meta Quest Exhibition Visual Effects",
+        koTitle: "Meta Quest 전시 시각효과",
+        summary: "Shader Graph-driven visual effects for the Quest 3 exhibition content.",
+        koSummary: "Quest 3 전시 콘텐츠를 위한 Shader Graph 기반 시각효과 개발",
+        markdownPath: "./content/project-details/hyundai/metaquest-exhibition.en.md",
+        koMarkdownPath: "./content/project-details/hyundai/metaquest-exhibition.ko.md",
+      },
     ],
   },
   {
