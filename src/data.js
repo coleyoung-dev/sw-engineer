@@ -130,8 +130,8 @@ export const projects = [
   {
     title: "SagarVision AR System",
     koTitle: "SagarVision AR System",
-    location: "Klevion · Medical Technology Innovation Team · 2025.04 - Present",
-    koLocation: "클레비온 의료기술혁신팀 · 2025.04 ~ 진행 중",
+    location: "Skyve · Medical Technology Innovation Team · 2025.04 - Present",
+    koLocation: "스카이브 의료기술혁신팀 · 2025.04 ~ 진행 중",
     description:
       "Developed Unity-based Android and Windows clients for an artificial joint surgery assistance system. Integrated TCP/IP and UDP socket communication, introduced UniRx with an MVP architecture, built custom IMGUI build automation, and improved the existing client from roughly 15 FPS to stable 60 FPS while reducing device heat.",
     koDescription:
@@ -145,8 +145,8 @@ export const projects = [
     koRole: "Unity 클라이언트 개발자",
     timeline: "2025.04 - Present",
     koTimeline: "2025.04 ~ 진행 중",
-    team: "Klevion Medical Technology Innovation Team",
-    koTeam: "클레비온 의료기술혁신팀",
+    team: "Skyve Medical Technology Innovation Team",
+    koTeam: "스카이브 의료기술혁신팀",
     category: "Android (XREAL) / Windows",
     koCategory: "Android (XREAL) / Windows",
     relatedPage: {
