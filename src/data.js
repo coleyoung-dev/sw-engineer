@@ -211,59 +211,6 @@ export const projects = [
     ],
   },
   {
-    title: "Market Validation WebGL Minigame",
-    koTitle: "Market Validation WebGL 미니게임",
-    location: "HyperCloud · XR Team · 2024.02 - 2024.04",
-    koLocation: "하이퍼클라우드 XR Team · 2024.02 ~ 2024.04",
-    description:
-      "Developed a mobile-targeted Unity WebGL minigame for market validation. Owned the overall gameplay logic, built a shared Unity WebGL CMS module, connected Unity with React through jslib code, integrated REST APIs, and kept the WebGL build running at a stable 60 FPS through graphics and physics optimization.",
-    koDescription:
-      "Market Validation에 활용할 모바일 타깃 Unity WebGL 미니게임을 개발했습니다. 전체 게임 로직을 구현하고, 공통 Unity WebGL CMS Module을 개발했으며, Unity와 React 간 통신을 위한 jslib 코드 작성과 REST API 연동을 담당했습니다. WebGL 환경에서 안정적인 60프레임 동작을 목표로 그래픽스 및 물리 최적화를 진행했습니다.",
-    icon: "bi-controller",
-    image: "images_videos/webgl.png",
-    imageAlt: "Market Validation WebGL Minigame thumbnail",
-    koImageAlt: "Market Validation WebGL 미니게임 썸네일",
-    tags: ["Unity", "WebGL", "Mobile", "React", "jslib", "REST API", "Profiling", "Optimization"],
-    role: "Unity WebGL Client Developer",
-    koRole: "Unity WebGL 클라이언트 개발자",
-    timeline: "2024.02 - 2024.04",
-    koTimeline: "2024.02 ~ 2024.04",
-    team: "1 Client Programmer, 1 Technical Artist, 1 Planner",
-    koTeam: "클라이언트 프로그래머 1명, TA 1명, 기획 1명",
-    category: "WebGL (Mobile Target)",
-    koCategory: "WebGL (Mobile Target)",
-    focus: [
-      "Build a lightweight WebGL minigame that could run smoothly on mobile browsers.",
-      "Connect Unity gameplay with a React-based service surface and REST API data.",
-      "Create a reusable CMS module for WebGL minigame projects.",
-    ],
-    koFocus: [
-      "모바일 브라우저에서도 원활하게 실행되는 가벼운 WebGL 미니게임을 개발했습니다.",
-      "Unity 게임 로직을 React 기반 서비스 화면 및 REST API 데이터와 연결했습니다.",
-      "WebGL 미니게임 프로젝트에서 공통으로 사용할 수 있는 CMS Module을 만들었습니다.",
-    ],
-    process: [
-      "Implemented the overall game loop, scoring flow, and player interaction logic in Unity.",
-      "Wrote jslib bridge code so Unity WebGL could exchange events and data with React.",
-      "Repeated profiling passes and optimized graphics and physics costs for the WebGL runtime.",
-    ],
-    koProcess: [
-      "Unity에서 전체 게임 루프, 점수 흐름, 플레이어 인터랙션 로직을 구현했습니다.",
-      "Unity WebGL과 React가 이벤트 및 데이터를 주고받을 수 있도록 jslib 브릿지 코드를 작성했습니다.",
-      "WebGL 런타임 비용을 확인하며 그래픽스와 물리 처리 비용을 반복적으로 최적화했습니다.",
-    ],
-    outcomes: [
-      "Delivered the minigame so it could play at a stable 60 FPS in the WebGL environment.",
-      "Improved development convenience through the shared Unity WebGL CMS module.",
-      "Strengthened practical experience with Unity WebGL service integration and browser runtime constraints.",
-    ],
-    koOutcomes: [
-      "WebGL 환경에서 안정적인 60프레임으로 플레이할 수 있도록 개발했습니다.",
-      "공통 Unity WebGL CMS Module을 통해 개발 편의성을 높였습니다.",
-      "Unity WebGL 서비스 연동과 브라우저 런타임 제약에 대한 실무 경험을 쌓았습니다.",
-    ],
-  },
-  {
     title: "Hyundai Duty Free AR Adventure Pass",
     koTitle: "현대백화점 면세점 AR 어드벤처 패스",
     location: "HyperCloud · XR Team · 2023.10 - 2024.02",
@@ -624,16 +571,15 @@ export const experiences = [
     company: "HyperCloud",
     companyUrl: "https://www.hyper-cloud.kr/",
     description:
-      "Built Unity-based AR/VR, WebGL, and AR solution modules in the XR Team. Worked on HARS / HYPER Solution, Market Validation WebGL, Hyundai Duty Free AR content, Seoul AR navigation, and Gyeongjuro ON AR store scanning.",
+      "Built Unity-based AR/VR and AR solution modules in the XR Team. Worked on HARS / HYPER Solution, Hyundai Duty Free AR content, Seoul AR navigation, and Gyeongjuro ON AR store scanning.",
     koDescription:
-      "XR Team / Unity Part에서 Unity 기반 AR/VR, WebGL, AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, Market Validation WebGL, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
+      "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
     apps: [
       ["HARS / HYPER Solution", "#featuredproject"],
-      ["Market Validation WebGL", "#featuredproject"],
       ["Hyundai Duty Free AR", "#featuredproject"],
       ["Seoul AR Navigation", "#featuredproject"],
       ["Gyeongjuro ON", "#featuredproject"],
     ],
-    skills: ["Unity", "C#", "ARFoundation", "WebGL", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
+    skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
   },
 ];
