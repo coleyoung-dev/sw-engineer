@@ -1448,6 +1448,56 @@ a {
     --project-thumb-height: min(17rem, 70vw);
   }
 
+  .hero.is-mobile-simple {
+    min-height: 100svh;
+    height: auto;
+    background: #f8fbff;
+  }
+
+  .hero.is-mobile-simple .scene {
+    position: relative;
+    min-height: 100svh;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    padding: 5.75rem 1rem 3rem;
+  }
+
+  .hero.is-mobile-simple .scene .vr-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: min(100%, 42rem);
+    height: auto;
+    overflow: visible;
+    background: transparent;
+    transform: none;
+    will-change: auto;
+  }
+
+  .hero.is-mobile-simple .scene .vr-container .hero-video,
+  .hero.is-mobile-simple .scene .vr-container .headset {
+    display: none;
+  }
+
+  .hero.is-mobile-simple .scene .vr-container .vr-world {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    transform: none;
+  }
+
+  .hero.is-mobile-simple .scene .vr-container .vr-world .hero-section {
+    width: 100%;
+    min-height: calc(100svh - 8.75rem);
+    justify-content: center;
+    gap: 1.75rem;
+    transform: none;
+  }
+
   .language-toggle {
     --h: 2.125rem;
   }
@@ -1461,6 +1511,7 @@ a {
   .hero .scene .vr-container .vr-world .hero-section .hero-content {
     flex-direction: column;
     align-items: center;
+    gap: 1.75rem;
   }
 
   .hero .scene .vr-container .vr-world .hero-section .hero-content .left-side {
@@ -1469,9 +1520,14 @@ a {
     padding: 0.95rem 0.9rem;
   }
 
-  .hero .scene .vr-container .vr-world .hero-section .hero-content .left-side::before {
-    inset: -0.75rem -0.55rem -0.85rem;
-    border-radius: 2.1rem 2.8rem 2.4rem 1.9rem / 1.8rem 2.2rem 2rem 2.3rem;
+  .hero.is-mobile-simple .scene .vr-container .vr-world .hero-section .hero-content .left-side::before {
+    display: none;
+  }
+
+  .hero.is-mobile-simple .scene .vr-container .vr-world .hero-section .hero-content .hero-header,
+  .hero.is-mobile-simple .scene .vr-container .vr-world .hero-section .hero-content .hero-subheader,
+  .hero.is-mobile-simple .scene .vr-container .vr-world .hero-section .hero-content .hero-description {
+    text-shadow: none;
   }
 
   .hero .scene .vr-container .vr-world .hero-section .hero-content .hero-description {

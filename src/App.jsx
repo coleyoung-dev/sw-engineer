@@ -42,6 +42,7 @@ const heroVideoSources = [
 ];
 
 const heroVideoFadeSeconds = 0.9;
+const mobileHeroMediaQuery = "(max-width: 666px)";
 
 function getNextHeroVideoIndex(currentIndex) {
   return (currentIndex + 1) % heroVideoSources.length;
@@ -51,6 +52,25 @@ function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
   const savedLanguage = window.localStorage.getItem("lang");
   return languages.some((language) => language.code === savedLanguage) ? savedLanguage : "en";
+}
+
+function getIsMobileHeroViewport() {
+  return typeof window !== "undefined" && window.matchMedia(mobileHeroMediaQuery).matches;
+}
+
+function useIsMobileHeroViewport() {
+  const [isMobileHeroViewport, setIsMobileHeroViewport] = useState(getIsMobileHeroViewport);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(mobileHeroMediaQuery);
+    const syncViewport = () => setIsMobileHeroViewport(mediaQuery.matches);
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
+
+  return isMobileHeroViewport;
 }
 
 function pickLocalized(item, key, language) {
@@ -291,7 +311,9 @@ function useScrollProgress() {
       const hero = document.querySelector(".hero");
       if (hero) {
         const rect = hero.getBoundingClientRect();
-        const raw = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+        const scrollableHeroHeight = rect.height - window.innerHeight;
+        const raw =
+          scrollableHeroHeight > 0 ? Math.min(Math.max(-rect.top / scrollableHeroHeight, 0), 1) : rect.top <= 0 ? 1 : 0;
         setProgress(raw);
       }
 
@@ -429,19 +451,21 @@ function Header({ progress, activeSection, language, text }) {
 
 function Hero({ progress, text, language }) {
   const heroVideoRefs = useRef([]);
+  const isMobileHeroViewport = useIsMobileHeroViewport();
   const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
   const [activeHeroVideoSlot, setActiveHeroVideoSlot] = useState(0);
   const [transitionHeroVideoSlot, setTransitionHeroVideoSlot] = useState(null);
   const [transitionSourceHeroVideoSlot, setTransitionSourceHeroVideoSlot] = useState(null);
-  const eased = Math.max((progress - 0.15) / 0.85, 0);
+  const eased = isMobileHeroViewport ? 0 : Math.max((progress - 0.15) / 0.85, 0);
   let endScale = 0.85;
   if (typeof window !== "undefined" && window.innerWidth >= 1440) endScale = 0.5;
   else if (typeof window !== "undefined" && window.innerWidth >= 666) endScale = 0.55;
 
   const scale = 1 - eased * endScale;
   const translateY = eased * 30;
-  const headsetOpacity = eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
+  const headsetOpacity = isMobileHeroViewport || eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
   const playNextHeroVideo = () => {
+    if (isMobileHeroViewport) return;
     if (transitionHeroVideoSlot !== null) return;
 
     const nextSlot = activeHeroVideoSlot === 0 ? 1 : 0;
@@ -495,13 +519,16 @@ function Hero({ progress, text, language }) {
   };
 
   useEffect(() => {
+    if (isMobileHeroViewport) return;
+
     const activeVideo = heroVideoRefs.current[activeHeroVideoSlot];
     if (!activeVideo) return;
 
     activeVideo.play().catch(() => {});
-  }, [activeHeroVideoSlot]);
+  }, [activeHeroVideoSlot, isMobileHeroViewport]);
 
   useEffect(() => {
+    if (isMobileHeroViewport) return undefined;
     if (transitionHeroVideoSlot === null) return undefined;
 
     const nextVideo = heroVideoRefs.current[transitionHeroVideoSlot];
@@ -530,38 +557,43 @@ function Hero({ progress, text, language }) {
       cancelled = true;
       nextVideo.removeEventListener("canplay", startFade);
     };
-  }, [transitionHeroVideoSlot, heroVideoSlots]);
+  }, [transitionHeroVideoSlot, heroVideoSlots, isMobileHeroViewport]);
 
   return (
-    <section className="hero" id="top">
+    <section className={`hero ${isMobileHeroViewport ? "is-mobile-simple" : ""}`} id="top">
       <div className="scene">
         <div
           className="vr-container"
-          style={{
-            transform: `translate(-50%, -50%) translateY(${translateY}px) scale(${scale})`,
-          }}
+          style={
+            isMobileHeroViewport
+              ? undefined
+              : {
+                  transform: `translate(-50%, -50%) translateY(${translateY}px) scale(${scale})`,
+                }
+          }
         >
-          {heroVideoSlots.map((videoIndex, slot) => (
-            <video
-              key={`hero-video-${slot}-${videoIndex}`}
-              ref={(element) => {
-                heroVideoRefs.current[slot] = element;
-              }}
-              className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
-                videoIndex === 0 ? "is-zoomed-out" : ""
-              }`}
-              src={assetPath(heroVideoSources[videoIndex])}
-              autoPlay={slot === activeHeroVideoSlot}
-              muted
-              playsInline
-              preload="auto"
-              onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
-              onEnded={playNextHeroVideo}
-              onError={() => handleHeroVideoError(slot)}
-              onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
-              aria-hidden="true"
-            />
-          ))}
+          {!isMobileHeroViewport &&
+            heroVideoSlots.map((videoIndex, slot) => (
+              <video
+                key={`hero-video-${slot}-${videoIndex}`}
+                ref={(element) => {
+                  heroVideoRefs.current[slot] = element;
+                }}
+                className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
+                  videoIndex === 0 ? "is-zoomed-out" : ""
+                }`}
+                src={assetPath(heroVideoSources[videoIndex])}
+                autoPlay={slot === activeHeroVideoSlot}
+                muted
+                playsInline
+                preload="auto"
+                onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
+                onEnded={playNextHeroVideo}
+                onError={() => handleHeroVideoError(slot)}
+                onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
+                aria-hidden="true"
+              />
+            ))}
           <div className="vr-world">
             <div className="hero-section">
               <div className="hero-content">

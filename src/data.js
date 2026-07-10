@@ -133,9 +133,9 @@ export const projects = [
     location: "Skyve · Medical Technology Innovation Team · 2025.04 - Present",
     koLocation: "스카이브 의료기술혁신팀 · 2025.04 ~ 진행 중",
     description:
-      "Developed Unity-based Android and Windows clients for an artificial joint surgery assistance system. Integrated TCP/IP and UDP socket communication, introduced UniRx with an MVP architecture, built custom IMGUI build automation, and improved the existing client from roughly 15 FPS to stable 60 FPS while reducing device heat.",
+      "Developed Unity Android and Windows clients for an artificial joint surgery assistance system, improving real-time communication, architecture, build flow, and runtime performance.",
     koDescription:
-      "인공 관절 수술 보조 시스템의 Unity 기반 Android, Windows 클라이언트 앱을 개발했습니다. TCP/IP 및 UDP Socket 통신을 연동하고, UniRx 기반 MVP 아키텍처를 도입했으며, IMGUI 커스텀 빌드 자동화 툴과 Unity HLSL 시각 효과를 구현했습니다. 기존 클라이언트의 발열을 줄이고 평균 15프레임 수준의 성능을 평균 60프레임 동작으로 개선했습니다.",
+      "인공 관절 수술 보조 시스템의 Unity Android, Windows 클라이언트를 개발하며 통신, 구조, 빌드 흐름, 런타임 성능을 개선했습니다.",
     icon: "bi-activity",
     image: "images_videos/sagarvision.png",
     imageAlt: "SagarVision AR System thumbnail",
@@ -154,31 +154,31 @@ export const projects = [
       href: "https://www.mkhealth.co.kr/news/articleView.html?idxno=75963",
     },
     focus: [
-      "Support stable operation across Android and Windows clients used in a medical-assistance workflow.",
-      "Connect real-time device communication through TCP/IP and UDP sockets.",
-      "Improve maintainability by introducing UniRx and an MVP architecture into the Unity client.",
+      "Build stable Android and Windows clients for a medical-assistance workflow.",
+      "Connect device communication and real-time AR updates.",
+      "Improve maintainability through clearer client architecture.",
     ],
     koFocus: [
-      "의료 보조 워크플로우에서 사용하는 Android 및 Windows 클라이언트의 안정적인 구동을 목표로 했습니다.",
-      "TCP/IP와 UDP Socket 기반 실시간 장비 통신을 Unity 클라이언트에 연결했습니다.",
-      "UniRx와 MVP 아키텍처를 도입해 클라이언트 유지보수성을 높였습니다.",
+      "의료 보조 워크플로우용 Android, Windows 클라이언트를 안정적으로 개발했습니다.",
+      "장비 통신과 실시간 AR 갱신 흐름을 Unity 클라이언트에 연결했습니다.",
+      "클라이언트 구조를 정리해 유지보수성을 높였습니다.",
     ],
     process: [
-      "Built custom IMGUI tooling to reduce repeated build setup and deployment mistakes.",
-      "Implemented HLSL-based visual effects while profiling runtime cost on target devices.",
-      "Repeated profiling and optimization passes to reduce heat and frame-time spikes.",
+      "Created build tooling to reduce repeated setup work.",
+      "Implemented AR visual feedback with performance in mind.",
+      "Profiled and optimized runtime behavior on target devices.",
     ],
     koProcess: [
-      "반복되는 빌드 설정과 배포 실수를 줄이기 위해 IMGUI 기반 커스텀 빌드 툴을 만들었습니다.",
-      "타깃 디바이스의 런타임 비용을 확인하며 Unity HLSL 기반 시각 효과를 구현했습니다.",
-      "프로파일링과 최적화 사이클을 반복해 발열과 프레임 타임 스파이크를 줄였습니다.",
+      "반복되는 빌드 설정을 줄이기 위한 커스텀 도구를 만들었습니다.",
+      "성능을 고려해 AR 시각 피드백을 구현했습니다.",
+      "타깃 디바이스에서 프로파일링과 최적화를 반복했습니다.",
     ],
     outcomes: [
-      "Improved the existing client from roughly 15 FPS to stable 60 FPS.",
-      "Reduced device heat during runtime through profiling-driven optimization.",
-      "Created a clearer client architecture for ongoing feature work.",
+      "Improved client performance from roughly 15 FPS to stable 60 FPS.",
+      "Reduced runtime heat through profiling-driven optimization.",
+      "Prepared a cleaner foundation for ongoing feature work.",
       {
-        text: "Joined the AAOS 2026 exhibition in the United States, providing technical support and product explanations for SagarVision AR technology.",
+        text: "Supported SagarVision AR technology at the AAOS 2026 exhibition.",
         href: "https://economist.co.kr/article/view/ecn202603090048",
       },
       {
@@ -189,9 +189,9 @@ export const projects = [
     koOutcomes: [
       "기존 클라이언트를 평균 15프레임 수준에서 안정적인 60프레임 동작으로 개선했습니다.",
       "프로파일링 기반 최적화로 런타임 발열을 줄였습니다.",
-      "향후 기능 확장을 위한 클라이언트 구조를 더 명확하게 정리했습니다.",
+      "향후 기능 확장을 위한 클라이언트 기반을 정리했습니다.",
       {
-        text: "2026 미국정형외과학회(AAOS) 전시 참가 과정에서 SagarVision AR 기술 지원 및 설명을 진행했습니다.",
+        text: "2026 미국정형외과학회(AAOS) 전시에서 SagarVision AR 기술 지원을 진행했습니다.",
         href: "https://economist.co.kr/article/view/ecn202603090048",
       },
       {
@@ -253,9 +253,9 @@ export const projects = [
     location: "HyperCloud · XR Team · 2023.10 - 2024.02",
     koLocation: "하이퍼클라우드 XR Team · 2023.10 ~ 2024.02",
     description:
-      "Built AR content for the Hyundai Duty Free app and XR device experiences. Developed brand catcher image recognition based on a TFLite library, created Meta Quest 3 content with OVR Toolkit, integrated Android voice-recognition plugins into Unity, and prepared QA and booth operation guides.",
+      "Built AR app content and XR device experiences for Hyundai Duty Free, covering recognition, Quest 3 content, AR Glass content, and booth QA support.",
     koDescription:
-      "현대백화점 면세점 앱 내 AR 콘텐츠와 XR 기기 체험 콘텐츠를 개발했습니다. TFLite library 기반 브랜드 캐처 이미지 인식 로직 초안을 구현하고, OVR Toolkit으로 Meta Quest 3 XR 콘텐츠를 개발했습니다. Snapdragon Spaces SDK 기반 AR Glass 콘텐츠와 Android 음성인식 플러그인을 Unity에 결합했으며, QA 및 체험 부스 운영 가이드 작성과 교육까지 진행했습니다.",
+      "현대백화점 면세점의 AR 앱 콘텐츠와 XR 기기 체험을 개발하며 인식 기능, Quest 3, AR Glass, 부스 QA를 함께 지원했습니다.",
     icon: "bi-bag-check",
     image: "images_videos/hyundai.png",
     imageAlt: "Hyundai Duty Free AR Adventure Pass thumbnail",
@@ -274,24 +274,24 @@ export const projects = [
       href: "https://www.hyper-cloud.kr/ko/blog/Hyundai-Popup-Stamprally",
     },
     focus: [
-      "Build AR app content and XR device demos for a retail brand campaign.",
-      "Connect image recognition, voice recognition, Quest 3, and AR Glass implementations in Unity.",
-      "Prepare the project for QA and exhibition booth operation, not only development.",
+      "Build AR and XR experiences for a retail brand campaign.",
+      "Connect recognition, Quest 3, and AR Glass features in Unity.",
+      "Prepare the content for QA and booth operation.",
     ],
     koFocus: [
-      "리테일 브랜드 캠페인을 위한 앱 내 AR 콘텐츠와 XR 기기 체험 콘텐츠를 개발했습니다.",
-      "이미지 인식, 음성 인식, Quest 3, AR Glass 구현을 Unity 프로젝트 안에서 연결했습니다.",
-      "개발뿐 아니라 QA와 체험 부스 운영까지 고려해야 했습니다.",
+      "리테일 브랜드 캠페인을 위한 AR/XR 콘텐츠를 개발했습니다.",
+      "인식 기능, Quest 3, AR Glass 경험을 Unity에서 연결했습니다.",
+      "QA와 체험 부스 운영까지 고려해 제작했습니다.",
     ],
     process: [
-      "Drafted TFLite-based image recognition logic for brand catcher interactions.",
-      "Developed Meta Quest 3 content with OVR Toolkit and AR Glass content with Snapdragon Spaces.",
-      "Integrated an Android voice-recognition plugin into Unity and documented QA/operation guides.",
+      "Built the recognition flow for brand catcher interactions.",
+      "Developed Quest 3 and AR Glass content.",
+      "Connected native features and prepared QA material.",
     ],
     koProcess: [
-      "브랜드 캐처 인터랙션을 위한 TFLite 기반 이미지 인식 로직 초안을 구현했습니다.",
-      "OVR Toolkit으로 Meta Quest 3 콘텐츠를, Snapdragon Spaces로 AR Glass 콘텐츠를 개발했습니다.",
-      "Android 음성인식 플러그인을 Unity에 연동하고 QA/운영 가이드를 문서화했습니다.",
+      "브랜드 캐처 인터랙션을 위한 인식 흐름을 구현했습니다.",
+      "Quest 3와 AR Glass 콘텐츠를 개발했습니다.",
+      "네이티브 기능 연동과 QA 자료 정리를 함께 진행했습니다.",
     ],
     outcomes: [
       "Delivered multiple AR/XR touchpoints for the Hyundai Duty Free experience.",
@@ -330,9 +330,9 @@ export const projects = [
     location: "HyperCloud · XR Team · 2023.08 - 2023.10",
     koLocation: "하이퍼클라우드 XR Team · 2023.08 ~ 2023.10",
     description:
-      "Developed GPS and VPS-based AR navigation prototypes around Cheonggyecheon. Built Unity Embedded communication with a Flutter app, coordinated with LBS Tech and SKT, integrated SKT VLAM VPS modules, and generated routes dynamically from REST API data.",
+      "Developed GPS/VPS-based AR navigation prototypes around Cheonggyecheon, embedding Unity in Flutter and connecting route data to AR guidance.",
     koDescription:
-      "GPS 기반 AR 내비게이션 프로토타입과 서울 청계천 지역 VPS 기반 AR 내비게이션을 개발했습니다. Flutter App에 Unity가 Embedded될 수 있도록 Flutter와 Unity 통신 인터페이스를 구성하고, LBS Tech 및 SKT와 협업하며 SKT VLAM VPS 모듈을 기반으로 AR 내비게이션을 구현했습니다. Rest API를 바탕으로 경로 동적 생성 로직도 개발했습니다.",
+      "청계천 일대의 GPS/VPS 기반 AR 내비게이션 프로토타입을 개발하고, Flutter 내 Unity 임베딩과 경로 기반 AR 안내를 구현했습니다.",
     icon: "bi-signpost-split",
     image: "images_videos/seoul.png",
     imageAlt: "Seoul AR Navigation PoC thumbnail",
@@ -351,24 +351,24 @@ export const projects = [
       href: "https://zdnet.co.kr/view/?no=20240105133427",
     },
     focus: [
-      "Prototype outdoor AR navigation using GPS and VPS around Cheonggyecheon.",
-      "Embed Unity inside a Flutter app and define a reliable communication boundary.",
-      "Generate routes dynamically from REST API data while coordinating with partner modules.",
+      "Prototype outdoor AR navigation around Cheonggyecheon.",
+      "Embed Unity inside a Flutter app.",
+      "Generate AR guidance from location and route data.",
     ],
     koFocus: [
-      "청계천 일대에서 GPS와 VPS를 활용한 야외 AR 내비게이션을 프로토타입으로 개발했습니다.",
-      "Flutter 앱 안에 Unity를 임베드하고 안정적인 통신 경계를 정의했습니다.",
-      "협력사 모듈과 연동하면서 REST API 데이터 기반 동적 경로 생성을 구현해야 했습니다.",
+      "청계천 일대 야외 AR 내비게이션을 프로토타입으로 개발했습니다.",
+      "Flutter 앱 안에 Unity를 임베드했습니다.",
+      "위치와 경로 데이터를 기반으로 AR 안내를 생성했습니다.",
     ],
     process: [
-      "Built Unity Embedded communication between Flutter and the Unity runtime.",
-      "Integrated SKT VLAM VPS modules while coordinating with LBS Tech and SKT.",
-      "Implemented dynamic route generation and AR guidance logic from server data.",
+      "Built the Flutter-to-Unity communication flow.",
+      "Integrated partner VPS modules.",
+      "Connected route data to AR guidance visuals.",
     ],
     koProcess: [
-      "Flutter와 Unity 런타임 사이의 Unity Embedded 통신 구조를 구성했습니다.",
-      "LBS Tech 및 SKT와 협업하며 SKT VLAM VPS 모듈을 연동했습니다.",
-      "서버 데이터 기반 경로 동적 생성과 AR 안내 로직을 구현했습니다.",
+      "Flutter와 Unity 간 통신 흐름을 구성했습니다.",
+      "협력사 VPS 모듈을 연동했습니다.",
+      "경로 데이터를 AR 안내 시각화로 연결했습니다.",
     ],
     outcomes: [
       "Produced GPS and VPS AR navigation prototypes for a public-sector PoC.",
@@ -398,9 +398,9 @@ export const projects = [
     location: "HyperCloud · XR Team · 2023.01 - 2023.02",
     koLocation: "하이퍼클라우드 XR Team · 2023.01 ~ 2023.02",
     description:
-      "Developed AR store-scanning content embedded in a Flutter app. Visualized nearby stores using compass and GPS sensor data, displayed nearest store information through REST APIs, and designed Android/iOS native communication interfaces.",
+      "Developed AR store-scanning content in a Flutter app, connecting GPS, compass, store data, and Android/iOS native communication.",
     koDescription:
-      "경주로 ON 앱에 포함되는 AR 상점 스캔 콘텐츠를 개발했습니다. Compass 값과 GPS를 활용해 플레이어 근처 상점을 AR로 시각화하고, Rest API로 가장 가까운 상점 정보를 표현했습니다. Flutter 앱에 Embedded되는 형태로 개발하며 Android와 iOS Native 통신 인터페이스를 설계하고 구현했습니다.",
+      "경주로 ON 앱의 AR 상점 스캔 콘텐츠를 개발하며 GPS, Compass, 상점 데이터, Android/iOS 네이티브 통신을 연결했습니다.",
     icon: "bi-shop",
     image: "images_videos/gyungju.png",
     imageAlt: "Gyeongjuro ON AR Store Scan thumbnail",
@@ -421,22 +421,22 @@ export const projects = [
     focus: [
       "Visualize nearby stores in AR using GPS and compass sensor data.",
       "Embed Unity AR content into a Flutter app for Android and iOS.",
-      "Show the nearest store information through REST API integration.",
+      "Connect store data to mobile AR markers.",
     ],
     koFocus: [
       "GPS와 Compass 센서 데이터를 활용해 주변 상점을 AR로 시각화했습니다.",
       "Android 및 iOS Flutter 앱 안에 Unity AR 콘텐츠를 임베드했습니다.",
-      "REST API 연동으로 가장 가까운 상점 정보를 표시해야 했습니다.",
+      "상점 데이터를 모바일 AR 마커와 연결했습니다.",
     ],
     process: [
       "Designed Unity-to-native communication interfaces for Android and iOS.",
-      "Mapped player direction and nearby store positions with compass and GPS values.",
-      "Connected store data APIs to drive AR markers and nearest-store UI.",
+      "Mapped user direction and nearby store positions.",
+      "Connected API data to AR marker and store UI updates.",
     ],
     koProcess: [
       "Android와 iOS 네이티브 통신 인터페이스를 설계했습니다.",
-      "Compass와 GPS 값을 활용해 플레이어 방향과 주변 상점 위치를 매핑했습니다.",
-      "상점 데이터 API를 연동해 AR 마커와 가까운 상점 UI를 표시했습니다.",
+      "사용자 방향과 주변 상점 위치를 매핑했습니다.",
+      "API 데이터를 AR 마커와 상점 UI 갱신에 연결했습니다.",
     ],
     outcomes: [
       "Delivered an embedded AR store-scanning feature for the Gyeongjuro ON app.",
@@ -455,9 +455,9 @@ export const projects = [
     location: "HyperCloud · XR Team · 2023.02 - 2023.06",
     koLocation: "하이퍼클라우드 XR Team · 2023.02 ~ 2023.06",
     description:
-      "Developed Unity client modules for HARS, HyperCloud's AR marketing CMS solution. Worked on reusable AR content types such as AR Store Scan, AR Time Sale, and AR Portal, including mobile native integration, image recognition, AR portal rendering, REST API connection, and runtime exception handling for Unity Embedded environments.",
+      "Developed reusable Unity client modules for HARS, including AR Store Scan, AR Time Sale, AR Portal, native integration, and recognition-driven content.",
     koDescription:
-      "하이퍼클라우드의 AR 마케팅 CMS 솔루션인 HARS의 Unity 클라이언트 모듈을 개발했습니다. AR 상점스캔, AR 타임세일, AR 포탈처럼 재사용 가능한 AR 콘텐츠 타입을 중심으로 모바일 네이티브 연동, 이미지 인식, AR 포탈 렌더링, REST API 연결, Unity Embedded 환경 예외 처리와 인터페이스 설계를 담당했습니다.",
+      "HARS의 재사용 가능한 Unity 클라이언트 모듈을 개발하며 AR 상점스캔, 타임세일, 포탈, 네이티브 연동, 인식 기반 콘텐츠를 다뤘습니다.",
     icon: "bi-boxes",
     image: "images_videos/hars-store-scan.png",
     imageAlt: "HARS AR Store Scan solution thumbnail",
@@ -477,23 +477,23 @@ export const projects = [
     },
     focus: [
       "Develop reusable Unity client modules for an AR marketing CMS solution.",
-      "Support multiple AR content types: Store Scan, Time Sale, Portal, coupons, and minigame-linked experiences.",
-      "Stabilize Unity Embedded behavior across mobile native app states and platform-specific edge cases.",
+      "Support Store Scan, Time Sale, Portal, and event-linked AR content.",
+      "Stabilize Unity Embedded behavior in mobile apps.",
     ],
     koFocus: [
       "AR 마케팅 CMS 솔루션에서 재사용할 수 있는 Unity 클라이언트 모듈을 개발했습니다.",
-      "AR 상점스캔, AR 타임세일, AR 포탈, 쿠폰, 미니게임 연계 경험 등 여러 콘텐츠 타입을 지원했습니다.",
-      "모바일 네이티브 앱 상태와 플랫폼별 예외 상황에서 Unity Embedded 동작을 안정화했습니다.",
+      "AR 상점스캔, 타임세일, 포탈 등 여러 콘텐츠 타입을 지원했습니다.",
+      "모바일 앱 안에서 Unity Embedded 동작을 안정화했습니다.",
     ],
     process: [
-      "Defined and tested Unity-to-native communication interfaces for Android and iOS app lifecycle cases.",
-      "Upgraded AR Portal content and rendering flow with marker-based recognition and Stencil Buffer techniques.",
-      "Reworked image recognition from ARFoundation Image Tracking toward TensorFlow Lite-based model inference.",
+      "Defined Unity-to-native communication for Android and iOS.",
+      "Improved AR Portal rendering and recognition flows.",
+      "Reworked recognition logic for reusable AR content.",
     ],
     koProcess: [
-      "Android와 iOS 앱 라이프사이클 케이스를 기준으로 Unity와 Native 간 통신 인터페이스를 정의하고 테스트했습니다.",
-      "마커 기반 인식과 Stencil Buffer 기법을 활용해 AR Portal 콘텐츠와 렌더링 흐름을 고도화했습니다.",
-      "이미지 인식 로직을 ARFoundation Image Tracking에서 TensorFlow Lite 기반 모델 추론 방식으로 재개발했습니다.",
+      "Android와 iOS 네이티브 통신 인터페이스를 정의했습니다.",
+      "AR Portal 렌더링과 인식 흐름을 개선했습니다.",
+      "재사용 가능한 AR 콘텐츠를 위해 인식 로직을 정리했습니다.",
     ],
     outcomes: [
       "Converted several AR marketing content patterns into reusable solution modules.",
@@ -566,7 +566,7 @@ export const sideProjects = [
     },
     focus: [
       "Build a VR training system for cochlear implant patients on Vision OS.",
-      "Validate Vision Pro technical constraints and interaction feasibility.",
+      "Validate Vision Pro constraints and interaction feasibility.",
       "Coordinate client development across a six-person TECH FOR IMPACT team.",
     ],
     koFocus: [
@@ -576,7 +576,7 @@ export const sideProjects = [
     ],
     process: [
       "Led Unity client development and split implementation responsibilities with two other client programmers.",
-      "Validated Vision Pro runtime behavior and prepared TestFlight distribution.",
+      "Validated Vision Pro runtime behavior and delivery flow.",
       "Worked with planning and design members to align training content with the interaction flow.",
     ],
     koProcess: [
@@ -586,7 +586,7 @@ export const sideProjects = [
     ],
     outcomes: [
       "Established the core development direction for the Vision OS VR training system.",
-      "Completed technical validation for Vision Pro and TestFlight-based delivery.",
+      "Completed technical validation for Vision Pro delivery.",
       "Created a side-project case study focused on accessibility and rehabilitation training.",
     ],
     koOutcomes: [
