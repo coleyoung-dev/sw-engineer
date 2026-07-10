@@ -305,9 +305,12 @@ function MarkdownContent({ markdown }) {
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
+  const [isAtPageTop, setIsAtPageTop] = useState(true);
 
   useEffect(() => {
     const onScroll = () => {
+      setIsAtPageTop((window.scrollY || 0) <= 2);
+
       const hero = document.querySelector(".hero");
       if (hero) {
         const rect = hero.getBoundingClientRect();
@@ -344,7 +347,7 @@ function useScrollProgress() {
     };
   }, []);
 
-  return { progress, activeSection };
+  return { progress, activeSection, isAtPageTop };
 }
 
 function LanguageToggle({ language, onLanguageChange }) {
@@ -449,7 +452,7 @@ function Header({ progress, activeSection, language, text }) {
   );
 }
 
-function Hero({ progress, text, language }) {
+function Hero({ progress, text, language, showScrollCue }) {
   const heroVideoRefs = useRef([]);
   const isMobileHeroViewport = useIsMobileHeroViewport();
   const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
@@ -464,6 +467,13 @@ function Hero({ progress, text, language }) {
   const scale = 1 - eased * endScale;
   const translateY = eased * 30;
   const headsetOpacity = isMobileHeroViewport || eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
+  const scrollToProjects = () => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document
+      .getElementById("featuredproject")
+      ?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  };
+
   const playNextHeroVideo = () => {
     if (isMobileHeroViewport) return;
     if (transitionHeroVideoSlot !== null) return;
@@ -644,10 +654,19 @@ function Hero({ progress, text, language }) {
                   />
                 </div>
               </div>
-              <p className="scroll-down">
-                {text.hero.scroll}
-                <i className="bi bi-mouse" />
-              </p>
+              <button
+                className={`scroll-cue ${showScrollCue ? "" : "is-hidden"}`}
+                type="button"
+                onClick={scrollToProjects}
+                aria-label={text.hero.scroll}
+                title={text.hero.scroll}
+              >
+                <span className="scroll-cue-arrow" aria-hidden="true">
+                  <i className="bi bi-chevron-down" />
+                  <i className="bi bi-chevron-down" />
+                </span>
+                <span className="scroll-cue-label">{text.hero.scroll}</span>
+              </button>
             </div>
           </div>
           <div className="headset" style={{ opacity: headsetOpacity }} aria-hidden="true">
@@ -1181,7 +1200,7 @@ function Footer({ text }) {
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
   const [route, setRoute] = useState(getCurrentHashRoute);
-  const { progress, activeSection } = useScrollProgress();
+  const { progress, activeSection, isAtPageTop } = useScrollProgress();
   const reducedMotion = useMemo(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     [],
@@ -1264,7 +1283,7 @@ export default function App() {
           </>
         ) : (
           <>
-            <Hero progress={heroProgress} text={text} language={language} />
+            <Hero progress={heroProgress} text={text} language={language} showScrollCue={isAtPageTop} />
             <FeaturedProjects language={language} text={text} />
             <SideProjects language={language} text={text} />
             <TechStack language={language} text={text} />
