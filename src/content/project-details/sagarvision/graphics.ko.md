@@ -10,10 +10,7 @@ SagarVision AR System의 그래픽스 작업은 수술 보조 정보를 AR 화�
 
 @[실시간 투영 보조 데모](images_videos/videos/sagarvision-realtime-projection.mp4 "BVH query로 계산한 표면 최근접점이 프로브 움직임에 맞춰 실시간으로 갱신되는 테스트 장면입니다.")
 
-외부에서 들어오는 트래킹 위치를 모델 기준 피드백 지점으로 변환했습니다. 이 지점은 프로브 시각화가 뼈 표면에 붙어 보이게 하고, 취득/hover 상태를 shader에 전달하는 데 사용했습니다.
-
-- 프로브 피드백이 모델 표면에 안정적으로 붙도록 구성했습니다.
-- 투영된 local 좌표를 하이라이팅과 surface sampling 효과에 전달했습니다.
+외부에서 들어오는 트래킹 위치를 모델 기준 피드백 지점으로 변환했습니다.
 
 ## Resection Luma Keying과 Outline
 
@@ -30,6 +27,4 @@ Resection 안내에서는 절단 평면 정보를 AR HUD에 합성하고, luma k
 ## 구현 포인트
 
 - 실시간 AR 피드백을 위한 표면 투영 비용을 줄였습니다.
-- 프로브와 하이라이트가 모델 표면에 안정적으로 붙도록 했습니다.
 - 합성과 outline으로 AR HUD 가독성을 높였습니다.
-- Landmark와 surface sampling 상태를 shader 기반으로 표현했습니다.

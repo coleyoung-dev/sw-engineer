@@ -10,10 +10,7 @@ The client prepared a mesh-query structure after loading bone models so probe po
 
 @[Real-time projection support demo](images_videos/videos/sagarvision-realtime-projection.mp4 "The surface closest point calculated by the BVH query updates in real time as the probe moves.")
 
-Incoming tracking positions were converted into model-space feedback points. Those points were used to keep probe visuals attached to the bone surface and to drive acquisition or hover feedback in shaders.
-
-- Kept the visible probe feedback anchored to the model surface.
-- Passed projected local positions into highlighting and sampling effects.
+Incoming tracking positions were converted into model-space feedback points.
 
 ## Resection Luma Keying And Outline
 
@@ -30,6 +27,4 @@ Projected surface positions were accumulated in local space and sent to HLSL mat
 ## Implementation Notes
 
 - Reduced surface-projection cost for real-time AR feedback.
-- Kept probe and highlight visuals stable on the model surface.
 - Improved AR HUD readability with compositing and outline effects.
-- Used shader-driven highlighting for landmark and surface-sampling states.
