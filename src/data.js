@@ -588,11 +588,19 @@ export const sideProjects = [
       "Established the core development direction for the Vision OS VR training system.",
       "Completed technical validation for Vision Pro delivery.",
       "Created a side-project case study focused on accessibility and rehabilitation training.",
+      {
+        text: "Submitted a Vision Lingo research paper to HCI Korea 2026.",
+        href: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745902",
+      },
     ],
     koOutcomes: [
       "Vision OS 기반 VR 훈련 시스템의 핵심 개발 방향을 정리했습니다.",
       "Vision Pro 기술 검증과 TestFlight 기반 배포 흐름을 확인했습니다.",
       "접근성과 재활 훈련을 중심으로 한 사이드 프로젝트 경험을 만들었습니다.",
+      {
+        text: "Vision Lingo 연구 논문을 HCI Korea 2026에 투고했습니다.",
+        href: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745902",
+      },
     ],
   },
 ];
