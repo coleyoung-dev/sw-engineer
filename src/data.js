@@ -238,10 +238,10 @@ export const projects = [
       },
       {
         slug: "continuous-deployment",
-        title: "Continuous Deployment Configuration",
+        title: "CI/CD System Configuration",
         koTitle: "CI/CD System 구성",
-        summary: "Custom build and deployment flow for repeatable client delivery.",
-        koSummary: "반복 가능한 클라이언트 전달을 위한 커스텀 빌드 및 배포 흐름",
+        summary: "Automated quality gates and repeatable client delivery for Unity.",
+        koSummary: "Unity 품질 검증과 반복 가능한 클라이언트 전달을 위한 CI/CD 흐름",
         markdownPath: "./content/project-details/sagarvision/continuous-deployment.en.md",
         koMarkdownPath: "./content/project-details/sagarvision/continuous-deployment.ko.md",
       },

@@ -1,8 +1,22 @@
-SagarVision AR System의 배포 구성은 Unity 클라이언트 빌드를 반복 가능한 절차로 만들기 위한 지원 흐름입니다. Windows PC 클라이언트와 Android AR Glass 클라이언트의 빌드 설정, 산출물, 기록, 전달 과정을 더 일관되게 정리했습니다.
+SagarVision AR System의 CI/CD 구성은 코드 검증부터 Unity 클라이언트 빌드·배포까지 반복 가능한 절차로 만든 자동화 흐름입니다.
 
 ## CI(Continuous Integration)
 
-CI 영역은 향후 테스트 자동화와 연결할 수 있도록 확장 가능성을 남겨두었습니다.
+![SagarVision CI Gate Flow](images_videos/sagarvision/cicd/ci_gate_flow.png)
+
+Draft PR에 코드가 push되면 GitHub Actions가 최신 커밋을 기준으로 CI Gate를 실행합니다.
+
+### 필수 품질 게이트
+
+- Roslyn 컴파일과 Unity 안티패턴, C# 안정성·성능·보안, 코드 컨벤션을 정적 분석했습니다.
+- Unity EditMode 유닛 테스트 후 실제 C++ 서버와 연동한 PlayMode 통합 테스트를 실행했습니다.
+- 단계별 실패 시 이후 작업을 중단해 검증되지 않은 코드의 병합을 차단했습니다.
+
+![GitHub Actions CI Pipeline](images_videos/sagarvision/cicd/github_actions_pipeline.png)
+
+### 자동화 결과
+
+필수 게이트를 통과하면 Draft PR을 리뷰 가능 상태로 전환합니다. 동시에 CycloneDX SBOM과 RTM 기반 테스트 결과 문서를 생성하고, 최종 CI 산출물로 통합해 추적성을 확보했습니다.
 
 ## CD(Continuous Delivery)
 
