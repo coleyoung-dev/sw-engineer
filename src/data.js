@@ -1,6 +1,6 @@
 export const navItems = [
   { id: "featuredproject", label: "Projects", koLabel: "프로젝트" },
-  { id: "engineering", label: "Engineering", koLabel: "엔지니어링" },
+  { id: "engineering", label: "Side Projects", koLabel: "사이드 프로젝트" },
   { id: "workexperience", label: "Experience", koLabel: "경력" },
   { id: "techstacksection", label: "Tech Stack", koLabel: "기술 스택" },
   { id: "contact", label: "Contact", koLabel: "연락처" },
@@ -32,7 +32,7 @@ export const uiText = {
     sections: {
       featuredProjects: "Selected Projects",
       sideProjects: "Additional Projects",
-      engineering: "Engineering / Independent Projects",
+      engineering: "Side Projects",
       techStack: "Tech Stack",
       workExperiences: "Work Experience",
     },
@@ -83,7 +83,7 @@ export const uiText = {
     sections: {
       featuredProjects: "주요 프로젝트",
       sideProjects: "추가 프로젝트",
-      engineering: "엔지니어링 / 독립 프로젝트",
+      engineering: "사이드 프로젝트",
       techStack: "기술 스택",
       workExperiences: "경력",
     },
@@ -118,12 +118,7 @@ export const uiText = {
 
 export const platformIcons = [
   { icon: "bi-phone", label: "Android", koLabel: "Android" },
-  { icon: "bi-phone", label: "iOS", koLabel: "iOS" },
-  { icon: "bi-badge-vr", label: "Android XR", koLabel: "Android XR" },
-  { icon: "bi-badge-vr", label: "Vision OS", koLabel: "Vision OS" },
-  { icon: "bi-badge-vr", label: "Horizon OS", koLabel: "Horizon OS" },
   { icon: "bi-window", label: "Windows", koLabel: "Windows" },
-  { icon: "bi-globe2", label: "WebGL", koLabel: "WebGL" },
 ];
 
 export const contactLinks = [
@@ -546,23 +541,20 @@ const legacyProjects = [
   },
 ];
 
-export const sideProjects = [
-  {
+const visionLingoProject = {
     title: "Vision Lingo",
     koTitle: "Vision Lingo",
     location: "KAKAO IMPACT TECH FOR IMPACT · Team Side Project · Aug 2025 - Mar 2026",
     koLocation: "KAKAO IMPACT TECH FOR IMPACT · 팀 사이드 프로젝트 · 2025.08 ~ 2026.03",
-    description:
-      "Led Unity client development for a Vision OS VR training system for cochlear implant patients as part of KAKAO IMPACT's TECH FOR IMPACT project.",
-    koDescription:
-      "KAKAO IMPACT에서 주관하는 TECH FOR IMPACT 프로젝트에 참여해 인공 와우 수술 환자들을 위한 Vision OS 기반 VR 훈련 시스템 개발을 리드했습니다.",
+    description: "Developed an Apple Vision Pro-based auditory rehabilitation solution for cochlear implant users.",
+    koDescription: "Apple Vision Pro 기반 인공와우 청각 재활 솔루션 개발",
     icon: "bi-badge-vr",
     image: "images_videos/side_kakaoImpact.png",
     imageAlt: "Vision Lingo KAKAO IMPACT thumbnail",
     koImageAlt: "Vision Lingo KAKAO IMPACT 썸네일",
-    tags: ["Unity", "Vision OS", "Vision Pro", "VR Training", "TestFlight", "Team Lead"],
-    role: "Unity Client Lead",
-    koRole: "Unity 클라이언트 개발 리드",
+    tags: ["Unity", "Vision Pro", "XR", "Spatial Audio", "HCI"],
+    role: "Development Team Lead / Unity XR Application Engineer",
+    koRole: "개발팀 리드 / Unity 기반 XR 애플리케이션 개발",
     timeline: "Aug 2025 - Mar 2026",
     koTimeline: "2025.08 ~ 2026.03",
     team: "3 Client Programmers, 3 Planning/Design Members",
@@ -570,62 +562,49 @@ export const sideProjects = [
     category: "Vision OS / Apple Vision Pro",
     koCategory: "Vision OS / Apple Vision Pro",
     relatedPage: {
-      label: "VISION LINGO",
-      href: "https://www.notion.so/unitycoleyoung/Apple-Vision-Pro-Onsori-Sphere-30e5bf6278f0804a89ccec7406106ae0?source=copy_link",
+      label: "HCI Korea 2026 paper",
+      href: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745902",
     },
     focus: [
-      "Build a VR training system for cochlear implant patients on Vision OS.",
-      "Validate Vision Pro constraints and interaction feasibility.",
-      "Coordinate client development across a six-person TECH FOR IMPACT team.",
+      "Led the development team and built the Unity-based XR application.",
+      "Designed auditory rehabilitation content and user experiences using spatial audio and sensory integration.",
+      "Conducted user-experience evaluations, analyzed study results, and authored the academic paper.",
     ],
     koFocus: [
-      "인공 와우 수술 환자를 위한 Vision OS 기반 VR 훈련 시스템을 개발했습니다.",
-      "Vision Pro 기술 제약과 인터랙션 구현 가능성을 검증했습니다.",
-      "TECH FOR IMPACT 참여 팀 안에서 6인 팀의 클라이언트 개발을 조율했습니다.",
+      "개발팀 리드 및 Unity 기반 XR 애플리케이션 개발",
+      "공간 청각, 감각 통합 기반 청능 재활 콘텐츠 및 사용자 경험 설계",
+      "사용자경험 평가 및 연구 결과 분석, 학술 논문 작성",
     ],
-    process: [
-      "Led Unity client development and split implementation responsibilities with two other client programmers.",
-      "Validated Vision Pro runtime behavior and delivery flow.",
-      "Worked with planning and design members to align training content with the interaction flow.",
-    ],
-    koProcess: [
-      "Unity 클라이언트 개발을 리드하며 2명의 클라이언트 프로그래머와 구현 범위를 나눴습니다.",
-      "Vision Pro 런타임 동작을 검증하고 TestFlight 배포를 준비했습니다.",
-      "기획/디자인 팀과 협업해 훈련 콘텐츠와 인터랙션 흐름을 맞췄습니다.",
-    ],
+    process: [],
+    koProcess: [],
     outcomes: [
-      "Established the core development direction for the Vision OS VR training system.",
-      "Completed technical validation for Vision Pro delivery.",
-      "Created a side-project case study focused on accessibility and rehabilitation training.",
+      "Published a paper in HCI Korea 2026.",
       {
-        text: "Submitted a Vision Lingo research paper to HCI Korea 2026.",
+        text: "\u201cOnsori Sphere: Design and User Experience Evaluation of a Vision Pro-Based Spatial Audio and Sensory-Integrated XR Auditory Rehabilitation System,\u201d PROCEEDINGS OF HCI KOREA 2026, pp. 930-935, 2026.",
         href: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745902",
       },
     ],
     koOutcomes: [
-      "Vision OS 기반 VR 훈련 시스템의 핵심 개발 방향을 정리했습니다.",
-      "Vision Pro 기술 검증과 TestFlight 기반 배포 흐름을 확인했습니다.",
-      "접근성과 재활 훈련을 중심으로 한 사이드 프로젝트 경험을 만들었습니다.",
+      "HCI Korea 2026 논문 게재",
       {
-        text: "Vision Lingo 연구 논문을 HCI Korea 2026에 투고했습니다.",
+        text: "「온소리 Sphere: Vision Pro 기반 공간청각·감각통합 XR 청능재활 시스템의 설계 및 사용자경험 평가,」 PROCEEDINGS OF HCI KOREA 2026 학술대회 발표 논문집, pp. 930-935, 2026.",
         href: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12745902",
       },
     ],
-  },
-];
+};
 
 export const techStacks = [
   {
     icon: "bi-code-slash",
     title: "Languages",
     koTitle: "언어",
-    skills: ["C#", "C++", "Python", "JavaScript"],
+    skills: ["C#", "C++", "Python"],
   },
   {
     icon: "bi-unity",
-    title: "Application / Client",
-    koTitle: "애플리케이션 / 클라이언트",
-    skills: ["Unity", ".NET", "Android", "Windows", "WebGL", "React Integration"],
+    title: "Engine & Framework",
+    koTitle: "엔진 및 프레임워크",
+    skills: ["Unity", ".NET", "Android", "Windows", "WPF"],
   },
   {
     icon: "bi-badge-vr",
@@ -643,13 +622,13 @@ export const techStacks = [
     icon: "bi-diagram-2",
     title: "Communication / Integration",
     koTitle: "통신 / 연동",
-    skills: ["TCP/IP", "UDP", "REST API", "Android JNI", "Flutter Integration"],
+    skills: ["TCP/IP", "UDP", "REST API"],
   },
   {
     icon: "bi-kanban",
     title: "Engineering",
     koTitle: "엔지니어링",
-    skills: ["Git", "GitHub Actions", "CI/CD", "Testing", "SBOM / CycloneDX"],
+    skills: ["Git", "GitHub Actions", "CI/CD", "Testing", "SBOM / CycloneDX", "AI Orchestration", "AI Agentic Engineering", "PostgreSQL"],
   },
 ];
 
@@ -657,8 +636,8 @@ export const experiences = [
   {
     date: "Apr 2025 - Present",
     koDate: "2025.04 ~ 재직 중",
-    title: "Software Engineer · Medical Technology",
-    koTitle: "소프트웨어 엔지니어 · 의료기술",
+    title: "Software Engineer / Medical Technology",
+    koTitle: "소프트웨어 엔지니어 / 의료 기술",
     company: "Skyve",
     companyUrl: "http://www.skyve.co.kr/",
     description:
@@ -671,8 +650,8 @@ export const experiences = [
   {
     date: "Mar 2022 - Jun 2024",
     koDate: "2022.03 ~ 2024.06",
-    title: "Software Engineer · XR",
-    koTitle: "소프트웨어 엔지니어 · XR",
+    title: "Software Engineer / XR",
+    koTitle: "소프트웨어 엔지니어 / XR",
     company: "HyperCloud",
     companyUrl: "https://www.hyper-cloud.kr/",
     description:
@@ -690,8 +669,8 @@ export const experiences = [
 ];
 
 const jetsonVisionProject = {
-  title: "Jetson Vision Pipeline",
-  koTitle: "Jetson Vision Pipeline",
+  title: "OpenCV Based on Traking System with Nvidia Jetson",
+  koTitle: "OpenCV Based on Traking System with Nvidia Jetson",
   location: "Computer Vision / Spatial Computing",
   koLocation: "Computer Vision / Spatial Computing",
   description:
@@ -699,17 +678,17 @@ const jetsonVisionProject = {
   koDescription:
     "NVIDIA Jetson, ZED 스테레오 카메라, ArUco 검출, 포즈 처리, Kalman filtering을 활용한 실시간 마커 기반 트래킹 파이프라인을 다뤘습니다.",
   icon: "bi-camera-video",
-  imageAlt: "Jetson Vision Pipeline conceptual project thumbnail",
-  koImageAlt: "Jetson Vision Pipeline 프로젝트 썸네일",
+  imageAlt: "OpenCV-based tracking system with Nvidia Jetson conceptual thumbnail",
+  koImageAlt: "Nvidia Jetson 기반 OpenCV 트래킹 시스템 프로젝트 썸네일",
   tags: ["NVIDIA Jetson", "ZED", "ArUco", "Computer Vision", "Kalman Filtering", "Real-time"],
   role: "Computer Vision Engineer",
   koRole: "Computer Vision 엔지니어",
-  timeline: "Previous project",
-  koTimeline: "이전 프로젝트",
-  team: "Project team",
-  koTeam: "프로젝트 팀",
-  category: "Edge device / Stereo camera",
-  koCategory: "엣지 디바이스 / 스테레오 카메라",
+  timeline: "Aug 2025 - Nov 2025",
+  koTimeline: "2025.08 ~ 2025.11",
+  team: "Skyve Medical Technology Innovation Team",
+  koTeam: "스카이브 의료기술혁신팀",
+  category: "Nvidia Jetson (Linux)",
+  koCategory: "Nvidia Jetson (Linux)",
   focus: [
     "Processed real-time marker observations from a ZED stereo camera on NVIDIA Jetson.",
     "Connected ArUco detection and pose/tracking processing for spatial-computing workflows.",
@@ -720,14 +699,9 @@ const jetsonVisionProject = {
     "Spatial Computing 워크플로우를 위해 ArUco 검출과 포즈/트래킹 처리를 연결했습니다.",
     "트래킹 파이프라인의 일부로 Kalman filtering을 적용했습니다.",
   ],
-  process: [
-    "Kept the project description scoped to the implemented vision and tracking integration.",
-    "Avoided presenting unverified model details or benchmark claims.",
-  ],
-  koProcess: [
-    "구현한 비전 및 트래킹 연동 범위 안에서 프로젝트를 설명했습니다.",
-    "검증되지 않은 모델 세부 정보나 벤치마크 수치는 제시하지 않았습니다.",
-  ],
+  process: [],
+  koProcess: [],
+  reflection: false,
   outcomes: ["Built practical experience with edge-device vision, marker tracking, and real-time pose processing."],
   koOutcomes: ["엣지 디바이스 비전, 마커 트래킹, 실시간 포즈 처리에 대한 실무 경험을 쌓았습니다."],
 };
@@ -778,78 +752,4 @@ const webglMinigameProject = {
 
 export const projects = [legacyProjects[0], jetsonVisionProject, legacyProjects[2], webglMinigameProject];
 
-export const additionalProjects = [legacyProjects[1], legacyProjects[3], legacyProjects[4]];
-
-export const engineeringProjects = [
-  {
-    title: "Unity SBOM Generator",
-    koTitle: "Unity SBOM Generator",
-    location: "Open-source tooling · In Development",
-    koLocation: "오픈소스 도구 · 개발 중",
-    description:
-      "An open-source tool in development for generating CycloneDX SBOMs from Unity projects, focused on dependency discovery and CI-friendly output.",
-    koDescription:
-      "Unity 프로젝트에서 CycloneDX SBOM을 생성하기 위해 개발 중인 오픈소스 도구입니다. 의존성 탐색과 CI 친화적인 출력을 목표로 합니다.",
-    icon: "bi-diagram-3",
-    imageAlt: "Unity SBOM Generator conceptual thumbnail",
-    koImageAlt: "Unity SBOM Generator 개념 썸네일",
-    tags: ["C#", ".NET", "CycloneDX", "UPM", "CLI", "GitHub Actions"],
-    role: "Independent Project",
-    koRole: "독립 프로젝트",
-    timeline: "In Development",
-    koTimeline: "개발 중",
-    team: "Independent",
-    koTeam: "개인 프로젝트",
-    category: "Developer tooling / CLI",
-    koCategory: "개발자 도구 / CLI",
-    focus: [
-      "Explore Unity Package Manager dependency discovery and dependency graph construction.",
-      "Generate CycloneDX-compatible software bills of materials without exposing proprietary project dependencies.",
-      "Plan CLI and CI integration as future capabilities; only implemented features should be presented as complete.",
-    ],
-    koFocus: [
-      "Unity Package Manager 의존성 탐색과 의존성 그래프 구성을 탐구합니다.",
-      "독점 프로젝트 의존성을 노출하지 않고 CycloneDX 호환 SBOM 생성을 목표로 합니다.",
-      "CLI와 CI 연동은 향후 계획이며, 구현된 기능만 완료된 기능으로 표시합니다.",
-    ],
-    process: ["The project is intentionally presented as in development; planned pipeline stages are not represented as shipped functionality."],
-    koProcess: ["개발 중인 프로젝트로 명확히 표시하며, 계획된 파이프라인 단계를 출시 기능처럼 표현하지 않습니다."],
-    outcomes: ["Expands the portfolio toward dependency management, software supply-chain awareness, automation, and tooling."],
-    koOutcomes: ["의존성 관리, 소프트웨어 공급망 인식, 자동화, 도구 개발 방향으로 포트폴리오를 확장합니다."],
-  },
-  ...sideProjects,
-  {
-    title: "Don't Get Caught Korean",
-    koTitle: "Don't Get Caught Korean",
-    location: "Independent / Team Project",
-    koLocation: "독립 / 팀 프로젝트",
-    description:
-      "An Android XR Korean-learning project exploring on-device speech recognition and Unity-to-Android native integration on Galaxy XR.",
-    koDescription:
-      "Galaxy XR에서 온디바이스 음성 인식과 Unity-Android 네이티브 연동을 탐구하는 Android XR 한국어 학습 프로젝트입니다.",
-    icon: "bi-mic",
-    imageAlt: "Don't Get Caught Korean project thumbnail",
-    koImageAlt: "Don't Get Caught Korean 프로젝트 썸네일",
-    tags: ["Unity", "Android XR", "Galaxy XR", "On-device STT", "Android JNI"],
-    role: "Independent / Team Project",
-    koRole: "독립 / 팀 프로젝트",
-    timeline: "Independent project",
-    koTimeline: "독립 프로젝트",
-    team: "Project team",
-    koTeam: "프로젝트 팀",
-    category: "Android XR",
-    koCategory: "Android XR",
-    focus: [
-      "Explore Korean-learning interactions for Android XR.",
-      "Integrate on-device speech recognition through Android JNI and native interfaces.",
-    ],
-    koFocus: [
-      "Android XR 환경의 한국어 학습 인터랙션을 탐구합니다.",
-      "Android JNI와 네이티브 인터페이스를 통해 온디바이스 음성 인식을 연동합니다.",
-    ],
-    process: ["Keep the project clearly identified as independent/team work rather than employment experience."],
-    koProcess: ["고용 경험이 아닌 독립/팀 프로젝트임을 명확히 표시합니다."],
-    outcomes: ["Extends native-integration experience into Android XR and on-device speech workflows."],
-    koOutcomes: ["Android XR 및 온디바이스 음성 워크플로우로 네이티브 연동 경험을 확장합니다."],
-  },
-];
+export const engineeringProjects = [visionLingoProject];

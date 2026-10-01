@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-  additionalProjects,
   contactLinks,
   engineeringProjects,
   experiences,
@@ -31,23 +30,7 @@ const heroSocialLinks = [
   },
 ];
 
-const heroVideoSources = [
-  "images_videos/videos/0_sagarvision_landmark_0_imageless.mp4",
-  "images_videos/videos/0_sagarvision_landmark_1.mp4",
-  "images_videos/videos/1_sagarvision_gap.mp4",
-  "images_videos/videos/2_sagarvision_resection.mp4",
-  "images_videos/videos/3_timeSale.mp4",
-  "images_videos/videos/4_portal_0.mp4",
-  "images_videos/videos/4_portal_1.mp4",
-  "images_videos/videos/5_storeScan.mp4",
-];
-
-const heroVideoFadeSeconds = 0.9;
 const mobileHeroMediaQuery = "(max-width: 666px)";
-
-function getNextHeroVideoIndex(currentIndex) {
-  return (currentIndex + 1) % heroVideoSources.length;
-}
 
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
@@ -112,7 +95,7 @@ function getProjectDetailContentHref(project, content) {
 }
 
 function getAllProjectItems() {
-  return [...projects, ...additionalProjects, ...engineeringProjects];
+  return [...projects, ...engineeringProjects];
 }
 
 function getCurrentHashRoute() {
@@ -164,7 +147,6 @@ function getDetailContentFromRoute(route) {
 }
 
 function getProjectSectionId(project) {
-  if (additionalProjects.some((item) => getProjectSlug(item) === getProjectSlug(project))) return "sideprojects";
   if (engineeringProjects.some((item) => getProjectSlug(item) === getProjectSlug(project))) return "engineering";
   return "featuredproject";
 }
@@ -456,12 +438,7 @@ function Header({ progress, activeSection, language, text }) {
 }
 
 function Hero({ progress, text, language, showScrollCue }) {
-  const heroVideoRefs = useRef([]);
   const isMobileHeroViewport = useIsMobileHeroViewport();
-  const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
-  const [activeHeroVideoSlot, setActiveHeroVideoSlot] = useState(0);
-  const [transitionHeroVideoSlot, setTransitionHeroVideoSlot] = useState(null);
-  const [transitionSourceHeroVideoSlot, setTransitionSourceHeroVideoSlot] = useState(null);
   const eased = isMobileHeroViewport ? 0 : Math.max((progress - 0.15) / 0.85, 0);
   let endScale = 0.85;
   if (typeof window !== "undefined" && window.innerWidth >= 1440) endScale = 0.5;
@@ -477,101 +454,6 @@ function Hero({ progress, text, language, showScrollCue }) {
       ?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
   };
 
-  const playNextHeroVideo = () => {
-    if (isMobileHeroViewport) return;
-    if (transitionHeroVideoSlot !== null) return;
-
-    const nextSlot = activeHeroVideoSlot === 0 ? 1 : 0;
-    const nextVideoIndex = getNextHeroVideoIndex(heroVideoSlots[activeHeroVideoSlot]);
-    setHeroVideoSlots((slots) => {
-      const nextSlots = [...slots];
-      nextSlots[nextSlot] = nextVideoIndex;
-      return nextSlots;
-    });
-    setTransitionSourceHeroVideoSlot(activeHeroVideoSlot);
-    setTransitionHeroVideoSlot(nextSlot);
-  };
-
-  const handleHeroVideoTimeUpdate = (slot, event) => {
-    if (slot !== activeHeroVideoSlot || transitionHeroVideoSlot !== null) return;
-
-    const video = event.currentTarget;
-    if (!Number.isFinite(video.duration)) return;
-
-    if (video.duration - video.currentTime <= heroVideoFadeSeconds) {
-      playNextHeroVideo();
-    }
-  };
-
-  const handleHeroVideoError = (slot) => {
-    if (slot === transitionHeroVideoSlot) {
-      setHeroVideoSlots((slots) => {
-        const nextSlots = [...slots];
-        nextSlots[slot] = getNextHeroVideoIndex(slots[slot]);
-        return nextSlots;
-      });
-      return;
-    }
-
-    if (slot === activeHeroVideoSlot) {
-      playNextHeroVideo();
-    }
-  };
-
-  const completeHeroVideoTransition = (slot, event) => {
-    if (event.propertyName !== "opacity" || slot !== transitionHeroVideoSlot) return;
-
-    const previousVideo = heroVideoRefs.current[transitionSourceHeroVideoSlot];
-    if (previousVideo) {
-      previousVideo.pause();
-      previousVideo.currentTime = 0;
-    }
-
-    setTransitionHeroVideoSlot(null);
-    setTransitionSourceHeroVideoSlot(null);
-  };
-
-  useEffect(() => {
-    if (isMobileHeroViewport) return;
-
-    const activeVideo = heroVideoRefs.current[activeHeroVideoSlot];
-    if (!activeVideo) return;
-
-    activeVideo.play().catch(() => {});
-  }, [activeHeroVideoSlot, isMobileHeroViewport]);
-
-  useEffect(() => {
-    if (isMobileHeroViewport) return undefined;
-    if (transitionHeroVideoSlot === null) return undefined;
-
-    const nextVideo = heroVideoRefs.current[transitionHeroVideoSlot];
-    if (!nextVideo) return undefined;
-
-    let cancelled = false;
-    let started = false;
-
-    const startFade = () => {
-      if (cancelled || started) return;
-      started = true;
-      window.requestAnimationFrame(() => setActiveHeroVideoSlot(transitionHeroVideoSlot));
-    };
-
-    nextVideo.currentTime = 0;
-    nextVideo.load();
-    nextVideo.play().catch(() => {});
-
-    if (nextVideo.readyState >= 2) {
-      startFade();
-    } else {
-      nextVideo.addEventListener("canplay", startFade, { once: true });
-    }
-
-    return () => {
-      cancelled = true;
-      nextVideo.removeEventListener("canplay", startFade);
-    };
-  }, [transitionHeroVideoSlot, heroVideoSlots, isMobileHeroViewport]);
-
   return (
     <section className={`hero ${isMobileHeroViewport ? "is-mobile-simple" : ""}`} id="top">
       <div className="scene">
@@ -585,28 +467,6 @@ function Hero({ progress, text, language, showScrollCue }) {
                 }
           }
         >
-          {!isMobileHeroViewport &&
-            heroVideoSlots.map((videoIndex, slot) => (
-              <video
-                key={`hero-video-${slot}-${videoIndex}`}
-                ref={(element) => {
-                  heroVideoRefs.current[slot] = element;
-                }}
-                className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
-                  videoIndex === 0 ? "is-zoomed-out" : ""
-                }`}
-                src={assetPath(heroVideoSources[videoIndex])}
-                autoPlay={slot === activeHeroVideoSlot}
-                muted
-                playsInline
-                preload="auto"
-                onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
-                onEnded={playNextHeroVideo}
-                onError={() => handleHeroVideoError(slot)}
-                onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
-                aria-hidden="true"
-              />
-            ))}
           <div className="vr-world">
             <div className="hero-section">
               <div className="hero-content">
@@ -929,19 +789,6 @@ function FeaturedProjects({ language, text }) {
   );
 }
 
-function SideProjects({ language, text }) {
-  return (
-    <ProjectSection
-      id="sideprojects"
-      title={text.sections.sideProjects}
-      items={additionalProjects}
-      language={language}
-      text={text}
-      className="side-projects"
-    />
-  );
-}
-
 function EngineeringProjects({ language, text }) {
   return (
     <ProjectSection
@@ -1067,14 +914,16 @@ function ProjectDetail({ project, language, text, onBack }) {
               </ul>
             </section>
 
-            <section className="project-detail-section">
-              <h2>{text.projectDetail.process}</h2>
-              <ul>
-                {process.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </section>
+            {process.length > 0 ? (
+              <section className="project-detail-section">
+                <h2>{text.projectDetail.process}</h2>
+                <ul>
+                  {process.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
             <section className="project-detail-section">
               <h2>{text.projectDetail.outcomes}</h2>
@@ -1087,10 +936,12 @@ function ProjectDetail({ project, language, text, onBack }) {
               </ul>
             </section>
 
-            <section className="project-detail-section">
-              <h2>{text.projectDetail.reflection}</h2>
-              <p>{text.projectDetail.reflectionCopy}</p>
-            </section>
+            {project.reflection !== false ? (
+              <section className="project-detail-section">
+                <h2>{text.projectDetail.reflection}</h2>
+                <p>{text.projectDetail.reflectionCopy}</p>
+              </section>
+            ) : null}
           </article>
         </div>
       </div>
@@ -1315,7 +1166,6 @@ export default function App() {
             <FeaturedProjects language={language} text={text} />
             <WorkExperience language={language} text={text} />
             <EngineeringProjects language={language} text={text} />
-            <SideProjects language={language} text={text} />
             <TechStack language={language} text={text} />
             <Footer text={text} />
           </>
