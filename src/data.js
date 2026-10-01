@@ -3,7 +3,6 @@ export const navItems = [
   { id: "engineering", label: "Side Projects", koLabel: "사이드 프로젝트" },
   { id: "workexperience", label: "Experience", koLabel: "경력" },
   { id: "techstacksection", label: "Tech Stack", koLabel: "기술 스택" },
-  { id: "contact", label: "Contact", koLabel: "연락처" },
 ];
 
 export const languages = [
@@ -57,11 +56,6 @@ export const uiText = {
       reflectionCopy:
         "This work reflects a real-time engineering practice: connecting device data, client architecture, visualization, and delivery constraints into reliable application behavior.",
     },
-    footer: {
-      headline: "Ready to build stable AR/VR and mobile experiences together?",
-      contact: "Contact by Email",
-      contactHref: "mailto:ighong11@gmail.com",
-    },
   },
   ko: {
     header: {
@@ -108,21 +102,12 @@ export const uiText = {
       reflectionCopy:
         "이 프로젝트를 통해 제품 목표를 안정적인 Unity 클라이언트 기능으로 구현하고, 플랫폼 제약과 네이티브 연동, 런타임 성능 사이의 균형을 맞추는 경험을 쌓았습니다.",
     },
-    footer: {
-      headline: "안정적인 AR/VR 및 모바일 경험을 함께 만들어가겠습니다.",
-      contact: "이메일로 연락하기",
-      contactHref: "mailto:ighong11@gmail.com",
-    },
   },
 };
 
 export const platformIcons = [
   { icon: "bi-phone", label: "Android", koLabel: "Android" },
   { icon: "bi-window", label: "Windows", koLabel: "Windows" },
-];
-
-export const contactLinks = [
-  { href: "mailto:ighong11@gmail.com", icon: "bi-envelope", label: "Email" },
 ];
 
 const legacyProjects = [

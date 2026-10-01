@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  contactLinks,
   engineeringProjects,
   experiences,
   languages,
@@ -30,7 +29,19 @@ const heroSocialLinks = [
   },
 ];
 
+const heroVideoSources = [
+  "images_videos/videos/0_sagarvision_landmark_0_imageless.mp4",
+  "images_videos/videos/0_sagarvision_landmark_1.mp4",
+  "images_videos/videos/1_sagarvision_gap.mp4",
+  "images_videos/videos/2_sagarvision_resection.mp4",
+];
+
+const heroVideoFadeSeconds = 0.9;
 const mobileHeroMediaQuery = "(max-width: 666px)";
+
+function getNextHeroVideoIndex(currentIndex) {
+  return (currentIndex + 1) % heroVideoSources.length;
+}
 
 function getInitialLanguage() {
   if (typeof window === "undefined") return "en";
@@ -438,7 +449,12 @@ function Header({ progress, activeSection, language, text }) {
 }
 
 function Hero({ progress, text, language, showScrollCue }) {
+  const heroVideoRefs = useRef([]);
   const isMobileHeroViewport = useIsMobileHeroViewport();
+  const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
+  const [activeHeroVideoSlot, setActiveHeroVideoSlot] = useState(0);
+  const [transitionHeroVideoSlot, setTransitionHeroVideoSlot] = useState(null);
+  const [transitionSourceHeroVideoSlot, setTransitionSourceHeroVideoSlot] = useState(null);
   const eased = isMobileHeroViewport ? 0 : Math.max((progress - 0.15) / 0.85, 0);
   let endScale = 0.85;
   if (typeof window !== "undefined" && window.innerWidth >= 1440) endScale = 0.5;
@@ -454,6 +470,89 @@ function Hero({ progress, text, language, showScrollCue }) {
       ?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
   };
 
+  const playNextHeroVideo = () => {
+    if (isMobileHeroViewport || transitionHeroVideoSlot !== null) return;
+
+    const nextSlot = activeHeroVideoSlot === 0 ? 1 : 0;
+    const nextVideoIndex = getNextHeroVideoIndex(heroVideoSlots[activeHeroVideoSlot]);
+    setHeroVideoSlots((slots) => {
+      const nextSlots = [...slots];
+      nextSlots[nextSlot] = nextVideoIndex;
+      return nextSlots;
+    });
+    setTransitionSourceHeroVideoSlot(activeHeroVideoSlot);
+    setTransitionHeroVideoSlot(nextSlot);
+  };
+
+  const handleHeroVideoTimeUpdate = (slot, event) => {
+    if (slot !== activeHeroVideoSlot || transitionHeroVideoSlot !== null) return;
+
+    const video = event.currentTarget;
+    if (Number.isFinite(video.duration) && video.duration - video.currentTime <= heroVideoFadeSeconds) {
+      playNextHeroVideo();
+    }
+  };
+
+  const handleHeroVideoError = (slot) => {
+    if (slot === transitionHeroVideoSlot) {
+      setHeroVideoSlots((slots) => {
+        const nextSlots = [...slots];
+        nextSlots[slot] = getNextHeroVideoIndex(slots[slot]);
+        return nextSlots;
+      });
+      return;
+    }
+
+    if (slot === activeHeroVideoSlot) playNextHeroVideo();
+  };
+
+  const completeHeroVideoTransition = (slot, event) => {
+    if (event.propertyName !== "opacity" || slot !== transitionHeroVideoSlot) return;
+
+    const previousVideo = heroVideoRefs.current[transitionSourceHeroVideoSlot];
+    if (previousVideo) {
+      previousVideo.pause();
+      previousVideo.currentTime = 0;
+    }
+
+    setTransitionHeroVideoSlot(null);
+    setTransitionSourceHeroVideoSlot(null);
+  };
+
+  useEffect(() => {
+    if (isMobileHeroViewport) return;
+
+    const activeVideo = heroVideoRefs.current[activeHeroVideoSlot];
+    activeVideo?.play().catch(() => {});
+  }, [activeHeroVideoSlot, isMobileHeroViewport]);
+
+  useEffect(() => {
+    if (isMobileHeroViewport || transitionHeroVideoSlot === null) return undefined;
+
+    const nextVideo = heroVideoRefs.current[transitionHeroVideoSlot];
+    if (!nextVideo) return undefined;
+
+    let cancelled = false;
+    let started = false;
+    const startFade = () => {
+      if (cancelled || started) return;
+      started = true;
+      window.requestAnimationFrame(() => setActiveHeroVideoSlot(transitionHeroVideoSlot));
+    };
+
+    nextVideo.currentTime = 0;
+    nextVideo.load();
+    nextVideo.play().catch(() => {});
+
+    if (nextVideo.readyState >= 2) startFade();
+    else nextVideo.addEventListener("canplay", startFade, { once: true });
+
+    return () => {
+      cancelled = true;
+      nextVideo.removeEventListener("canplay", startFade);
+    };
+  }, [transitionHeroVideoSlot, heroVideoSlots, isMobileHeroViewport]);
+
   return (
     <section className={`hero ${isMobileHeroViewport ? "is-mobile-simple" : ""}`} id="top">
       <div className="scene">
@@ -467,6 +566,28 @@ function Hero({ progress, text, language, showScrollCue }) {
                 }
           }
         >
+          {!isMobileHeroViewport &&
+            heroVideoSlots.map((videoIndex, slot) => (
+              <video
+                key={`hero-video-${slot}-${videoIndex}`}
+                ref={(element) => {
+                  heroVideoRefs.current[slot] = element;
+                }}
+                className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
+                  videoIndex === 0 ? "is-zoomed-out" : ""
+                }`}
+                src={assetPath(heroVideoSources[videoIndex])}
+                autoPlay={slot === activeHeroVideoSlot}
+                muted
+                playsInline
+                preload="auto"
+                onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
+                onEnded={playNextHeroVideo}
+                onError={() => handleHeroVideoError(slot)}
+                onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
+                aria-hidden="true"
+              />
+            ))}
           <div className="vr-world">
             <div className="hero-section">
               <div className="hero-content">
@@ -1050,32 +1171,6 @@ function WorkExperience({ language, text }) {
   );
 }
 
-function Footer({ text }) {
-  return (
-    <section className="footer2-section" id="contact">
-      <div className="footer2">
-        <div className="container">
-          <div className="ready-to-talk">
-            <h1>{text.footer.headline}</h1>
-            <a href={text.footer.contactHref}>
-              <button className="call-to-action btn" type="button">
-                {text.footer.contact}
-              </button>
-            </a>
-          </div>
-          <div className="contact-links">
-            {contactLinks.map((link) => (
-              <a href={link.href} aria-label={link.label} key={link.href}>
-                <i className={`bi ${link.icon}`} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
   const [route, setRoute] = useState(getCurrentHashRoute);
@@ -1153,12 +1248,10 @@ export default function App() {
               text={text}
               onBackToProject={closeProjectDetailContent}
             />
-            <Footer text={text} />
           </>
         ) : selectedProject ? (
           <>
             <ProjectDetail project={selectedProject} language={language} text={text} onBack={closeProjectDetail} />
-            <Footer text={text} />
           </>
         ) : (
           <>
@@ -1167,7 +1260,6 @@ export default function App() {
             <WorkExperience language={language} text={text} />
             <EngineeringProjects language={language} text={text} />
             <TechStack language={language} text={text} />
-            <Footer text={text} />
           </>
         )}
       </main>
