@@ -1,8 +1,8 @@
 export const navItems = [
   { id: "featuredproject", label: "Projects", koLabel: "프로젝트" },
-  { id: "sideprojects", label: "Side Projects", koLabel: "사이드 프로젝트" },
+  { id: "engineering", label: "Engineering", koLabel: "엔지니어링" },
+  { id: "workexperience", label: "Experience", koLabel: "경력" },
   { id: "techstacksection", label: "Tech Stack", koLabel: "기술 스택" },
-  { id: "workexperience", label: "Work Experience", koLabel: "경력" },
   { id: "contact", label: "Contact", koLabel: "연락처" },
 ];
 
@@ -18,20 +18,21 @@ export const uiText = {
     },
     hero: {
       name: "CHANYOUNG HONG",
-      subtitle: "Unity Client Programmer",
+      subtitle: "Software Engineer",
       description:
-        "Unity client programmer building AR/VR, mobile, and WebGL experiences with a focus on native integration, scalable asset systems, and practical performance optimization.",
-      platforms: "Experienced across",
+        "Software engineer building real-time applications across medical software, surgical navigation, spatial computing, computer vision, and interactive 3D systems.",
+      platforms: "Medical Software · Spatial Computing · Computer Vision",
       contact: "Contact by Email",
       projects: "View Projects",
       scroll: "Scroll down to see projects",
       initials: "HCY",
-      profileKicker: "Unity Client",
-      profileTags: ["AR/VR", "Mobile", "WebGL"],
+      profileKicker: "Software Engineer",
+      profileTags: ["Medical Software", "Spatial Computing", "Computer Vision"],
     },
     sections: {
-      featuredProjects: "Projects",
-      sideProjects: "Side Projects",
+      featuredProjects: "Selected Projects",
+      sideProjects: "Additional Projects",
+      engineering: "Engineering / Independent Projects",
       techStack: "Tech Stack",
       workExperiences: "Work Experience",
     },
@@ -39,21 +40,22 @@ export const uiText = {
       back: "Back to Projects",
       open: "Open Case Study",
       metaTitle: "Project Details",
-      role: "Role",
+      role: "My Role",
       timeline: "Timeline",
       team: "Team",
       category: "Target Platform",
       relatedPage: "Related Page",
       overview: "Overview",
-      focus: "Goals & Constraints",
-      process: "Process",
-      outcomes: "Outcomes",
+      architecture: "System Architecture",
+      focus: "My Responsibilities & Technical Challenges",
+      process: "Engineering Decisions",
+      outcomes: "Result / Impact",
       detailContentTitle: "Case Study Details",
       openDetailContent: "Open Detail",
       backToProject: "Back to Project",
       reflection: "Reflection",
       reflectionCopy:
-        "This project strengthened my ability to turn product goals into stable Unity client features while balancing platform constraints, native integration, and practical runtime performance.",
+        "This work reflects a real-time engineering practice: connecting device data, client architecture, visualization, and delivery constraints into reliable application behavior.",
     },
     footer: {
       headline: "Ready to build stable AR/VR and mobile experiences together?",
@@ -67,20 +69,21 @@ export const uiText = {
     },
     hero: {
       name: "홍찬영",
-      subtitle: "Unity Client Programmer",
+      subtitle: "소프트웨어 엔지니어",
       description:
-        "Unity 기반 AR/VR 및 모바일 앱을 개발하며, 네이티브 연동, 프로파일링 기반 성능 최적화에 강점을 가진 클라이언트 개발자입니다.",
-      platforms: "주요 경험 플랫폼",
+        "의료 소프트웨어, 수술 내비게이션, Spatial Computing, Computer Vision, 실시간 3D 시스템 전반의 애플리케이션을 개발하는 소프트웨어 엔지니어입니다.",
+      platforms: "의료 소프트웨어 · Spatial Computing · Computer Vision",
       contact: "이메일로 연락하기",
       projects: "프로젝트 보기",
       scroll: "아래로 스크롤해 프로젝트를 확인하세요",
       initials: "HCY",
-      profileKicker: "Unity Client",
-      profileTags: ["AR/VR", "Mobile"],
+      profileKicker: "Software Engineer",
+      profileTags: ["Medical Software", "Spatial Computing", "Computer Vision"],
     },
     sections: {
-      featuredProjects: "프로젝트",
-      sideProjects: "사이드 프로젝트",
+      featuredProjects: "주요 프로젝트",
+      sideProjects: "추가 프로젝트",
+      engineering: "엔지니어링 / 독립 프로젝트",
       techStack: "기술 스택",
       workExperiences: "경력",
     },
@@ -88,15 +91,16 @@ export const uiText = {
       back: "프로젝트 목록으로",
       open: "상세 보기",
       metaTitle: "프로젝트 정보",
-      role: "역할",
+      role: "담당 역할",
       timeline: "기간",
       team: "팀",
       category: "타겟 플랫폼",
       relatedPage: "관련 페이지",
       overview: "개요",
-      focus: "목표 및 제약",
-      process: "진행 과정",
-      outcomes: "성과",
+      architecture: "시스템 아키텍처",
+      focus: "담당 업무 및 기술 과제",
+      process: "엔지니어링 의사결정",
+      outcomes: "결과 및 영향",
       detailContentTitle: "상세 사례",
       openDetailContent: "상세 보기",
       backToProject: "프로젝트로 돌아가기",
@@ -126,22 +130,22 @@ export const contactLinks = [
   { href: "mailto:ighong11@gmail.com", icon: "bi-envelope", label: "Email" },
 ];
 
-export const projects = [
+const legacyProjects = [
   {
     title: "SagarVision AR System",
     koTitle: "SagarVision AR System",
     location: "Skyve · Medical Technology Innovation Team · 2025.04 - Present",
     koLocation: "스카이브 의료기술혁신팀 · 2025.04 ~ 진행 중",
     description:
-      "Developed Unity Android and Windows clients for an artificial joint surgery assistance system, improving real-time communication, architecture, build flow, and runtime performance.",
+      "Developed Unity Android and Windows clients for a surgical navigation workflow, integrating real-time device communication, tracking data, 3D visualization, architecture, and delivery tooling.",
     koDescription:
       "인공 관절 수술 보조 시스템의 Unity Android, Windows 클라이언트를 개발하며 통신, 구조, 빌드 흐름, 런타임 성능을 개선했습니다.",
     icon: "bi-activity",
     image: "images_videos/sagarvision.png",
     imageAlt: "SagarVision AR System thumbnail",
     koImageAlt: "SagarVision AR System 썸네일",
-    tags: ["Unity", "C#", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL", "IMGUI"],
-    role: "Unity Client Programmer",
+    tags: ["Unity", "C#", "TCP/IP", "UDP", "XREAL", "Android", "Windows"],
+    role: "Software Engineer · Unity Client",
     koRole: "Unity 클라이언트 개발자",
     timeline: "2025.04 - Present",
     koTimeline: "2025.04 ~ 진행 중",
@@ -154,9 +158,9 @@ export const projects = [
       href: "https://www.mkhealth.co.kr/news/articleView.html?idxno=75963",
     },
     focus: [
-      "Build stable Android and Windows clients for a medical-assistance workflow.",
-      "Connect device communication and real-time AR updates.",
-      "Improve maintainability through clearer client architecture.",
+      "Implemented Android and Windows Unity client features for a surgical navigation workflow.",
+      "Integrated TCP/IP and UDP communication paths for device and tracking data.",
+      "Improved maintainability by separating UI, workflow state, and network-driven data with a reactive MVP structure.",
     ],
     koFocus: [
       "의료 보조 워크플로우용 Android, Windows 클라이언트를 안정적으로 개발했습니다.",
@@ -164,9 +168,14 @@ export const projects = [
       "클라이언트 구조를 정리해 유지보수성을 높였습니다.",
     ],
     process: [
-      "Created build tooling to reduce repeated setup work.",
-      "Implemented AR visual feedback with performance in mind.",
-      "Profiled and optimized runtime behavior on target devices.",
+      "Built repeatable client build tooling to reduce setup work across target platforms.",
+      "Implemented performance-aware AR visual feedback and rendering behavior.",
+      "Profiled target-device runtime behavior and iterated on performance and thermal constraints.",
+    ],
+    architecture: [
+      "Tracking and sensor data enter the Unity client through TCP/IP and UDP communication paths.",
+      "The client processes navigation workflow state and coordinate-driven updates before presenting 3D visualization and clinical UI.",
+      "Reactive MVP boundaries keep UI, application state, and network-driven data independently maintainable.",
     ],
     koProcess: [
       "반복되는 빌드 설정을 줄이기 위한 커스텀 도구를 만들었습니다.",
@@ -174,7 +183,7 @@ export const projects = [
       "타깃 디바이스에서 프로파일링과 최적화를 반복했습니다.",
     ],
     outcomes: [
-      "Improved client performance from roughly 15 FPS to stable 60 FPS.",
+      "Improved a client workflow from roughly 15 FPS to stable 60 FPS through profiling-driven optimization.",
       "Reduced runtime heat through profiling-driven optimization.",
       "Prepared a cleaner foundation for ongoing feature work.",
       {
@@ -608,39 +617,39 @@ export const sideProjects = [
 export const techStacks = [
   {
     icon: "bi-code-slash",
-    title: "Programming Languages",
-    koTitle: "프로그래밍 언어",
-    skills: ["C# (Main)", "C++", "Python"],
+    title: "Languages",
+    koTitle: "언어",
+    skills: ["C#", "C++", "Python", "JavaScript"],
   },
   {
     icon: "bi-unity",
-    title: "Unity",
-    koTitle: "Unity",
-    skills: ["URP", "Shader Graph", "OpenXR"],
+    title: "Application / Client",
+    koTitle: "애플리케이션 / 클라이언트",
+    skills: ["Unity", ".NET", "Android", "Windows", "WebGL", "React Integration"],
   },
   {
-    icon: "bi-phone",
-    title: "Platforms",
-    koTitle: "플랫폼",
-    skills: ["Android", "iOS", "Android XR", "Vision OS", "Horizon OS", "Windows", "WebGL"],
+    icon: "bi-badge-vr",
+    title: "Spatial / XR",
+    koTitle: "Spatial / XR",
+    skills: ["ARFoundation", "XREAL", "Vision Pro", "visionOS", "Meta Quest", "Android XR"],
   },
   {
-    icon: "bi-kanban",
-    title: "AI Skills",
-    koTitle: "AI 활용",
-    skills: ["Agent Orchestration", "Local LLM based CI/CD", "Testing"],
+    icon: "bi-camera-video",
+    title: "Computer Vision",
+    koTitle: "Computer Vision",
+    skills: ["OpenCV", "ArUco", "TFLite", "ZED", "Tracking"],
   },
   {
     icon: "bi-diagram-2",
-    title: "Network",
-    koTitle: "네트워크",
-    skills: ["TCP/IP", "UDP", "REST API"],
+    title: "Communication / Integration",
+    koTitle: "통신 / 연동",
+    skills: ["TCP/IP", "UDP", "REST API", "Android JNI", "Flutter Integration"],
   },
   {
     icon: "bi-kanban",
-    title: "Collaboration",
-    koTitle: "협업",
-    skills: ["Git", "SVN", "Jira", "Notion", "Slack"],
+    title: "Engineering",
+    koTitle: "엔지니어링",
+    skills: ["Git", "GitHub Actions", "CI/CD", "Testing", "SBOM / CycloneDX"],
   },
 ];
 
@@ -648,12 +657,12 @@ export const experiences = [
   {
     date: "Apr 2025 - Present",
     koDate: "2025.04 ~ 재직 중",
-    title: "Unity XR Engineer",
-    koTitle: "Unity XR Engineer",
+    title: "Software Engineer · Medical Technology",
+    koTitle: "소프트웨어 엔지니어 · 의료기술",
     company: "Skyve",
     companyUrl: "http://www.skyve.co.kr/",
     description:
-      "Working in the Medical Technology Innovation Team on Unity-based AR/VR applications. Developed Android and Windows clients for SagarVision AR System, integrated socket communication, introduced UniRx and MVP architecture, built custom build automation, and improved runtime performance and heat behavior.",
+      "Build medical-device software in the Medical Technology Innovation Team. Develop Android and Windows Unity clients for SagarVision surgical navigation workflows; integrate TCP/IP and UDP data paths, support real-time 3D visualization, refine client architecture, automate build delivery, and validate runtime performance on target devices.",
     koDescription:
       "의료기술혁신팀에서 Unity 기반 AR/VR 앱을 개발하고 있습니다. SagarVision AR System의 Android 및 Windows 클라이언트 개발, Socket 통신 연동, UniRx와 MVP 아키텍처 도입, 커스텀 빌드 자동화, 성능 및 발열 개선을 담당했습니다.",
     apps: [["SagarVision AR System", "#featuredproject"]],
@@ -662,12 +671,12 @@ export const experiences = [
   {
     date: "Mar 2022 - Jun 2024",
     koDate: "2022.03 ~ 2024.06",
-    title: "Unity XR Engineer",
-    koTitle: "Unity XR Engineer",
+    title: "Software Engineer · XR",
+    koTitle: "소프트웨어 엔지니어 · XR",
     company: "HyperCloud",
     companyUrl: "https://www.hyper-cloud.kr/",
     description:
-      "Built Unity-based AR/VR and AR solution modules in the XR Team. Worked on HARS / HYPER Solution, Hyundai Duty Free AR content, Seoul AR navigation, and Gyeongjuro ON AR store scanning.",
+      "Built Unity-based AR/XR applications and reusable solution modules in the XR Team. Delivered Seoul AR navigation, Flutter-embedded Unity experiences, native/mobile integrations, recognition-driven content, and retail XR projects including Hyundai Duty Free and HARS / HYPER Solution.",
     koDescription:
       "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
     apps: [
@@ -677,5 +686,170 @@ export const experiences = [
       ["Gyeongjuro ON", "#featuredproject"],
     ],
     skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
+  },
+];
+
+const jetsonVisionProject = {
+  title: "Jetson Vision Pipeline",
+  koTitle: "Jetson Vision Pipeline",
+  location: "Computer Vision / Spatial Computing",
+  koLocation: "Computer Vision / Spatial Computing",
+  description:
+    "Worked on a real-time marker-based tracking pipeline using NVIDIA Jetson, a ZED stereo camera, ArUco detection, pose processing, and Kalman filtering.",
+  koDescription:
+    "NVIDIA Jetson, ZED 스테레오 카메라, ArUco 검출, 포즈 처리, Kalman filtering을 활용한 실시간 마커 기반 트래킹 파이프라인을 다뤘습니다.",
+  icon: "bi-camera-video",
+  imageAlt: "Jetson Vision Pipeline conceptual project thumbnail",
+  koImageAlt: "Jetson Vision Pipeline 프로젝트 썸네일",
+  tags: ["NVIDIA Jetson", "ZED", "ArUco", "Computer Vision", "Kalman Filtering", "Real-time"],
+  role: "Computer Vision Engineer",
+  koRole: "Computer Vision 엔지니어",
+  timeline: "Previous project",
+  koTimeline: "이전 프로젝트",
+  team: "Project team",
+  koTeam: "프로젝트 팀",
+  category: "Edge device / Stereo camera",
+  koCategory: "엣지 디바이스 / 스테레오 카메라",
+  focus: [
+    "Processed real-time marker observations from a ZED stereo camera on NVIDIA Jetson.",
+    "Connected ArUco detection and pose/tracking processing for spatial-computing workflows.",
+    "Applied Kalman filtering as part of the tracking pipeline.",
+  ],
+  koFocus: [
+    "NVIDIA Jetson에서 ZED 스테레오 카메라의 실시간 마커 관측값을 처리했습니다.",
+    "Spatial Computing 워크플로우를 위해 ArUco 검출과 포즈/트래킹 처리를 연결했습니다.",
+    "트래킹 파이프라인의 일부로 Kalman filtering을 적용했습니다.",
+  ],
+  process: [
+    "Kept the project description scoped to the implemented vision and tracking integration.",
+    "Avoided presenting unverified model details or benchmark claims.",
+  ],
+  koProcess: [
+    "구현한 비전 및 트래킹 연동 범위 안에서 프로젝트를 설명했습니다.",
+    "검증되지 않은 모델 세부 정보나 벤치마크 수치는 제시하지 않았습니다.",
+  ],
+  outcomes: ["Built practical experience with edge-device vision, marker tracking, and real-time pose processing."],
+  koOutcomes: ["엣지 디바이스 비전, 마커 트래킹, 실시간 포즈 처리에 대한 실무 경험을 쌓았습니다."],
+};
+
+const webglMinigameProject = {
+  title: "Market Validation WebGL Minigame",
+  koTitle: "Market Validation WebGL Minigame",
+  location: "Software Engineering / Browser Delivery",
+  koLocation: "소프트웨어 엔지니어링 / 브라우저 배포",
+  description:
+    "Built and integrated a Unity WebGL minigame for browser delivery, connecting the client with React and REST-based application flows while profiling runtime performance.",
+  koDescription:
+    "Unity WebGL 미니게임을 브라우저에 배포하고 React 및 REST 기반 애플리케이션 흐름과 연동했으며, 런타임 성능을 프로파일링했습니다.",
+  icon: "bi-controller",
+  image: "images_videos/webgl.png",
+  imageAlt: "Market Validation WebGL Minigame thumbnail",
+  koImageAlt: "Market Validation WebGL Minigame 썸네일",
+  tags: ["Unity WebGL", "React", "JavaScript", "jslib", "REST API", "Profiling"],
+  role: "Unity Client Engineer",
+  koRole: "Unity 클라이언트 엔지니어",
+  timeline: "Project work",
+  koTimeline: "프로젝트 작업",
+  team: "Project team",
+  koTeam: "프로젝트 팀",
+  category: "WebGL / Browser",
+  koCategory: "WebGL / Browser",
+  focus: [
+    "Integrated a Unity WebGL client into a React-based web experience.",
+    "Connected browser-side JavaScript and REST application flows.",
+    "Profiled runtime behavior to guide practical performance improvements.",
+  ],
+  koFocus: [
+    "Unity WebGL 클라이언트를 React 기반 웹 경험에 통합했습니다.",
+    "브라우저 JavaScript와 REST 애플리케이션 흐름을 연결했습니다.",
+    "실용적인 성능 개선을 위해 런타임 동작을 프로파일링했습니다.",
+  ],
+  process: [
+    "Used browser deployment constraints as part of implementation and debugging decisions.",
+    "Focused the case study on integration and profiling rather than unsupported benchmark claims.",
+  ],
+  koProcess: [
+    "구현 및 디버깅 의사결정에 브라우저 배포 제약을 반영했습니다.",
+    "검증되지 않은 벤치마크 대신 연동과 프로파일링 경험을 중심으로 사례를 정리했습니다.",
+  ],
+  outcomes: ["Demonstrated client engineering beyond native applications through browser integration and performance investigation."],
+  koOutcomes: ["브라우저 연동과 성능 분석을 통해 네이티브 앱을 넘어선 클라이언트 엔지니어링 경험을 보여줬습니다."],
+};
+
+export const projects = [legacyProjects[0], jetsonVisionProject, legacyProjects[2], webglMinigameProject];
+
+export const additionalProjects = [legacyProjects[1], legacyProjects[3], legacyProjects[4]];
+
+export const engineeringProjects = [
+  {
+    title: "Unity SBOM Generator",
+    koTitle: "Unity SBOM Generator",
+    location: "Open-source tooling · In Development",
+    koLocation: "오픈소스 도구 · 개발 중",
+    description:
+      "An open-source tool in development for generating CycloneDX SBOMs from Unity projects, focused on dependency discovery and CI-friendly output.",
+    koDescription:
+      "Unity 프로젝트에서 CycloneDX SBOM을 생성하기 위해 개발 중인 오픈소스 도구입니다. 의존성 탐색과 CI 친화적인 출력을 목표로 합니다.",
+    icon: "bi-diagram-3",
+    imageAlt: "Unity SBOM Generator conceptual thumbnail",
+    koImageAlt: "Unity SBOM Generator 개념 썸네일",
+    tags: ["C#", ".NET", "CycloneDX", "UPM", "CLI", "GitHub Actions"],
+    role: "Independent Project",
+    koRole: "독립 프로젝트",
+    timeline: "In Development",
+    koTimeline: "개발 중",
+    team: "Independent",
+    koTeam: "개인 프로젝트",
+    category: "Developer tooling / CLI",
+    koCategory: "개발자 도구 / CLI",
+    focus: [
+      "Explore Unity Package Manager dependency discovery and dependency graph construction.",
+      "Generate CycloneDX-compatible software bills of materials without exposing proprietary project dependencies.",
+      "Plan CLI and CI integration as future capabilities; only implemented features should be presented as complete.",
+    ],
+    koFocus: [
+      "Unity Package Manager 의존성 탐색과 의존성 그래프 구성을 탐구합니다.",
+      "독점 프로젝트 의존성을 노출하지 않고 CycloneDX 호환 SBOM 생성을 목표로 합니다.",
+      "CLI와 CI 연동은 향후 계획이며, 구현된 기능만 완료된 기능으로 표시합니다.",
+    ],
+    process: ["The project is intentionally presented as in development; planned pipeline stages are not represented as shipped functionality."],
+    koProcess: ["개발 중인 프로젝트로 명확히 표시하며, 계획된 파이프라인 단계를 출시 기능처럼 표현하지 않습니다."],
+    outcomes: ["Expands the portfolio toward dependency management, software supply-chain awareness, automation, and tooling."],
+    koOutcomes: ["의존성 관리, 소프트웨어 공급망 인식, 자동화, 도구 개발 방향으로 포트폴리오를 확장합니다."],
+  },
+  ...sideProjects,
+  {
+    title: "Don't Get Caught Korean",
+    koTitle: "Don't Get Caught Korean",
+    location: "Independent / Team Project",
+    koLocation: "독립 / 팀 프로젝트",
+    description:
+      "An Android XR Korean-learning project exploring on-device speech recognition and Unity-to-Android native integration on Galaxy XR.",
+    koDescription:
+      "Galaxy XR에서 온디바이스 음성 인식과 Unity-Android 네이티브 연동을 탐구하는 Android XR 한국어 학습 프로젝트입니다.",
+    icon: "bi-mic",
+    imageAlt: "Don't Get Caught Korean project thumbnail",
+    koImageAlt: "Don't Get Caught Korean 프로젝트 썸네일",
+    tags: ["Unity", "Android XR", "Galaxy XR", "On-device STT", "Android JNI"],
+    role: "Independent / Team Project",
+    koRole: "독립 / 팀 프로젝트",
+    timeline: "Independent project",
+    koTimeline: "독립 프로젝트",
+    team: "Project team",
+    koTeam: "프로젝트 팀",
+    category: "Android XR",
+    koCategory: "Android XR",
+    focus: [
+      "Explore Korean-learning interactions for Android XR.",
+      "Integrate on-device speech recognition through Android JNI and native interfaces.",
+    ],
+    koFocus: [
+      "Android XR 환경의 한국어 학습 인터랙션을 탐구합니다.",
+      "Android JNI와 네이티브 인터페이스를 통해 온디바이스 음성 인식을 연동합니다.",
+    ],
+    process: ["Keep the project clearly identified as independent/team work rather than employment experience."],
+    koProcess: ["고용 경험이 아닌 독립/팀 프로젝트임을 명확히 표시합니다."],
+    outcomes: ["Extends native-integration experience into Android XR and on-device speech workflows."],
+    koOutcomes: ["Android XR 및 온디바이스 음성 워크플로우로 네이티브 연동 경험을 확장합니다."],
   },
 ];

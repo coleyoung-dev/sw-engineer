@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
+  additionalProjects,
   contactLinks,
+  engineeringProjects,
   experiences,
   languages,
   navItems,
   platformIcons,
   projects,
-  sideProjects,
   techStacks,
   uiText,
 } from "./data.js";
@@ -111,7 +112,7 @@ function getProjectDetailContentHref(project, content) {
 }
 
 function getAllProjectItems() {
-  return [...projects, ...sideProjects];
+  return [...projects, ...additionalProjects, ...engineeringProjects];
 }
 
 function getCurrentHashRoute() {
@@ -162,8 +163,10 @@ function getDetailContentFromRoute(route) {
   return project && content ? { project, content } : null;
 }
 
-function isSideProject(project) {
-  return sideProjects.some((item) => getProjectSlug(item) === getProjectSlug(project));
+function getProjectSectionId(project) {
+  if (additionalProjects.some((item) => getProjectSlug(item) === getProjectSlug(project))) return "sideprojects";
+  if (engineeringProjects.some((item) => getProjectSlug(item) === getProjectSlug(project))) return "engineering";
+  return "featuredproject";
 }
 
 function getDetailMarkdown(content, language) {
@@ -931,10 +934,23 @@ function SideProjects({ language, text }) {
     <ProjectSection
       id="sideprojects"
       title={text.sections.sideProjects}
-      items={sideProjects}
+      items={additionalProjects}
       language={language}
       text={text}
       className="side-projects"
+    />
+  );
+}
+
+function EngineeringProjects({ language, text }) {
+  return (
+    <ProjectSection
+      id="engineering"
+      title={text.sections.engineering}
+      items={engineeringProjects}
+      language={language}
+      text={text}
+      className="engineering-projects"
     />
   );
 }
@@ -951,6 +967,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const relatedPage = pickLocalized(project, "relatedPage", language);
   const focus = pickLocalized(project, "focus", language) ?? [];
   const process = pickLocalized(project, "process", language) ?? [];
+  const architecture = pickLocalized(project, "architecture", language) ?? [];
   const outcomes = pickLocalized(project, "outcomes", language) ?? [];
   const detailContents = getProjectDetailContents(project);
   const metaItems = [
@@ -1029,6 +1046,17 @@ function ProjectDetail({ project, language, text, onBack }) {
               <p>{description}</p>
               <p className="project-detail-location">{location}</p>
             </section>
+
+            {architecture.length > 0 ? (
+              <section className="project-detail-section">
+                <h2>{text.projectDetail.architecture}</h2>
+                <ul>
+                  {architecture.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
             <section className="project-detail-section">
               <h2>{text.projectDetail.focus}</h2>
@@ -1157,7 +1185,7 @@ function WorkExperience({ language, text }) {
               <div className="description">{pickLocalized(experience, "description", language)}</div>
               <div className="apps">
                 {experience.apps.map(([label, href]) => (
-                  <a href={href} key={href}>
+                  <a href={href} key={`${label}-${href}`}>
                     {label} <i className="bi bi-box-arrow-up-right" />
                   </a>
                 ))}
@@ -1248,7 +1276,7 @@ export default function App() {
 
   const closeProjectDetail = () => {
     const project = selectedDetailContent?.project ?? selectedProject;
-    window.location.hash = project && isSideProject(project) ? "#sideprojects" : "#featuredproject";
+    window.location.hash = `#${project ? getProjectSectionId(project) : "featuredproject"}`;
   };
 
   const closeProjectDetailContent = () => {
@@ -1285,9 +1313,10 @@ export default function App() {
           <>
             <Hero progress={heroProgress} text={text} language={language} showScrollCue={isAtPageTop} />
             <FeaturedProjects language={language} text={text} />
+            <WorkExperience language={language} text={text} />
+            <EngineeringProjects language={language} text={text} />
             <SideProjects language={language} text={text} />
             <TechStack language={language} text={text} />
-            <WorkExperience language={language} text={text} />
             <Footer text={text} />
           </>
         )}
