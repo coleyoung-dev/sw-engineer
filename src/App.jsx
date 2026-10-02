@@ -23,7 +23,7 @@ const heroSocialLinks = [
     label: "LinkedIn",
   },
   {
-    href: "https://github.com/coleyoung-game",
+    href: "https://github.com/coleyoung-dev",
     icon: "bi-github",
     label: "GitHub",
   },
@@ -44,9 +44,9 @@ function getNextHeroVideoIndex(currentIndex) {
 }
 
 function getInitialLanguage() {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "ko";
   const savedLanguage = window.localStorage.getItem("lang");
-  return languages.some((language) => language.code === savedLanguage) ? savedLanguage : "en";
+  return languages.some((language) => language.code === savedLanguage) ? savedLanguage : "ko";
 }
 
 function getIsMobileHeroViewport() {
@@ -1171,6 +1171,16 @@ function WorkExperience({ language, text }) {
   );
 }
 
+function BottomEmailContact({ text }) {
+  return (
+    <section className="bottom-email-contact" id="contact">
+      <a href="mailto:ighong11@gmail.com" aria-label={text.hero.contact} title={text.hero.contact}>
+        <i className="bi bi-envelope" aria-hidden="true" />
+      </a>
+    </section>
+  );
+}
+
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
   const [route, setRoute] = useState(getCurrentHashRoute);
@@ -1263,6 +1273,7 @@ export default function App() {
           </>
         )}
       </main>
+      <BottomEmailContact text={text} />
     </>
   );
 }

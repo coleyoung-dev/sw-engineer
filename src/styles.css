@@ -1,3 +1,13 @@
+/* Pretendard is selected only for Hangul glyphs; Latin text keeps the system stack. */
+@font-face {
+  font-family: "Pretendard Hangul";
+  font-style: normal;
+  font-weight: 45 920;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations");
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+}
+
 :root {
   --primary-color: #071a3d;
   --secondary-color: #0d6efd;
@@ -25,7 +35,7 @@ html {
 body {
   margin: 0 var(--page-margin);
   background: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard Hangul", Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -667,6 +677,32 @@ a {
 .call-to-action:hover {
   background-color: var(--additional-color);
   color: var(--primary-color);
+}
+
+.bottom-email-contact {
+  display: flex;
+  justify-content: center;
+  padding: 3.5rem 1rem 5rem;
+}
+
+.bottom-email-contact a {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+  color: #0b1026;
+  font-size: 2rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bottom-email-contact a:hover {
+  transform: translateY(-5px);
+  opacity: 0.7;
 }
 
 .hero .scene .vr-container .vr-world .hero-section .hero-profile-card {

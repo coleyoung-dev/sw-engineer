@@ -582,14 +582,20 @@ export const techStacks = [
   {
     icon: "bi-code-slash",
     title: "Languages",
-    koTitle: "언어",
+    koTitle: "Languages",
     skills: ["C#", "C++", "Python"],
   },
   {
     icon: "bi-unity",
     title: "Engine & Framework",
-    koTitle: "엔진 및 프레임워크",
-    skills: ["Unity", ".NET", "Android", "Windows", "WPF"],
+    koTitle: "Engine & Framework",
+    skills: ["Unity", ".NET", "WPF"],
+  },
+  {
+    icon: "bi-pc-display",
+    title: "Platform",
+    koTitle: "Platform",
+    skills: ["Android", "Windows"],
   },
   {
     icon: "bi-badge-vr",
@@ -605,14 +611,14 @@ export const techStacks = [
   },
   {
     icon: "bi-diagram-2",
-    title: "Communication / Integration",
-    koTitle: "통신 / 연동",
+    title: "Network",
+    koTitle: "Network",
     skills: ["TCP/IP", "UDP", "REST API"],
   },
   {
     icon: "bi-kanban",
-    title: "Engineering",
-    koTitle: "엔지니어링",
+    title: "Engineering / DevOps",
+    koTitle: "Engineering / DevOps",
     skills: ["Git", "GitHub Actions", "CI/CD", "Testing", "SBOM / CycloneDX", "AI Orchestration", "AI Agentic Engineering", "PostgreSQL"],
   },
 ];
@@ -621,15 +627,18 @@ export const experiences = [
   {
     date: "Apr 2025 - Present",
     koDate: "2025.04 ~ 재직 중",
-    title: "Software Engineer / Medical Technology",
-    koTitle: "소프트웨어 엔지니어 / 의료 기술",
+    title: "Software Engineer / Medical Device",
+    koTitle: "소프트웨어 엔지니어 / 의료 기기",
     company: "Skyve",
     companyUrl: "http://www.skyve.co.kr/",
     description:
       "Build medical-device software in the Medical Technology Innovation Team. Develop Android and Windows Unity clients for SagarVision surgical navigation workflows; integrate TCP/IP and UDP data paths, support real-time 3D visualization, refine client architecture, automate build delivery, and validate runtime performance on target devices.",
     koDescription:
       "의료기술혁신팀에서 Unity 기반 AR/VR 앱을 개발하고 있습니다. SagarVision AR System의 Android 및 Windows 클라이언트 개발, Socket 통신 연동, UniRx와 MVP 아키텍처 도입, 커스텀 빌드 자동화, 성능 및 발열 개선을 담당했습니다.",
-    apps: [["SagarVision AR System", "#featuredproject"]],
+    apps: [
+      ["SagarVision AR System", "#featuredproject"],
+      ["QR Based Pose Tracking System", "#/projects/qr-based-pose-tracking-system"],
+    ],
     skills: ["Unity", "C#", "AR", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL"],
   },
   {
@@ -644,18 +653,16 @@ export const experiences = [
     koDescription:
       "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
     apps: [
-      ["HARS / HYPER Solution", "#featuredproject"],
-      ["Hyundai Duty Free AR", "#featuredproject"],
-      ["Seoul AR Navigation", "#featuredproject"],
-      ["Gyeongjuro ON", "#featuredproject"],
+      ["Seoul AR Navigation", "#/projects/seoul-ar-navigation-poc"],
+      ["Market Validation WebGL Minigame", "#/projects/market-validation-webgl-minigame"],
     ],
     skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
   },
 ];
 
 const jetsonVisionProject = {
-  title: "OpenCV Based on Traking System with Nvidia Jetson",
-  koTitle: "OpenCV Based on Traking System with Nvidia Jetson",
+  title: "QR Based Pose Tracking System",
+  koTitle: "QR Based Pose Tracking System",
   location: "Computer Vision / Spatial Computing",
   koLocation: "Computer Vision / Spatial Computing",
   description:
@@ -663,8 +670,9 @@ const jetsonVisionProject = {
   koDescription:
     "NVIDIA Jetson, ZED 스테레오 카메라, ArUco 검출, 포즈 처리, Kalman filtering을 활용한 실시간 마커 기반 트래킹 파이프라인을 다뤘습니다.",
   icon: "bi-camera-video",
-  imageAlt: "OpenCV-based tracking system with Nvidia Jetson conceptual thumbnail",
-  koImageAlt: "Nvidia Jetson 기반 OpenCV 트래킹 시스템 프로젝트 썸네일",
+  image: "images_videos/jetson-opencv-tracking.png",
+  imageAlt: "QR-based pose tracking system conceptual thumbnail",
+  koImageAlt: "QR 기반 포즈 트래킹 시스템 프로젝트 썸네일",
   tags: ["NVIDIA Jetson", "ZED", "ArUco", "Computer Vision", "Kalman Filtering", "Real-time"],
   role: "Computer Vision Engineer",
   koRole: "Computer Vision 엔지니어",
