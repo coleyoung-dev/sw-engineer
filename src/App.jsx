@@ -361,7 +361,7 @@ function LanguageToggle({ language, onLanguageChange }) {
 
 function Header({ progress, activeSection, language, text }) {
   const [open, setOpen] = useState(false);
-  const headerProgress = Math.max((progress - 0.7) / 0.3, 0);
+  const headerProgress = open || activeSection ? 1 : Math.min(Math.max((progress - 0.7) / 0.3, 0), 1);
 
   useEffect(() => {
     const close = () => {
@@ -373,7 +373,7 @@ function Header({ progress, activeSection, language, text }) {
   }, []);
 
   return (
-    <section className="header2" style={{ opacity: headerProgress }}>
+    <section className="header2" style={{ opacity: headerProgress, pointerEvents: headerProgress > 0 ? "auto" : "none" }}>
       <nav className="nav_header">
         <a href="#top" className="nav_logo" onClick={() => setOpen(false)}>
           {text.header.logo}
