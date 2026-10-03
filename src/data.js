@@ -662,13 +662,19 @@ export const techStacks = [
     icon: "bi-diagram-2",
     title: "Network",
     koTitle: "Network",
-    skills: ["TCP/IP", "UDP", "REST API"],
+    skills: ["TCP/IP", "UDP", "Restful API"],
+  },
+  {
+    icon: "bi-cpu",
+    title: "AI Proficiency",
+    koTitle: "AI Proficiency",
+    skills: ["Agentic Workflow Engineering", "Local LLM Integration(Ollama)"],
   },
   {
     icon: "bi-kanban",
-    title: "Engineering / DevOps",
-    koTitle: "Engineering / DevOps",
-    skills: ["Git", "GitHub Actions", "CI/CD", "Testing", "SBOM / CycloneDX", "AI Orchestration", "AI Agentic Engineering", "PostgreSQL"],
+    title: "Engineering & DevOps",
+    koTitle: "Engineering & DevOps",
+    skills: ["Git", "PowerShell Scripting", "PostgreSQL", "CI/CD", "GitHub Actions", "SBOM(CycloneDX)"],
   },
 ];
 
