@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   engineeringProjects,
   experiences,
   languages,
   navItems,
-  platformIcons,
   projects,
   techStacks,
   uiText,
@@ -29,43 +28,10 @@ const heroSocialLinks = [
   },
 ];
 
-const heroVideoSources = [
-  "images_videos/videos/0_sagarvision_landmark_0_imageless.mp4",
-  "images_videos/videos/0_sagarvision_landmark_1.mp4",
-  "images_videos/videos/1_sagarvision_gap.mp4",
-  "images_videos/videos/2_sagarvision_resection.mp4",
-];
-
-const heroVideoFadeSeconds = 0.9;
-const mobileHeroMediaQuery = "(max-width: 666px)";
-
-function getNextHeroVideoIndex(currentIndex) {
-  return (currentIndex + 1) % heroVideoSources.length;
-}
-
 function getInitialLanguage() {
   if (typeof window === "undefined") return "ko";
   const savedLanguage = window.localStorage.getItem("lang");
   return languages.some((language) => language.code === savedLanguage) ? savedLanguage : "ko";
-}
-
-function getIsMobileHeroViewport() {
-  return typeof window !== "undefined" && window.matchMedia(mobileHeroMediaQuery).matches;
-}
-
-function useIsMobileHeroViewport() {
-  const [isMobileHeroViewport, setIsMobileHeroViewport] = useState(getIsMobileHeroViewport);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(mobileHeroMediaQuery);
-    const syncViewport = () => setIsMobileHeroViewport(mediaQuery.matches);
-
-    syncViewport();
-    mediaQuery.addEventListener("change", syncViewport);
-    return () => mediaQuery.removeEventListener("change", syncViewport);
-  }, []);
-
-  return isMobileHeroViewport;
 }
 
 function pickLocalized(item, key, language) {
@@ -288,7 +254,7 @@ function MarkdownContent({ markdown }) {
       const src = block.src.startsWith("http") || block.src.startsWith("data:") ? block.src : assetPath(block.src);
       return (
         <figure className="detail-content-video" key={key}>
-          <video src={src} controls muted loop playsInline preload="metadata" aria-label={block.label} />
+          <video src={src} controls muted playsInline preload="metadata" aria-label={block.label} />
           {block.caption ? <figcaption>{block.caption}</figcaption> : null}
         </figure>
       );
@@ -301,18 +267,12 @@ function MarkdownContent({ markdown }) {
 function useScrollProgress() {
   const [progress, setProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("");
-  const [isAtPageTop, setIsAtPageTop] = useState(true);
-
   useEffect(() => {
     const onScroll = () => {
-      setIsAtPageTop((window.scrollY || 0) <= 2);
-
       const hero = document.querySelector(".hero");
       if (hero) {
         const rect = hero.getBoundingClientRect();
-        const scrollableHeroHeight = rect.height - window.innerHeight;
-        const raw =
-          scrollableHeroHeight > 0 ? Math.min(Math.max(-rect.top / scrollableHeroHeight, 0), 1) : rect.top <= 0 ? 1 : 0;
+        const raw = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1);
         setProgress(raw);
       }
 
@@ -343,7 +303,7 @@ function useScrollProgress() {
     };
   }, []);
 
-  return { progress, activeSection, isAtPageTop };
+  return { progress, activeSection };
 }
 
 function LanguageToggle({ language, onLanguageChange }) {
@@ -448,368 +408,32 @@ function Header({ progress, activeSection, language, text }) {
   );
 }
 
-function Hero({ progress, text, language, showScrollCue }) {
-  const heroVideoRefs = useRef([]);
-  const isMobileHeroViewport = useIsMobileHeroViewport();
-  const [heroVideoSlots, setHeroVideoSlots] = useState([0, 1]);
-  const [activeHeroVideoSlot, setActiveHeroVideoSlot] = useState(0);
-  const [transitionHeroVideoSlot, setTransitionHeroVideoSlot] = useState(null);
-  const [transitionSourceHeroVideoSlot, setTransitionSourceHeroVideoSlot] = useState(null);
-  const eased = isMobileHeroViewport ? 0 : Math.max((progress - 0.15) / 0.85, 0);
-  let endScale = 0.85;
-  if (typeof window !== "undefined" && window.innerWidth >= 1440) endScale = 0.5;
-  else if (typeof window !== "undefined" && window.innerWidth >= 666) endScale = 0.55;
-
-  const scale = 1 - eased * endScale;
-  const translateY = eased * 30;
-  const headsetOpacity = isMobileHeroViewport || eased === 0 ? 0 : Math.min(Math.max(eased / 0.05, 0), 1);
-  const scrollToProjects = () => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document
-      .getElementById("featuredproject")
-      ?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
-  };
-
-  const playNextHeroVideo = () => {
-    if (isMobileHeroViewport || transitionHeroVideoSlot !== null) return;
-
-    const nextSlot = activeHeroVideoSlot === 0 ? 1 : 0;
-    const nextVideoIndex = getNextHeroVideoIndex(heroVideoSlots[activeHeroVideoSlot]);
-    setHeroVideoSlots((slots) => {
-      const nextSlots = [...slots];
-      nextSlots[nextSlot] = nextVideoIndex;
-      return nextSlots;
-    });
-    setTransitionSourceHeroVideoSlot(activeHeroVideoSlot);
-    setTransitionHeroVideoSlot(nextSlot);
-  };
-
-  const handleHeroVideoTimeUpdate = (slot, event) => {
-    if (slot !== activeHeroVideoSlot || transitionHeroVideoSlot !== null) return;
-
-    const video = event.currentTarget;
-    if (Number.isFinite(video.duration) && video.duration - video.currentTime <= heroVideoFadeSeconds) {
-      playNextHeroVideo();
-    }
-  };
-
-  const handleHeroVideoError = (slot) => {
-    if (slot === transitionHeroVideoSlot) {
-      setHeroVideoSlots((slots) => {
-        const nextSlots = [...slots];
-        nextSlots[slot] = getNextHeroVideoIndex(slots[slot]);
-        return nextSlots;
-      });
-      return;
-    }
-
-    if (slot === activeHeroVideoSlot) playNextHeroVideo();
-  };
-
-  const completeHeroVideoTransition = (slot, event) => {
-    if (event.propertyName !== "opacity" || slot !== transitionHeroVideoSlot) return;
-
-    const previousVideo = heroVideoRefs.current[transitionSourceHeroVideoSlot];
-    if (previousVideo) {
-      previousVideo.pause();
-      previousVideo.currentTime = 0;
-    }
-
-    setTransitionHeroVideoSlot(null);
-    setTransitionSourceHeroVideoSlot(null);
-  };
-
-  useEffect(() => {
-    if (isMobileHeroViewport) return;
-
-    const activeVideo = heroVideoRefs.current[activeHeroVideoSlot];
-    activeVideo?.play().catch(() => {});
-  }, [activeHeroVideoSlot, isMobileHeroViewport]);
-
-  useEffect(() => {
-    if (isMobileHeroViewport || transitionHeroVideoSlot === null) return undefined;
-
-    const nextVideo = heroVideoRefs.current[transitionHeroVideoSlot];
-    if (!nextVideo) return undefined;
-
-    let cancelled = false;
-    let started = false;
-    const startFade = () => {
-      if (cancelled || started) return;
-      started = true;
-      window.requestAnimationFrame(() => setActiveHeroVideoSlot(transitionHeroVideoSlot));
-    };
-
-    nextVideo.currentTime = 0;
-    nextVideo.load();
-    nextVideo.play().catch(() => {});
-
-    if (nextVideo.readyState >= 2) startFade();
-    else nextVideo.addEventListener("canplay", startFade, { once: true });
-
-    return () => {
-      cancelled = true;
-      nextVideo.removeEventListener("canplay", startFade);
-    };
-  }, [transitionHeroVideoSlot, heroVideoSlots, isMobileHeroViewport]);
-
+function Hero({ text }) {
   return (
-    <section className={`hero ${isMobileHeroViewport ? "is-mobile-simple" : ""}`} id="top">
-      <div className="scene">
-        <div
-          className="vr-container"
-          style={
-            isMobileHeroViewport
-              ? undefined
-              : {
-                  transform: `translate(-50%, -50%) translateY(${translateY}px) scale(${scale})`,
-                }
-          }
-        >
-          {!isMobileHeroViewport &&
-            heroVideoSlots.map((videoIndex, slot) => (
-              <video
-                key={`hero-video-${slot}-${videoIndex}`}
-                ref={(element) => {
-                  heroVideoRefs.current[slot] = element;
-                }}
-                className={`hero-video ${slot === activeHeroVideoSlot ? "is-active" : ""} ${
-                  videoIndex === 0 ? "is-zoomed-out" : ""
-                }`}
-                src={assetPath(heroVideoSources[videoIndex])}
-                autoPlay={slot === activeHeroVideoSlot}
-                muted
-                playsInline
-                preload="auto"
-                onTimeUpdate={(event) => handleHeroVideoTimeUpdate(slot, event)}
-                onEnded={playNextHeroVideo}
-                onError={() => handleHeroVideoError(slot)}
-                onTransitionEnd={(event) => completeHeroVideoTransition(slot, event)}
-                aria-hidden="true"
-              />
+    <section className="hero" id="top">
+      <div className="hero-layout">
+        <div className="hero-copy">
+          <p className="hero-eyebrow">{text.hero.name} <span>· {text.hero.subtitle}</span></p>
+          <h1 className="hero-title">{text.hero.headline}</h1>
+          <p className="hero-description">{text.hero.description}</p>
+          <div className="hero-actions">
+            <a className="hero-action hero-action-primary" href="#featuredproject">{text.hero.projects}</a>
+            <a className="hero-action hero-action-secondary" href="mailto:ighong11@gmail.com">{text.hero.contact}</a>
+          </div>
+          <div className="hero-tags">
+            {text.hero.profileTags.map((tag) => <span key={tag}>{tag}</span>)}
+          </div>
+          <div className="hero-social-links">
+            {heroSocialLinks.map((link) => (
+              <a href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} key={link.href}>
+                <i className={`bi ${link.icon}`} aria-hidden="true" />
+                <span>{link.label}</span>
+              </a>
             ))}
-          <div className="vr-world">
-            <div className="hero-section">
-              <div className="hero-content">
-                <div className="left-side">
-                  <div className="hero-header">{text.hero.name}</div>
-                  <div className="hero-subheader">{text.hero.subtitle}</div>
-                  <div className="hero-description">{text.hero.description}</div>
-                  <div className="hero-platforms">
-                    <div className="hero-details">{text.hero.platforms}</div>
-                    <div className="hero-platform-icon">
-                      {platformIcons.map((icon) => (
-                        <span className="platform-chip" key={icon.label}>
-                          <i className={`bi ${icon.icon}`} />
-                          {pickLocalized(icon, "label", language)}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="call-to-action-buttons">
-                    {heroSocialLinks.map((link) => (
-                      <a
-                        className="hero-social-button btn"
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={link.label}
-                        title={link.label}
-                        key={link.href}
-                      >
-                        <i className={`bi ${link.icon}`} aria-hidden="true" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                <div className="hero-profile-card" aria-label={text.hero.name}>
-                  <img
-                    className="hero-profile-image hero-profile-image-default"
-                    src={assetPath("images_videos/hero-profile-updated.jpg")}
-                    alt={text.hero.name}
-                    decoding="async"
-                  />
-                  <img
-                    className="hero-profile-image hero-profile-image-hover"
-                    src={assetPath("images_videos/hero-profile-hover.jpg")}
-                    alt=""
-                    decoding="async"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-              <button
-                className={`scroll-cue ${showScrollCue ? "" : "is-hidden"}`}
-                type="button"
-                onClick={scrollToProjects}
-                aria-label={text.hero.scroll}
-                title={text.hero.scroll}
-              >
-                <span className="scroll-cue-arrow" aria-hidden="true">
-                  <i className="bi bi-chevron-down" />
-                  <i className="bi bi-chevron-down" />
-                </span>
-                <span className="scroll-cue-label">{text.hero.scroll}</span>
-              </button>
-            </div>
           </div>
-          <div className="headset" style={{ opacity: headsetOpacity }} aria-hidden="true">
-            <svg className="headset-visual" viewBox="0 0 1920 631" preserveAspectRatio="none" focusable="false">
-              <defs>
-                <linearGradient id="headsetLensGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f3fbff" stopOpacity="0.34" />
-                  <stop offset="42%" stopColor="#a9b9c3" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#738594" stopOpacity="0.58" />
-                </linearGradient>
-                <radialGradient id="headsetLensGlow" cx="50%" cy="50%" r="62%">
-                  <stop offset="0%" stopColor="#e9f7ff" stopOpacity="0.16" />
-                  <stop offset="100%" stopColor="#7d91a0" stopOpacity="0" />
-                </radialGradient>
-                <linearGradient id="headsetRimGradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#6ff4ff" />
-                  <stop offset="42%" stopColor="#00b8ff" />
-                  <stop offset="100%" stopColor="#0572d9" />
-                </linearGradient>
-                <filter id="headsetBlueGlow" x="-10%" y="-25%" width="120%" height="150%">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feColorMatrix
-                    in="blur"
-                    result="glow"
-                    type="matrix"
-                    values="0 0 0 0 0  0 0 0 0 0.68  0 0 0 0 1  0 0 0 0.8 0"
-                  />
-                  <feMerge>
-                    <feMergeNode in="glow" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <path
-                className="headset-lens-pane"
-                d="M118 318 C135 205 224 108 370 58 C548 32 760 42 960 54 C1160 42 1372 32 1550 58 C1696 108 1785 205 1802 318 C1818 417 1754 514 1608 560 C1394 614 1168 590 960 552 C752 590 526 614 312 560 C166 514 102 417 118 318 Z"
-              />
-              <path
-                className="headset-lens-glow"
-                d="M118 318 C135 205 224 108 370 58 C548 32 760 42 960 54 C1160 42 1372 32 1550 58 C1696 108 1785 205 1802 318 C1818 417 1754 514 1608 560 C1394 614 1168 590 960 552 C752 590 526 614 312 560 C166 514 102 417 118 318 Z"
-              />
-              <path
-                className="headset-rim headset-rim-glow"
-                d="M82 318 C98 166 226 62 386 34 C612 -6 800 28 960 42 C1120 28 1308 -6 1534 34 C1694 62 1822 166 1838 318 C1854 464 1750 572 1578 604 C1352 646 1136 596 960 570 C784 596 568 646 342 604 C170 572 66 464 82 318 Z"
-              />
-              <path
-                className="headset-rim headset-rim-core"
-                d="M104 318 C120 188 232 92 392 62 C606 24 794 56 960 68 C1126 56 1314 24 1528 62 C1688 92 1800 188 1816 318 C1830 442 1738 540 1570 574 C1358 616 1136 574 960 548 C784 574 562 616 350 574 C182 540 90 442 104 318 Z"
-              />
-              <path
-                className="headset-rim headset-rim-inner"
-                d="M154 320 C170 218 256 132 402 102 C610 64 794 90 960 96 C1126 90 1310 64 1518 102 C1664 132 1750 218 1766 320 C1778 412 1706 492 1554 526 C1348 572 1130 536 960 514 C790 536 572 572 366 526 C214 492 142 412 154 320 Z"
-              />
-              <g className="headset-armature">
-                <path d="M160 222 L224 134 L342 82 L468 58 L508 82 L398 112 L292 152 L230 226 Z" />
-                <path d="M1760 222 L1696 134 L1578 82 L1452 58 L1412 82 L1522 112 L1628 152 L1690 226 Z" />
-                <path d="M162 410 L246 506 L392 560 L520 574 L558 548 L412 518 L294 474 L226 398 Z" />
-                <path d="M1758 410 L1674 506 L1528 560 L1400 574 L1362 548 L1508 518 L1626 474 L1694 398 Z" />
-              </g>
-              <g className="headset-rim-segments">
-                {[
-                  [282, 102, 144, 18],
-                  [456, 72, 166, 16],
-                  [650, 64, 160, 14],
-                  [1110, 64, 160, 14],
-                  [1298, 72, 166, 16],
-                  [1494, 102, 144, 18],
-                  [296, 514, 170, 18],
-                  [510, 548, 178, 14],
-                  [1232, 548, 178, 14],
-                  [1454, 514, 170, 18],
-                ].map(([x, y, width, height], index) => (
-                  <rect key={`rim-segment-${index}`} x={x} y={y} width={width} height={height} rx="7" />
-                ))}
-              </g>
-              <g className="headset-side-modules">
-                <path d="M88 260 L152 218 L184 252 L168 382 L118 420 L78 374 Z" />
-                <path d="M1832 260 L1768 218 L1736 252 L1752 382 L1802 420 L1842 374 Z" />
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <line key={`left-vent-${index}`} x1="118" x2="152" y1={276 + index * 14} y2={268 + index * 14} />
-                ))}
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <line key={`right-vent-${index}`} x1="1802" x2="1768" y1={276 + index * 14} y2={268 + index * 14} />
-                ))}
-              </g>
-              <g className="headset-circuit-lines">
-                <path d="M420 84 H610 L642 104 H820" />
-                <path d="M1500 84 H1310 L1278 104 H1100" />
-                <path d="M458 556 H682 L718 536 H850" />
-                <path d="M1462 556 H1238 L1202 536 H1070" />
-                {Array.from({ length: 14 }).map((_, index) => (
-                  <circle key={`top-node-${index}`} cx={520 + index * 62} cy={86 + (index % 2) * 10} r="3" />
-                ))}
-              </g>
-              <path
-                className="headset-lens-highlight"
-                d="M244 118 C410 70 700 58 922 78 M998 78 C1220 58 1510 70 1676 118"
-              />
-              <g className="headset-hud headset-hud-left">
-                <circle cx="300" cy="250" r="48" />
-                <circle cx="300" cy="250" r="24" />
-                <circle cx="300" cy="250" r="66" className="headset-hud-faint" />
-                <path className="headset-hud-faint" d="M254 204 A66 66 0 0 1 354 206 M248 294 A66 66 0 0 0 356 292" />
-                <path d="M300 190 V310 M240 250 H360" />
-                <path d="M210 128 H366 L404 164 H470" />
-                <path d="M204 392 H322 L350 420 H424" />
-                <path d="M188 456 H320" />
-                <path d="M166 520 H324" />
-                <path d="M428 164 h72" />
-                <rect x="382" y="206" width="92" height="12" rx="2" />
-                <rect x="382" y="230" width="58" height="10" rx="2" />
-                {Array.from({ length: 18 }).map((_, index) => (
-                  <line
-                    key={`left-bar-${index}`}
-                    x1={148 + index * 10}
-                    x2={148 + index * 10}
-                    y1={520 - ((index * 17) % 58)}
-                    y2="548"
-                  />
-                ))}
-                {Array.from({ length: 18 }).map((_, index) => (
-                  <circle
-                    key={`left-dot-${index}`}
-                    cx={168 + (index % 6) * 18}
-                    cy={330 + Math.floor(index / 6) * 18}
-                    r="3.5"
-                  />
-                ))}
-              </g>
-              <g className="headset-hud headset-hud-right">
-                <circle cx="1620" cy="250" r="48" />
-                <circle cx="1620" cy="250" r="24" />
-                <circle cx="1620" cy="250" r="66" className="headset-hud-faint" />
-                <path className="headset-hud-faint" d="M1574 204 A66 66 0 0 1 1674 206 M1568 294 A66 66 0 0 0 1676 292" />
-                <path d="M1620 190 V310 M1560 250 H1680" />
-                <path d="M1710 128 H1554 L1516 164 H1450" />
-                <path d="M1716 392 H1598 L1570 420 H1496" />
-                <path d="M1732 456 H1600" />
-                <path d="M1754 520 H1596" />
-                <path d="M1492 164 h-72" />
-                <rect x="1422" y="206" width="92" height="12" rx="2" />
-                <rect x="1482" y="230" width="58" height="10" rx="2" />
-                <rect x="1490" y="438" width="164" height="18" rx="2" />
-                <rect x="1490" y="468" width="220" height="18" rx="2" />
-                {Array.from({ length: 9 }).map((_, index) => (
-                  <circle key={`right-dot-${index}`} cx={1498 + index * 24} cy="514" r="3.5" />
-                ))}
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <line
-                    key={`right-tick-${index}`}
-                    x1={1680 + index * 10}
-                    x2={1692 + index * 10}
-                    y1={126}
-                    y2={106}
-                  />
-                ))}
-              </g>
-            </svg>
-          </div>
+        </div>
+        <div className="hero-photo">
+          <img src={assetPath("images_videos/hero-ar-demo.webp")} alt={text.hero.photoAlt} decoding="async" />
         </div>
       </div>
     </section>
@@ -1258,7 +882,7 @@ function BottomEmailContact({ text }) {
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
   const [route, setRoute] = useState(getCurrentHashRoute);
-  const { progress, activeSection, isAtPageTop } = useScrollProgress();
+  const { progress, activeSection } = useScrollProgress();
   const reducedMotion = useMemo(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     [],
@@ -1339,7 +963,7 @@ export default function App() {
           </>
         ) : (
           <>
-            <Hero progress={heroProgress} text={text} language={language} showScrollCue={isAtPageTop} />
+            <Hero text={text} />
             <FeaturedProjects language={language} text={text} />
             <WorkExperience language={language} text={text} />
             <EngineeringProjects language={language} text={text} />

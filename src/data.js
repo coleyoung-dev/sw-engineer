@@ -18,15 +18,17 @@ export const uiText = {
     hero: {
       name: "CHANYOUNG HONG",
       subtitle: "Software Engineer",
+      headline: "Building reliable software for medical devices and real-time data.",
       description:
-        "Software engineer building real-time applications across medical software, surgical navigation, spatial computing, computer vision, and interactive 3D systems.",
+        "I develop surgical navigation clients that connect device communication, real-time visualization, and dependable delivery.",
       platforms: "Medical Software · Spatial Computing · Computer Vision",
       contact: "Contact by Email",
       projects: "View Projects",
       scroll: "Scroll down to see projects",
       initials: "HCY",
       profileKicker: "Software Engineer",
-      profileTags: ["Medical Software", "Spatial Computing", "Computer Vision"],
+      profileTags: ["C#", "Unity", "Medical Device SW", "Socket", "Computer Vision"],
+      photoAlt: "Explaining an AR headset demonstration at an exhibition",
     },
     sections: {
       featuredProjects: "Selected Projects",
@@ -68,15 +70,17 @@ export const uiText = {
     hero: {
       name: "홍찬영",
       subtitle: "소프트웨어 엔지니어",
+      headline: "의료 장비와 데이터를 연결하는 소프트웨어 엔지니어.",
       description:
-        "의료 소프트웨어, 수술 내비게이션, Spatial Computing, Computer Vision, 실시간 3D 시스템 전반의 애플리케이션을 개발하는 소프트웨어 엔지니어입니다.",
+        "수술 내비게이션 클라이언트에서 장비 통신, 실시간 시각화, 안정적인 배포까지 구현합니다.",
       platforms: "의료 소프트웨어 · Spatial Computing · Computer Vision",
       contact: "이메일로 연락하기",
       projects: "프로젝트 보기",
       scroll: "아래로 스크롤해 프로젝트를 확인하세요",
       initials: "HCY",
       profileKicker: "Software Engineer",
-      profileTags: ["Medical Software", "Spatial Computing", "Computer Vision"],
+      profileTags: ["C#", "Unity", "의료기기 SW", "Socket", "Computer Vision"],
+      photoAlt: "전시 현장에서 AR 헤드셋 시연을 설명하는 모습",
     },
     sections: {
       featuredProjects: "주요 프로젝트",
@@ -709,7 +713,6 @@ export const experiences = [
       "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
     apps: [
       ["Seoul AR Navigation", "#/projects/seoul-ar-navigation-poc"],
-      ["Market Validation WebGL Minigame", "#/projects/market-validation-webgl-minigame"],
     ],
     skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
   },
@@ -754,50 +757,6 @@ const jetsonVisionProject = {
   koOutcomes: ["엣지 디바이스 비전, 마커 트래킹, 실시간 포즈 처리에 대한 실무 경험을 쌓았습니다."],
 };
 
-const webglMinigameProject = {
-  title: "Market Validation WebGL Minigame",
-  koTitle: "Market Validation WebGL Minigame",
-  location: "Software Engineering / Browser Delivery",
-  koLocation: "소프트웨어 엔지니어링 / 브라우저 배포",
-  description:
-    "Built and integrated a Unity WebGL minigame for browser delivery, connecting the client with React and REST-based application flows while profiling runtime performance.",
-  koDescription:
-    "Unity WebGL 미니게임을 브라우저에 배포하고 React 및 REST 기반 애플리케이션 흐름과 연동했으며, 런타임 성능을 프로파일링했습니다.",
-  icon: "bi-controller",
-  image: "images_videos/webgl.png",
-  imageAlt: "Market Validation WebGL Minigame thumbnail",
-  koImageAlt: "Market Validation WebGL Minigame 썸네일",
-  tags: ["Unity WebGL", "React", "JavaScript", "jslib", "REST API", "Profiling"],
-  role: "Unity Client Engineer",
-  koRole: "Unity 클라이언트 엔지니어",
-  timeline: "Project work",
-  koTimeline: "프로젝트 작업",
-  team: "Project team",
-  koTeam: "프로젝트 팀",
-  category: "WebGL / Browser",
-  koCategory: "WebGL / Browser",
-  focus: [
-    "Integrated a Unity WebGL client into a React-based web experience.",
-    "Connected browser-side JavaScript and REST application flows.",
-    "Profiled runtime behavior to guide practical performance improvements.",
-  ],
-  koFocus: [
-    "Unity WebGL 클라이언트를 React 기반 웹 경험에 통합했습니다.",
-    "브라우저 JavaScript와 REST 애플리케이션 흐름을 연결했습니다.",
-    "실용적인 성능 개선을 위해 런타임 동작을 프로파일링했습니다.",
-  ],
-  process: [
-    "Used browser deployment constraints as part of implementation and debugging decisions.",
-    "Focused the case study on integration and profiling rather than unsupported benchmark claims.",
-  ],
-  koProcess: [
-    "구현 및 디버깅 의사결정에 브라우저 배포 제약을 반영했습니다.",
-    "검증되지 않은 벤치마크 대신 연동과 프로파일링 경험을 중심으로 사례를 정리했습니다.",
-  ],
-  outcomes: ["Demonstrated client engineering beyond native applications through browser integration and performance investigation."],
-  koOutcomes: ["브라우저 연동과 성능 분석을 통해 네이티브 앱을 넘어선 클라이언트 엔지니어링 경험을 보여줬습니다."],
-};
-
-export const projects = [legacyProjects[0], jetsonVisionProject, legacyProjects[2], webglMinigameProject];
+export const projects = [legacyProjects[0], jetsonVisionProject, legacyProjects[2]];
 
 export const engineeringProjects = [visionLingoProject];
