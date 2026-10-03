@@ -1203,6 +1203,114 @@ a {
   padding-left: 1.25rem;
 }
 
+.project-case-studies-copy {
+  max-width: 58rem;
+  margin-bottom: 1.25rem !important;
+  color: #5b6472 !important;
+}
+
+.core-case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.core-case-study-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.2rem;
+  border: 1px solid rgba(11, 16, 38, 0.16);
+  border-radius: 0.6rem;
+  background: linear-gradient(145deg, #ffffff, rgba(0, 229, 255, 0.055));
+}
+
+.core-case-study-card h3 {
+  margin: 0 0 0.55rem;
+  color: var(--primary-color);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.core-case-study-card p {
+  margin: 0 0 0.85rem;
+  color: #384152;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.core-case-study-card ul {
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.core-case-study-card li {
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.core-case-study-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.15rem;
+  margin-top: auto;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.core-case-study-link:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.core-case-study-link:focus-visible {
+  outline: 3px solid rgba(13, 110, 253, 0.45);
+  outline-offset: 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.core-case-study-link i {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.additional-case-studies {
+  margin-top: 1rem;
+  border: 1px solid rgba(11, 16, 38, 0.16);
+  border-radius: 0.55rem;
+  background: rgba(11, 16, 38, 0.025);
+}
+
+.additional-case-studies summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.additional-case-study-count {
+  display: inline-grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(11, 16, 38, 0.1);
+  font-size: 0.8rem;
+}
+
+.additional-case-studies .detail-content-buttons {
+  padding: 0 1.15rem 1.15rem;
+}
+
 .project-detail-section-link {
   display: inline-flex;
   align-items: baseline;
@@ -1521,6 +1629,10 @@ a {
 
   .project-detail-aside {
     position: static;
+  }
+
+  .core-case-study-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -923,6 +923,77 @@ function EngineeringProjects({ language, text }) {
   );
 }
 
+function ProjectCaseStudies({ project, language, text }) {
+  const detailContents = getProjectDetailContents(project);
+  const coreContents = detailContents
+    .filter((content) => content.inline)
+    .sort((left, right) => (left.inlineOrder ?? 0) - (right.inlineOrder ?? 0));
+  const additionalContents = detailContents.filter((content) => !content.inline);
+
+  if (coreContents.length === 0) return null;
+
+  return (
+    <section className="project-detail-section project-case-studies" aria-labelledby="core-case-studies-title">
+      <h2 id="core-case-studies-title">{text.projectDetail.coreCaseStudies}</h2>
+      <p className="project-case-studies-copy">{text.projectDetail.coreCaseStudiesCopy}</p>
+
+      <div className="core-case-study-grid">
+        {coreContents.map((content) => {
+          const title = pickLocalized(content, "title", language);
+          const summary = pickLocalized(content, "summary", language);
+          const highlights = pickLocalized(content, "highlights", language) ?? [];
+
+          return (
+            <article className="core-case-study-card" key={getProjectDetailContentSlug(content)}>
+              <h3>{title}</h3>
+              {summary ? <p>{summary}</p> : null}
+              {highlights.length > 0 ? (
+                <ul>
+                  {highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <a className="core-case-study-link" href={getProjectDetailContentHref(project, content)}>
+                {text.projectDetail.viewFullCaseStudy}
+                <i className="bi bi-arrow-right-short" aria-hidden="true" />
+              </a>
+            </article>
+          );
+        })}
+      </div>
+
+      {additionalContents.length > 0 ? (
+        <details className="additional-case-studies">
+          <summary>
+            <span>{text.projectDetail.additionalCaseStudies}</span>
+            <span className="additional-case-study-count">{additionalContents.length}</span>
+          </summary>
+          <div className="detail-content-buttons">
+            {additionalContents.map((content) => {
+              const contentTitle = pickLocalized(content, "title", language);
+              const contentSummary = pickLocalized(content, "summary", language);
+
+              return (
+                <a
+                  className="detail-content-button"
+                  href={getProjectDetailContentHref(project, content)}
+                  key={getProjectDetailContentSlug(content)}
+                  aria-label={`${contentTitle} ${text.projectDetail.openDetailContent}`}
+                >
+                  <span>{contentTitle}</span>
+                  {contentSummary ? <small>{contentSummary}</small> : null}
+                  <i className="bi bi-arrow-right-short" aria-hidden="true" />
+                </a>
+              );
+            })}
+          </div>
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
 function ProjectDetail({ project, language, text, onBack }) {
   const detailId = getProjectDetailId(project);
   const title = pickLocalized(project, "title", language);
@@ -938,6 +1009,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const architecture = pickLocalized(project, "architecture", language) ?? [];
   const outcomes = pickLocalized(project, "outcomes", language) ?? [];
   const detailContents = getProjectDetailContents(project);
+  const hasInlineCaseStudies = detailContents.some((content) => content.inline);
   const metaItems = [
     [text.projectDetail.role, role],
     [text.projectDetail.timeline, timeline],
@@ -982,7 +1054,7 @@ function ProjectDetail({ project, language, text, onBack }) {
                 </div>
               ))}
             </dl>
-            {detailContents.length > 0 ? (
+            {!hasInlineCaseStudies && detailContents.length > 0 ? (
               <div className="project-detail-content-links">
                 <h3>{text.projectDetail.detailContentTitle}</h3>
                 <div className="detail-content-buttons">
@@ -1014,6 +1086,8 @@ function ProjectDetail({ project, language, text, onBack }) {
               <p>{description}</p>
               <p className="project-detail-location">{location}</p>
             </section>
+
+            <ProjectCaseStudies project={project} language={language} text={text} />
 
             {architecture.length > 0 ? (
               <section className="project-detail-section">

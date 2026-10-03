@@ -1,7 +1,7 @@
 export const navItems = [
   { id: "featuredproject", label: "Projects", koLabel: "프로젝트" },
-  { id: "engineering", label: "Side Projects", koLabel: "사이드 프로젝트" },
   { id: "workexperience", label: "Experience", koLabel: "경력" },
+  { id: "engineering", label: "Side Projects", koLabel: "사이드 프로젝트" },
   { id: "techstacksection", label: "Tech Stack", koLabel: "기술 스택" },
 ];
 
@@ -51,6 +51,10 @@ export const uiText = {
       outcomes: "Result / Impact",
       detailContentTitle: "Case Study Details",
       openDetailContent: "Open Detail",
+      coreCaseStudies: "Core engineering contributions",
+      coreCaseStudiesCopy: "The work most relevant to reliable medical-device client software is summarized here first.",
+      additionalCaseStudies: "Additional technical details",
+      viewFullCaseStudy: "View full case study",
       backToProject: "Back to Project",
       reflection: "Reflection",
       reflectionCopy:
@@ -97,6 +101,10 @@ export const uiText = {
       outcomes: "결과 및 영향",
       detailContentTitle: "상세 사례",
       openDetailContent: "상세 보기",
+      coreCaseStudies: "핵심 구현 사례",
+      coreCaseStudiesCopy: "의료기기 클라이언트의 안정성과 유지보수성에 직접 연결되는 작업을 먼저 정리했습니다.",
+      additionalCaseStudies: "추가 기술 사례",
+      viewFullCaseStudy: "전체 사례 보기",
       backToProject: "프로젝트로 돌아가기",
       reflection: "회고",
       reflectionCopy:
@@ -157,6 +165,11 @@ const legacyProjects = [
       "The client processes navigation workflow state and coordinate-driven updates before presenting 3D visualization and clinical UI.",
       "Reactive MVP boundaries keep UI, application state, and network-driven data independently maintainable.",
     ],
+    koArchitecture: [
+      "트래킹·센서 데이터는 TCP/IP와 UDP 통신 경로를 통해 Unity 클라이언트로 전달됩니다.",
+      "클라이언트는 내비게이션 워크플로우 상태와 좌표 기반 갱신을 처리한 뒤 3D 시각화와 임상 UI에 반영합니다.",
+      "Reactive MVP 경계로 UI, 애플리케이션 상태, 네트워크 기반 데이터를 독립적으로 유지보수할 수 있게 했습니다.",
+    ],
     koProcess: [
       "반복되는 빌드 설정을 줄이기 위한 커스텀 도구를 만들었습니다.",
       "성능을 고려해 AR 시각 피드백을 구현했습니다.",
@@ -206,6 +219,18 @@ const legacyProjects = [
         koSummary: "Unity UI, 워크플로우 상태, 네트워크 기반 데이터를 분리한 Reactive MVP 구조",
         markdownPath: "./content/project-details/sagarvision/mvp-architecture.en.md",
         koMarkdownPath: "./content/project-details/sagarvision/mvp-architecture.ko.md",
+        inline: true,
+        inlineOrder: 3,
+        highlights: [
+          "Separated UI, workflow state, and network-driven data into clear client responsibilities.",
+          "Connected server updates and user input through a reactive UniRx flow.",
+          "Made common workflow behavior reusable across Planning, Landmark, Gap, and Resection screens.",
+        ],
+        koHighlights: [
+          "UI, 워크플로우 상태, 네트워크 기반 데이터를 클라이언트 책임 단위로 분리했습니다.",
+          "서버 상태 갱신과 사용자 입력을 UniRx 기반 반응형 흐름으로 연결했습니다.",
+          "Planning, Landmark, Gap, Resection 화면의 공통 워크플로우를 재사용 가능하게 정리했습니다.",
+        ],
       },
       {
         slug: "network-protocol-automation-tcp",
@@ -215,6 +240,18 @@ const legacyProjects = [
         koSummary: "장비 연동을 위한 TCP/IP 통신과 프로토콜 처리",
         markdownPath: "./content/project-details/sagarvision/network-protocol-automation-tcp.en.md",
         koMarkdownPath: "./content/project-details/sagarvision/network-protocol-automation-tcp.ko.md",
+        inline: true,
+        inlineOrder: 1,
+        highlights: [
+          "Generated named client commands and server payload offsets from the shared protocol definition.",
+          "Removed scattered raw values from runtime code to make protocol changes safer to maintain.",
+          "Validated and routed TCP packets into the client workflow layer.",
+        ],
+        koHighlights: [
+          "공유 프로토콜 정의를 바탕으로 client command와 server payload offset을 생성했습니다.",
+          "런타임 코드에 흩어진 raw value를 줄여 프로토콜 변경을 더 안전하게 관리했습니다.",
+          "검증한 TCP packet을 클라이언트 워크플로우 계층으로 라우팅했습니다.",
+        ],
       },
       {
         slug: "real-time-tracking-udp",
@@ -224,6 +261,18 @@ const legacyProjects = [
         koSummary: "AR 클라이언트 갱신을 위한 UDP 기반 실시간 트래킹 데이터 흐름",
         markdownPath: "./content/project-details/sagarvision/real-time-tracking-udp.en.md",
         koMarkdownPath: "./content/project-details/sagarvision/real-time-tracking-udp.ko.md",
+        inline: true,
+        inlineOrder: 2,
+        highlights: [
+          "Separated reliable TCP workflow data from latency-sensitive UDP pose updates.",
+          "Processed incoming tracking data without blocking the rendering flow.",
+          "Applied parsed state safely to the Unity main thread for responsive AR and PC views.",
+        ],
+        koHighlights: [
+          "신뢰성이 필요한 TCP 워크플로우 데이터와 지연에 민감한 UDP pose 갱신을 분리했습니다.",
+          "렌더링 흐름을 막지 않도록 수신 트래킹 데이터를 처리했습니다.",
+          "파싱된 상태를 Unity main thread에 안전하게 반영해 AR·PC 화면의 반응성을 유지했습니다.",
+        ],
       },
       {
         slug: "continuous-deployment",
