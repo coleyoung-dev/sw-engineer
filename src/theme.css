@@ -691,6 +691,38 @@ body {
   color: var(--theme-text);
 }
 
+@media screen and (min-width: 1400px) {
+  .individual-section:not(.project-detail) {
+    min-height: calc(100svh - 4.5rem);
+    padding-block: clamp(1.5rem, 4vh, 3rem);
+  }
+
+  .individual-section:not(.project-detail) > h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(3rem, 4vw, 3.75rem);
+  }
+
+  .individual-section:not(.project-detail) > h1::after {
+    margin-top: 0.75rem;
+  }
+
+  .work-experiences .experiences {
+    gap: 1rem;
+  }
+
+  .work-experiences .experiences .experience {
+    padding: clamp(1.25rem, 2.3vh, 1.75rem);
+  }
+
+  .work-experiences .experiences .experience .right-side {
+    gap: 0.65rem;
+  }
+
+  .tech-stack {
+    min-height: 9rem;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .featured-projects .featured-projects-showcases,
   .tech-stacks {
