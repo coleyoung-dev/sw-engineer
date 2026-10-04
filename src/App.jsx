@@ -61,7 +61,7 @@ function slugify(value) {
 }
 
 function getProjectSlug(project) {
-  return slugify(project.title);
+  return project.slug ?? slugify(project.title);
 }
 
 function getProjectDetailId(project) {
@@ -485,6 +485,19 @@ function ProjectCard({ project, language, text }) {
           <span>{text.projectDetail.open}</span>
           <i className="bi bi-arrow-right-short" aria-hidden="true" />
         </div>
+        {project.statuses?.length > 0 ? (
+          <div className="project-card-statuses">
+            {project.statuses.map((status, index) => (
+              <div className="project-card-status" key={`${status.type}-${index}`}>
+                <span className="project-card-status-badge" data-status={status.type.toLowerCase().replace(/\s+/g, "-")}>
+                  <span className="project-card-status-dot" aria-hidden="true" />
+                  {status.type}
+                </span>
+                <span className="project-card-status-text">{pickLocalized(status, "text", language)}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     </a>
   );

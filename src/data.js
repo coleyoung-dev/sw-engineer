@@ -124,19 +124,32 @@ export const platformIcons = [
 
 const legacyProjects = [
   {
-    title: "SagarVision AR System",
-    koTitle: "SagarVision AR System",
-    location: "Skyve · Medical Technology Innovation Team · 2025.04 - Present",
-    koLocation: "스카이브 의료기술혁신팀 · 2025.04 ~ 진행 중",
+    title: "Sagarvision",
+    koTitle: "Sagarvision",
+    slug: "sagarvision-ar-system",
+    location: "Skyve Medical Technology Innovation Team / 2025.04 - Present",
+    koLocation: "스카이브 의료기술혁신팀 / 2025.04 ~ 진행 중",
     description:
-      "Developed Unity Android and Windows clients for a surgical navigation workflow, integrating real-time device communication, tracking data, 3D visualization, architecture, and delivery tooling.",
+      "Led the development of Android and Windows client software for a knee replacement surgical navigation system.",
     koDescription:
-      "인공 관절 수술 보조 시스템의 Unity Android, Windows 클라이언트를 개발하며 통신, 구조, 빌드 흐름, 런타임 성능을 개선했습니다.",
+      "무릎 인공 관절 수술 내비게이션 시스템의 Android/Windows 클라이언트 소프트웨어 개발 전반을 담당했습니다.",
     icon: "bi-activity",
     image: "images_videos/sagarvision.png",
-    imageAlt: "SagarVision AR System thumbnail",
-    koImageAlt: "SagarVision AR System 썸네일",
-    tags: ["Unity", "C#", "TCP/IP", "UDP", "XREAL", "Android", "Windows"],
+    imageAlt: "Sagarvision thumbnail",
+    koImageAlt: "Sagarvision 썸네일",
+    tags: ["Unity", "C#", "Socket Network", "Windows", "Android", "MVP", "IEC 62304"],
+    statuses: [
+      {
+        type: "Approved",
+        text: "NIFDS regulatory approval",
+        koText: "식품의약품안전평가원(NIFDS) 인허가 승인",
+      },
+      {
+        type: "In Progress",
+        text: "Improving stability for hospital delivery",
+        koText: "병원 납품을 위한 안정성 개선 작업 진행 중",
+      },
+    ],
     role: "Software Engineer · Unity Client",
     koRole: "Unity 클라이언트 개발자",
     timeline: "2025.04 - Present",
@@ -367,25 +380,33 @@ const legacyProjects = [
     ],
   },
   {
-    title: "Seoul AR Navigation PoC",
-    koTitle: "서울시 디지털 재단 실증 사업 AR 내비게이션",
-    location: "HyperCloud · XR Team · 2023.08 - 2023.10",
-    koLocation: "하이퍼클라우드 XR Team · 2023.08 ~ 2023.10",
+    title: "Seoul Digital Foundation AR Navigation",
+    koTitle: "서울시 디지털 재단 실증 사업 AR Navigation",
+    slug: "seoul-ar-navigation-poc",
+    location: "HyperCloud XR Team / 2023.08 - 2023.10",
+    koLocation: "하이퍼클라우드 XR팀 / 2023.08 ~ 2023.10",
     description:
-      "Developed GPS/VPS-based AR navigation prototypes around Cheonggyecheon, embedding Unity in Flutter and connecting route data to AR guidance.",
+      "Built a GPS/VPS-based AR Navigation prototype around Cheonggyecheon, embedded a Unity Android app in a Flutter app, and developed location-based AR guidance.",
     koDescription:
-      "청계천 일대의 GPS/VPS 기반 AR 내비게이션 프로토타입을 개발하고, Flutter 내 Unity 임베딩과 경로 기반 AR 안내를 구현했습니다.",
+      "청계천 일대의 GPS/VPS 기반 AR Navigation 프로토타입을 개발하고, Flutter 기반의 앱에 Unity Android App을 임베딩했습니다. 추정된 위치 기반으로 AR 안내가 될 수 있도록 개발했습니다.",
     icon: "bi-signpost-split",
     image: "images_videos/seoul.png",
-    imageAlt: "Seoul AR Navigation PoC thumbnail",
-    koImageAlt: "서울시 AR 내비게이션 PoC 썸네일",
-    tags: ["Unity", "AR Navigation", "GPS", "VPS", "VLAM", "Flutter", "Unity Embedded", "REST API"],
+    imageAlt: "Seoul Digital Foundation AR Navigation thumbnail",
+    koImageAlt: "서울시 디지털 재단 실증 사업 AR Navigation 썸네일",
+    tags: ["Unity", "C#", "GPS Sensor", "Computer Vision", "Flutter", "Android Native", "RESTFUL API"],
+    statuses: [
+      {
+        type: "Completed",
+        text: "PoC validation",
+        koText: "POC 검증",
+      },
+    ],
     role: "Unity AR Navigation Engineer",
     koRole: "Unity AR 내비게이션 엔지니어",
     timeline: "2023.08 - 2023.10",
     koTimeline: "2023.08 ~ 2023.10",
     team: "HyperCloud XR Team",
-    koTeam: "하이퍼클라우드 XR Team",
+    koTeam: "하이퍼클라우드 XR팀",
     category: "Mobile (Android) / Flutter Embedded Unity",
     koCategory: "Mobile (Android) / Flutter Embedded Unity",
     relatedPage: {
@@ -695,8 +716,8 @@ export const experiences = [
     koDescription:
       "의료기술혁신팀에서 Unity 기반 AR/VR 앱을 개발하고 있습니다. SagarVision AR System의 Android 및 Windows 클라이언트 개발, Socket 통신 연동, UniRx와 MVP 아키텍처 도입, 커스텀 빌드 자동화, 성능 및 발열 개선을 담당했습니다.",
     apps: [
-      ["SagarVision AR System", "#featuredproject"],
-      ["QR Based Pose Tracking System", "#/projects/qr-based-pose-tracking-system"],
+      ["Sagarvision", "#featuredproject"],
+      ["QR Based Pose Tracking", "#/projects/qr-based-pose-tracking-system"],
     ],
     skills: ["Unity", "C#", "AR", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL"],
   },
@@ -712,30 +733,38 @@ export const experiences = [
     koDescription:
       "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
     apps: [
-      ["Seoul AR Navigation", "#/projects/seoul-ar-navigation-poc"],
+      ["서울시 디지털 재단 실증 사업 AR Navigation", "#/projects/seoul-ar-navigation-poc"],
     ],
     skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
   },
 ];
 
 const jetsonVisionProject = {
-  title: "QR Based Pose Tracking System",
-  koTitle: "QR Based Pose Tracking System",
-  location: "Computer Vision / Spatial Computing",
-  koLocation: "Computer Vision / Spatial Computing",
+  title: "QR Based Pose Tracking",
+  koTitle: "QR Based Pose Tracking",
+  slug: "qr-based-pose-tracking-system",
+  location: "Skyve Medical Technology Innovation Team / 2026.08 - 2026.11",
+  koLocation: "스카이브 의료기술혁신팀 / 2026.08 ~ 2026.11",
   description:
-    "Worked on a real-time marker-based tracking pipeline using NVIDIA Jetson, a ZED stereo camera, ArUco detection, pose processing, and Kalman filtering.",
+    "Built an ArUco marker tracking project with NVIDIA Jetson and a ZED X stereo camera. It detects markers in both camera views, calculates 3D position and orientation, and sends the results to clients over UDP.",
   koDescription:
-    "NVIDIA Jetson, ZED 스테레오 카메라, ArUco 검출, 포즈 처리, Kalman filtering을 활용한 실시간 마커 기반 트래킹 파이프라인을 다뤘습니다.",
+    "NVIDIA Jetson과 ZED X 스테레오 카메라를 이용한 ArUco 마커 위치 추적 프로젝트입니다. 좌우 영상에서 마커를 검출하고 3D 위치와 자세를 계산해 클라이언트에 UDP 프로토콜로 전달합니다.",
   icon: "bi-camera-video",
   image: "images_videos/jetson-opencv-tracking.png",
-  imageAlt: "QR-based pose tracking system conceptual thumbnail",
-  koImageAlt: "QR 기반 포즈 트래킹 시스템 프로젝트 썸네일",
-  tags: ["NVIDIA Jetson", "ZED", "ArUco", "Computer Vision", "Kalman Filtering", "Real-time"],
+  imageAlt: "QR Based Pose Tracking thumbnail",
+  koImageAlt: "QR Based Pose Tracking 썸네일",
+  tags: ["NVIDIA Jetson", "ZED", "Python", "OpenCV", "Kalman filter", "Socket Network"],
+  statuses: [
+    {
+      type: "Completed",
+      text: "PoC validation",
+      koText: "POC 검증",
+    },
+  ],
   role: "Computer Vision Engineer",
   koRole: "Computer Vision 엔지니어",
-  timeline: "Aug 2025 - Nov 2025",
-  koTimeline: "2025.08 ~ 2025.11",
+  timeline: "2026.08 - 2026.11",
+  koTimeline: "2026.08 ~ 2026.11",
   team: "Skyve Medical Technology Innovation Team",
   koTeam: "스카이브 의료기술혁신팀",
   category: "Nvidia Jetson (Linux)",
