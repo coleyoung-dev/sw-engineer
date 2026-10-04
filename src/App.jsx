@@ -35,11 +35,11 @@ function getInitialLanguage() {
 }
 
 function getInitialTheme() {
-  if (typeof window === "undefined") return "dark";
+  if (typeof window === "undefined") return "light";
   try {
-    return window.localStorage.getItem("theme") === "light" ? "light" : "dark";
+    return window.localStorage.getItem("theme") === "dark" ? "dark" : "light";
   } catch {
-    return "dark";
+    return "light";
   }
 }
 
