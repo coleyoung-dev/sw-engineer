@@ -1,4 +1,4 @@
-SagarVision AR System의 CI/CD 구성은 코드 검증부터 Unity 클라이언트 빌드·배포까지 반복 가능한 절차로 만든 자동화 흐름입니다.
+SagarVision AR System의 CI/CD 구성은 IEC 62304 대응을 위한 자동 품질 검증과 Unity 클라이언트 빌드·배포를 반복 가능한 절차로 만든 흐름입니다. 검증 결과와 추적성 자료를 생성해 개발 문서 작성에도 활용했습니다.
 
 ## CI(Continuous Integration)
 

@@ -1,4 +1,4 @@
-SagarVision's Unity client exchanges TCP messages with the backend server throughout the surgical workflow. I built a protocol automation flow so command names and payload offsets could stay aligned with the shared protocol table without scattering raw numbers through the client.
+SagarVision's Unity client exchanges TCP messages with the backend server throughout the surgical workflow. I used the shared protocol specification as a single source of truth (SSOT) to scaffold command and payload-offset code. I also changed TCP state updates from polling to a push-on-state flow to improve responsiveness.
 
 - Generated client-to-server commands as named `CommandSet` values.
 - Generated server-to-client payload definitions as named offset helpers.

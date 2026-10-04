@@ -1,4 +1,4 @@
-SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 서버와 TCP 메시지를 주고받습니다. 저는 command 이름과 payload offset이 공유 프로토콜 표와 맞춰지도록 자동화 흐름을 만들고, 숫자 값이 클라이언트 코드 곳곳에 흩어지지 않게 정리했습니다.
+SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 서버와 TCP 메시지를 주고받습니다. 공유 프로토콜 명세를 SSOT로 삼아 command와 payload offset 코드를 생성하는 스캐폴딩 흐름을 만들었습니다. TCP 상태 갱신은 Polling 구조에서 Push on State 방식으로 전환해 반응성을 개선했습니다.
 
 - Client to Server command를 이름 있는 `CommandSet` 값으로 생성했습니다.
 - Server to Client payload 정의를 이름 있는 offset helper로 생성했습니다.

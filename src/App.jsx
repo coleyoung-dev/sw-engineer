@@ -553,7 +553,9 @@ function ProjectCaseStudies({ project, language, text }) {
 
   return (
     <section className="project-detail-section project-case-studies" aria-labelledby="core-case-studies-title">
-      <h2 id="core-case-studies-title">{text.projectDetail.coreCaseStudies}</h2>
+      <h2 id="core-case-studies-title">
+        {pickLocalized(project, "caseStudiesTitle", language) ?? text.projectDetail.coreCaseStudies}
+      </h2>
       <p className="project-case-studies-copy">{text.projectDetail.coreCaseStudiesCopy}</p>
 
       <div className="core-case-study-grid">
@@ -618,6 +620,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const title = pickLocalized(project, "title", language);
   const location = pickLocalized(project, "location", language);
   const description = pickLocalized(project, "description", language);
+  const detailDescription = pickLocalized(project, "detailDescription", language);
   const role = pickLocalized(project, "role", language);
   const timeline = pickLocalized(project, "timeline", language);
   const team = pickLocalized(project, "team", language);
@@ -730,8 +733,17 @@ function ProjectDetail({ project, language, text, onBack }) {
             <section className="project-detail-section">
               <h2>{text.projectDetail.overview}</h2>
               <p>{description}</p>
-              <p className="project-detail-location">{location}</p>
+              {project.showLocationInOverview !== false ? (
+                <p className="project-detail-location">{location}</p>
+              ) : null}
             </section>
+
+            {detailDescription ? (
+              <section className="project-detail-section">
+                <h2>{text.projectDetail.description}</h2>
+                <p>{detailDescription}</p>
+              </section>
+            ) : null}
 
             <ProjectCaseStudies project={project} language={language} text={text} />
 
@@ -746,14 +758,16 @@ function ProjectDetail({ project, language, text, onBack }) {
               </section>
             ) : null}
 
-            <section className="project-detail-section">
-              <h2>{text.projectDetail.focus}</h2>
-              <ul>
-                {focus.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </section>
+            {focus.length > 0 ? (
+              <section className="project-detail-section">
+                <h2>{text.projectDetail.focus}</h2>
+                <ul>
+                  {focus.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
             {process.length > 0 ? (
               <section className="project-detail-section">
@@ -767,7 +781,7 @@ function ProjectDetail({ project, language, text, onBack }) {
             ) : null}
 
             <section className="project-detail-section">
-              <h2>{text.projectDetail.outcomes}</h2>
+              <h2>{pickLocalized(project, "outcomesTitle", language) ?? text.projectDetail.outcomes}</h2>
               <ul>
                 {outcomes.map((item) => (
                   <li key={typeof item === "string" ? item : item.text}>

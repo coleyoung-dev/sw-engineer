@@ -1,4 +1,4 @@
-I handled UDP communication for real-time tracking data and connected incoming device state to the Unity runtime so the AR client could update quickly during operation.
+The server computes IR camera marker positions in its world coordinate system and sends tracking data to the Unity client over UDP. The client converts received positions into Unity coordinates and displays them in real time. Receiving and parsing run on a separate thread, while a dispatcher applies UI updates on Unity's main thread.
 
 - Separated real-time pose updates from reliable TCP workflow data.
 - Reflected tracking state in Unity without blocking rendering.

@@ -1,4 +1,4 @@
-The UniRx-based MVP architecture separated SagarVision's workflow UI, server-driven state, and AR/PC display behavior into clearer layers. The goal was to make the Unity client easier to extend as planning, landmark, gap, and resection screens evolved.
+SagarVision's Reactive Programming-based MVP architecture separates TCP and UDP data (Model), UI (View), and data binding and business logic (Presenter). UniRx handles server state updates and user input reactively.
 
 ![UniRx-based MVP architecture data flow](images_videos/sagarvision-unirx-mvp-flow.svg)
 

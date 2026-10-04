@@ -1,4 +1,4 @@
-SagarVision의 UniRx 기반 MVP 아키텍처는 수술 workflow UI, 서버 기반 상태, AR/PC 화면 제어를 더 명확한 계층으로 분리한 구조입니다. Planning, Landmark, Gap, Resection 화면이 확장되어도 Unity 클라이언트를 유지보수하기 쉽게 만드는 것이 목표였습니다.
+SagarVision의 Reactive Programming 기반 MVP 아키텍처는 TCP·UDP 데이터(Model), UI(View), 데이터 바인딩과 비즈니스 로직(Presenter)의 책임을 분리한 구조입니다. UniRx를 활용해 서버 상태 갱신과 사용자 입력을 반응형으로 처리했습니다.
 
 ![UniRx 기반 MVP 아키텍처 데이터 흐름](images_videos/sagarvision-unirx-mvp-flow.svg)
 

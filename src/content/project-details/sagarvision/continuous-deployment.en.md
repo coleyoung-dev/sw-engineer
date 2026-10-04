@@ -1,4 +1,4 @@
-I built a CI/CD workflow around the Unity client to validate changes and deliver repeatable Android and Windows builds.
+I built a CI/CD workflow around the Unity client to automate quality verification in support of IEC 62304 and deliver repeatable Android and Windows builds. The workflow also produces verification and traceability artifacts for development documentation.
 
 ## CI (Continuous Integration)
 
