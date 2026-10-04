@@ -1011,7 +1011,6 @@ function WorkExperience({ language, text }) {
                   </a>
                 ))}
               </div>
-              <Tags tags={experience.skills} className="skills" itemClass="skill" />
             </div>
           </div>
         ))}

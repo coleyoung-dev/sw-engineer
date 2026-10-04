@@ -770,14 +770,13 @@ export const experiences = [
     company: "Skyve",
     companyUrl: "http://www.skyve.co.kr/",
     description:
-      "Build medical-device software in the Medical Technology Innovation Team. Develop Android and Windows Unity clients for SagarVision surgical navigation workflows; integrate TCP/IP and UDP data paths, support real-time 3D visualization, refine client architecture, automate build delivery, and validate runtime performance on target devices.",
+      "I develop Sagarvision software that supports knee replacement surgery in the Medical Technology Innovation Team. My work centers on Unity/C# applications for Android and Windows, including real-time data processing over socket connections, tracking, and 2D/3D visualization.",
     koDescription:
-      "의료기술혁신팀에서 Unity 기반 AR/VR 앱을 개발하고 있습니다. SagarVision AR System의 Android 및 Windows 클라이언트 개발, Socket 통신 연동, UniRx와 MVP 아키텍처 도입, 커스텀 빌드 자동화, 성능 및 발열 개선을 담당했습니다.",
+      "의료기술혁신팀에서 인공 무릎 관절 치환 수술을 지원하는 Sagarvision 소프트웨어를 개발하고 있습니다. Unity/C# 기반 Android/Windows 애플리케이션 개발을 중심으로, Socket 통신을 활용한 실시간 데이터 처리, 트래킹 및 시각화(2D/3D) 기능을 담당하고 있습니다.",
     apps: [
       ["Sagarvision", "#featuredproject"],
       ["QR Based Pose Tracking", "#/projects/qr-based-pose-tracking-system"],
     ],
-    skills: ["Unity", "C#", "AR", "Android", "Windows", "TCP/IP", "UDP", "UniRx", "MVP", "HLSL"],
   },
   {
     date: "Mar 2022 - Jun 2024",
@@ -787,13 +786,12 @@ export const experiences = [
     company: "HyperCloud",
     companyUrl: "https://www.hyper-cloud.kr/",
     description:
-      "Built Unity-based AR/XR applications and reusable solution modules in the XR Team. Delivered Seoul AR navigation, Flutter-embedded Unity experiences, native/mobile integrations, recognition-driven content, and retail XR projects including Hyundai Duty Free and HARS / HYPER Solution.",
+      "Developed Unity/C#-based AR/XR applications and solutions. Worked across XR projects ranging from mobile AR with ARFoundation to GPS/VPS-based localization, WebGL, content delivery, and runtime resource management.",
     koDescription:
-      "XR Team / Unity Part에서 Unity 기반 AR/VR 및 AR 솔루션 모듈 개발을 담당했습니다. HARS / HYPER Solution, 현대백화점 면세점 AR 콘텐츠, 서울시 AR 내비게이션, 경주로 ON AR 상점 스캔 프로젝트를 수행했습니다.",
+      "Unity/C# 기반의 AR/XR 애플리케이션 및 솔루션을 개발했습니다. ARFoundation을 활용한 모바일 AR부터 GPS/VPS 기반 위치 인식, WebGL, 콘텐츠 배포 및 런타임 리소스 관리까지 다양한 환경의 XR 프로젝트를 수행했습니다.",
     apps: [
       ["서울시 디지털 재단 실증 사업 AR Navigation", "#/projects/seoul-ar-navigation-poc"],
     ],
-    skills: ["Unity", "C#", "ARFoundation", "TFLite", "Flutter", "REST API", "Addressables", "Android", "iOS", "CMS"],
   },
 ];
 
