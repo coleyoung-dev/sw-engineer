@@ -648,7 +648,9 @@ function ProjectCaseStudies({ project, language, text }) {
       <h2 id="core-case-studies-title">
         {pickLocalized(project, "caseStudiesTitle", language) ?? text.projectDetail.coreCaseStudies}
       </h2>
-      <p className="project-case-studies-copy">{text.projectDetail.coreCaseStudiesCopy}</p>
+      <p className="project-case-studies-copy">
+        {pickLocalized(project, "caseStudiesCopy", language) ?? text.projectDetail.coreCaseStudiesCopy}
+      </p>
 
       <div className={`core-case-study-grid${coreContents.length === 4 ? " core-case-study-grid-four" : ""}`}>
         {coreContents.map((content) => {
@@ -712,6 +714,7 @@ function ProjectDetail({ project, language, text, onBack }) {
   const title = pickLocalized(project, "title", language);
   const location = pickLocalized(project, "location", language);
   const description = pickLocalized(project, "description", language);
+  const overview = pickLocalized(project, "overview", language) ?? description;
   const detailDescription = pickLocalized(project, "detailDescription", language);
   const role = pickLocalized(project, "role", language);
   const timeline = pickLocalized(project, "timeline", language);
@@ -824,7 +827,7 @@ function ProjectDetail({ project, language, text, onBack }) {
           <article className="project-detail-body">
             <section className="project-detail-section">
               <h2>{text.projectDetail.overview}</h2>
-              <p>{description}</p>
+              <p>{overview}</p>
               {project.showLocationInOverview !== false ? (
                 <p className="project-detail-location">{location}</p>
               ) : null}
@@ -833,7 +836,9 @@ function ProjectDetail({ project, language, text, onBack }) {
             {detailDescription ? (
               <section className="project-detail-section">
                 <h2>{text.projectDetail.description}</h2>
-                <p>{detailDescription}</p>
+                {Array.isArray(detailDescription)
+                  ? detailDescription.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                  : <p>{detailDescription}</p>}
               </section>
             ) : null}
 
@@ -852,12 +857,21 @@ function ProjectDetail({ project, language, text, onBack }) {
 
             {focus.length > 0 ? (
               <section className="project-detail-section">
-                <h2>{text.projectDetail.focus}</h2>
+                <h2>{pickLocalized(project, "focusTitle", language) ?? text.projectDetail.focus}</h2>
                 <ul>
                   {focus.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+                {project.focusImage ? (
+                  <figure className="project-detail-focus-image">
+                    <img
+                      src={assetPath(project.focusImage)}
+                      alt={pickLocalized(project, "focusImageAlt", language) ?? ""}
+                      loading="lazy"
+                    />
+                  </figure>
+                ) : null}
               </section>
             ) : null}
 
@@ -878,6 +892,15 @@ function ProjectDetail({ project, language, text, onBack }) {
                 {outcomes.map((item) => (
                   <li key={typeof item === "string" ? item : item.text}>
                     <LinkedListItem item={item} />
+                    {item.children?.length > 0 ? (
+                      <ul>
+                        {item.children.map((child) => (
+                          <li key={typeof child === "string" ? child : child.text}>
+                            <LinkedListItem item={child} />
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </li>
                 ))}
               </ul>

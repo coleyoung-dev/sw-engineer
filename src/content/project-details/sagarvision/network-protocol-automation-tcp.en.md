@@ -1,4 +1,4 @@
-SagarVision's Unity client exchanges TCP messages with the backend server throughout the surgical workflow. I used the shared protocol specification as a single source of truth (SSOT) to scaffold command and payload-offset code. I also changed TCP state updates from polling to a push-on-state flow to improve responsiveness.
+SagarVision's Unity client exchanges TCP messages with the backend server throughout the surgical workflow. The protocol single source of truth (SSOT) is maintained by referring to a shared spreadsheet, with dedicated tables for `Client to Server` commands and `Server to Client` payloads. I used this spreadsheet specification to scaffold command and payload-offset code. I also changed TCP state updates from polling to a push-on-state flow to improve responsiveness.
 
 The tables and code snippets below use illustrative dummy data, not actual protocol values or production code.
 
@@ -7,6 +7,10 @@ The tables and code snippets below use illustrative dummy data, not actual proto
 - Routed validated TCP packets into the client workflow layer.
 
 ## Client to Server
+
+The dedicated `Client to Server` table manages the commands sent from the client, including their names, values, sections, and interactions.
+
+![Client to Server protocol table](images_videos/sagarvision/tcp/client-to-server/ClientToServerData.png)
 
 ### Protocol Data
 
@@ -63,6 +67,10 @@ void ResetView() =>
 Each screen action selects its corresponding command; the network layer handles packet sending.
 
 ## Server to Client
+
+The dedicated `Server to Client` table manages payload fields delivered from the server, including their names, offsets, types, and lengths.
+
+![Server to Client protocol table](images_videos/sagarvision/tcp/server-to-client/ServerToClientData.png)
 
 ### Protocol Data
 

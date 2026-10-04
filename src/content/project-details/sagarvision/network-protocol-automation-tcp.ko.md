@@ -1,4 +1,4 @@
-SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 서버와 TCP 메시지를 주고받습니다. 공유 프로토콜 명세를 SSOT로 삼아 command와 payload offset 코드를 생성하는 스캐폴딩 흐름을 만들었습니다. TCP 상태 갱신은 Polling 구조에서 Push on State 방식으로 전환해 반응성을 개선했습니다.
+SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 서버와 TCP 메시지를 주고받습니다. 프로토콜 SSOT(Single Source of Truth)는 공유 스프레드시트를 참고해 사용하며, `Client to Server` command와 `Server to Client` payload를 각각 전용 테이블로 분리해 관리했습니다. 이 스프레드시트 명세를 바탕으로 command와 payload offset 코드를 생성하는 스캐폴딩 흐름을 만들었습니다. TCP 상태 갱신은 Polling 구조에서 Push on State 방식으로 전환해 반응성을 개선했습니다.
 
 아래 표와 코드 스니핏은 실제 프로토콜 값이나 운영 코드를 포함하지 않는 더미 예시입니다.
 
@@ -7,6 +7,10 @@ SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 �
 - 검증된 TCP packet을 클라이언트 workflow 계층으로 전달했습니다.
 
 ## Client to Server
+
+`Client to Server` 전용 테이블은 클라이언트가 서버에 전송하는 command 이름, 값, 구간, 상호작용을 관리합니다.
+
+![Client to Server 프로토콜 전용 테이블](images_videos/sagarvision/tcp/client-to-server/ClientToServerData.png)
 
 ### Protocol Data
 
@@ -63,6 +67,10 @@ void ResetView() =>
 각 화면 동작은 대응하는 command를 선택하고, packet 전송은 네트워크 계층에서 처리합니다.
 
 ## Server to Client
+
+`Server to Client` 전용 테이블은 서버가 클라이언트에 전달하는 payload의 이름, offset, 타입, 길이를 관리합니다.
+
+![Server to Client 프로토콜 전용 테이블](images_videos/sagarvision/tcp/server-to-client/ServerToClientData.png)
 
 ### Protocol Data
 
