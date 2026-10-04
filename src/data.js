@@ -210,6 +210,27 @@ const legacyProjects = [
     reflection: false,
     detailContents: [
       {
+        slug: "graphics",
+        title: "AR Rendering and Graphics",
+        koTitle: "AR 렌더링 및 그래픽스",
+        summary: "BVH surface projection, RenderTexture compositing, and HLSL visual feedback.",
+        koSummary: "BVH 표면 투영, RenderTexture 합성, HLSL 시각 피드백",
+        markdownPath: "./content/project-details/sagarvision/graphics.en.md",
+        koMarkdownPath: "./content/project-details/sagarvision/graphics.ko.md",
+        inline: true,
+        inlineOrder: 4,
+        highlights: [
+          "Projected probe positions onto bone surfaces with a BVH-based closest-point search.",
+          "Composited resection guidance in the AR HUD with luma keying and outlines.",
+          "Highlighted projected points in real time with HLSL materials.",
+        ],
+        koHighlights: [
+          "BVH 기반 최근접점 탐색으로 프로브 위치를 뼈 표면에 투영했습니다.",
+          "Luma keying과 outline으로 절단 보조 정보를 AR HUD에 합성했습니다.",
+          "HLSL material로 투영 지점을 실시간 하이라이팅했습니다.",
+        ],
+      },
+      {
         slug: "mvp-architecture",
         title: "Reactive Programming-Based MVP Architecture",
         koTitle: "Reactive Programming 기반 MVP 아키텍처",

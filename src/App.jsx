@@ -650,7 +650,7 @@ function ProjectCaseStudies({ project, language, text }) {
       </h2>
       <p className="project-case-studies-copy">{text.projectDetail.coreCaseStudiesCopy}</p>
 
-      <div className="core-case-study-grid">
+      <div className={`core-case-study-grid${coreContents.length === 4 ? " core-case-study-grid-four" : ""}`}>
         {coreContents.map((content) => {
           const title = pickLocalized(content, "title", language);
           const summary = pickLocalized(content, "summary", language);

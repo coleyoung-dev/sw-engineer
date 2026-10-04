@@ -909,6 +909,10 @@ a {
   gap: 1rem;
 }
 
+.core-case-study-grid-four {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .core-case-study-card {
   display: flex;
   min-width: 0;
