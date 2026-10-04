@@ -148,7 +148,7 @@ const legacyProjects = [
     image: "images_videos/sagarvision.png",
     imageAlt: "Sagarvision thumbnail",
     koImageAlt: "Sagarvision 썸네일",
-    tags: ["Unity", "C#", "Socket Network", "Android", "Windows", "MVP", "CI/CD", "Testing Automation", "Agentic Workflow Engineering"],
+    tags: ["Unity", "C#", "Socket Network", "Android", "Windows", "MVP", "Reactive Programming", "CI/CD", "Testing Automation", "Agentic Workflow Engineering"],
     statuses: [
       {
         type: "Approved",
@@ -810,7 +810,7 @@ const jetsonVisionProject = {
   image: "images_videos/jetson-opencv-tracking.png",
   imageAlt: "QR Based Pose Tracking thumbnail",
   koImageAlt: "QR Based Pose Tracking 썸네일",
-  tags: ["NVIDIA Jetson", "ZED", "Python", "OpenCV", "Socket Network"],
+  tags: ["NVIDIA Jetson", "ZED", "Python", "OpenCV", "Kalman Filter", "Socket Network"],
   statuses: [
     {
       type: "Completed",
