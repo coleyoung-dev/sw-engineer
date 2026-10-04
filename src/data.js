@@ -18,7 +18,7 @@ export const uiText = {
     hero: {
       name: "CHANYOUNG HONG",
       subtitle: "Software Engineer",
-      headline: "Building reliable software for medical devices and real-time data.",
+      headline: "Software that bridges healthcare and technology",
       description:
         "I develop surgical navigation clients that connect device communication, real-time visualization, and dependable delivery.",
       platforms: "Medical Software · Spatial Computing · Computer Vision",
@@ -70,7 +70,7 @@ export const uiText = {
     hero: {
       name: "홍찬영",
       subtitle: "소프트웨어 엔지니어",
-      headline: "의료 장비와 데이터를 연결하는 소프트웨어 엔지니어.",
+      headline: "의료 현장과 기술을 연결하는 소프트웨어",
       description:
         "수술 내비게이션 클라이언트에서 장비 통신, 실시간 시각화, 안정적인 배포까지 구현합니다.",
       platforms: "의료 소프트웨어 · Spatial Computing · Computer Vision",
