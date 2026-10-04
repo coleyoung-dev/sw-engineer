@@ -240,11 +240,9 @@ const legacyProjects = [
         inlineOrder: 1,
         highlights: [
           "Scaffolded protocol code from a single source of truth (SSOT).",
-          "Improved responsiveness by replacing TCP polling with push-on-state updates.",
         ],
         koHighlights: [
           "SSOT 기반으로 네트워크 프로토콜 코드를 스캐폴딩했습니다.",
-          "TCP 통신을 Polling 구조에서 Push on State 방식으로 전환해 반응성을 개선했습니다.",
         ],
       },
       {

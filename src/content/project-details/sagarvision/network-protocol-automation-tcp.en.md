@@ -1,5 +1,7 @@
 SagarVision's Unity client exchanges TCP messages with the backend server throughout the surgical workflow. I used the shared protocol specification as a single source of truth (SSOT) to scaffold command and payload-offset code. I also changed TCP state updates from polling to a push-on-state flow to improve responsiveness.
 
+The tables and code snippets below use illustrative dummy data, not actual protocol values or production code.
+
 - Generated client-to-server commands as named `CommandSet` values.
 - Generated server-to-client payload definitions as named offset helpers.
 - Routed validated TCP packets into the client workflow layer.
@@ -8,59 +10,136 @@ SagarVision's Unity client exchanges TCP messages with the backend server throug
 
 ### Protocol Data
 
-![Client to Server command spreadsheet](images_videos/sagarvision/tcp/client-to-server/ClientToServerData.png)
+| Name | Value | Section | Interaction | Description |
+| --- | --- | --- | --- | --- |
+| DUMMY_SESSION_START | 10 | System | Start session | Opens a sample workflow session |
+| DUMMY_PLAN_UPDATE | 20 | Planning | Submit plan | Sends a sample plan revision |
+| DUMMY_VIEW_RESET | 30 | AR View | Reset view | Returns the sample AR view to its default state |
 
-Client commands were managed in a shared spreadsheet so planning, landmark, AR state, and device actions had one source of truth.
+The sample command rows cover session start, plan update, and AR view reset. Each row supplies a name and value for the generated client command enum.
 
 ### IMGUI Data Import
 
-![CommandSet generator editor window](images_videos/sagarvision/tcp/client-to-server/getdata.png)
+```csharp
+if (GUILayout.Button("Import Command Data"))
+{
+    GenerateCommandSet(new[]
+    {
+        ("DUMMY_SESSION_START", 10),
+        ("DUMMY_PLAN_UPDATE", 20),
+        ("DUMMY_VIEW_RESET", 30)
+    });
+}
+```
 
-The Unity editor tool imported the command table and regenerated the client-side command definitions.
+The Unity editor tool imports all three command rows and regenerates the client-side definitions together.
 
 ### Generated Command Enum
 
-![Generated CommandSet enum](images_videos/sagarvision/tcp/client-to-server/result.png)
+```csharp
+public enum CommandSet
+{
+    DUMMY_SESSION_START = 10,
+    DUMMY_PLAN_UPDATE = 20,
+    DUMMY_VIEW_RESET = 30
+}
+```
 
-The generated enum let runtime code send meaningful command names instead of hard-coded numeric values.
+All three generated names let runtime code use the matching command instead of a hard-coded numeric value.
 
 ### Runtime Usage
 
-![CommandSet usage in NetworkManager](images_videos/sagarvision/tcp/client-to-server/using.png)
+```csharp
+void StartSession() =>
+    networkManager.SendCommand(CommandSet.DUMMY_SESSION_START);
 
-Screen logic could request server actions through named commands while the network layer handled packet sending.
+void SubmitPlan() =>
+    networkManager.SendCommand(CommandSet.DUMMY_PLAN_UPDATE);
+
+void ResetView() =>
+    networkManager.SendCommand(CommandSet.DUMMY_VIEW_RESET);
+```
+
+Each screen action selects its corresponding command; the network layer handles packet sending.
 
 ## Server to Client
 
 ### Protocol Data
 
-![Server to Client offset spreadsheet](images_videos/sagarvision/tcp/server-to-client/ServerToClientData.png)
+| Name | Offset | Type | Length (Byte) | Section | Description |
+| --- | --- | --- | --- | --- | --- |
+| DUMMY_SESSION_STATE | 10 | Int | 4 | System | Sample session state code |
+| DUMMY_PLAN_REVISION | 14 | Int | 4 | Planning | Revision number of the sample plan |
+| DUMMY_TRACKING_SCORE | 18 | Int | 4 | Tracking | Sample tracking quality score |
 
-Server payload fields were managed as a shared offset table for values used across planning, validation, gap, and resection screens.
+The sample response contains a session state, plan revision, and tracking score. Each `Int` field is 4 bytes; the offsets 10, 14, and 18 are relative to the payload, excluding the packet header.
 
 ### IMGUI Offset Import
 
-![ServerOffset generator editor window](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor.png)
+```csharp
+if (GUILayout.Button("Generate", GUILayout.Height(30)))
+{
+    Generate();
+}
+```
 
-The offset generator turned the shared table into Unity-side definitions that could be refreshed when the protocol changed.
+The Unity editor generator reads the three sample rows from the shared table and creates typed `ServerOffset` definitions.
 
 ### Generated Offset Map
 
-![Generated server offsets](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result.png)
+```csharp
+public static class Offsets
+{
+    public static class System
+    {
+        public static readonly ServerOffset DUMMY_SESSION_STATE =
+            new(10, FieldType.Int, 4);
+    }
 
-Named offsets made received data easier to read and reduced manual byte-position handling.
+    public static class Planning
+    {
+        public static readonly ServerOffset DUMMY_PLAN_REVISION =
+            new(14, FieldType.Int, 4);
+    }
+
+    public static class Tracking
+    {
+        public static readonly ServerOffset DUMMY_TRACKING_SCORE =
+            new(18, FieldType.Int, 4);
+    }
+}
+```
+
+As in the project's generated file, each field is a `ServerOffset` with a payload offset, `FieldType`, and byte length, grouped by section.
 
 ### Parsing Logic
 
-![ServerOffset parsing helpers](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result_parsing.png)
+```csharp
+private int Abs => NetworkManager.HEADER_SIZE + Idx;
 
-Parsing helpers converted received buffers into typed values and helped catch mismatched usage earlier.
+public int AsInt(byte[] buffer)
+{
+    if (!Guard(FieldType.Int) || !GuardBuffer(buffer))
+        return 0;
+
+    return BitConverter.ToInt32(buffer, Abs);
+}
+```
+
+This excerpt follows the real `ServerOffset.cs`: `AsInt()` checks the declared field type and received buffer bounds, then adds the packet header size before reading. `GuardBuffer()` also checks the payload length recorded in the header.
 
 ### Parsed Data Conversion And Usage
 
-![Parsed server offset usage](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result_using.png)
+```csharp
+model.SessionState.Value =
+    Offsets.System.DUMMY_SESSION_STATE.AsInt(readBuffer);
+model.PlanRevision.Value =
+    Offsets.Planning.DUMMY_PLAN_REVISION.AsInt(readBuffer);
+model.TrackingScore.Value =
+    Offsets.Tracking.DUMMY_TRACKING_SCORE.AsInt(readBuffer);
+```
 
-Parsed values were passed into the Model/Presenter layer so UI and workflow screens could react to server state.
+The Model/Presenter layer reads the three dummy fields through their generated `ServerOffset` entries, as the project's runtime models do for real fields.
 
 ## TCP Runtime Flow
 

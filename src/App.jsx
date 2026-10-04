@@ -150,6 +150,10 @@ function parseMarkdownBlocks(markdown) {
   const lines = markdown.split(/\r?\n/);
   let paragraphLines = [];
   let listItems = [];
+  let codeLines = [];
+  let codeLanguage = "";
+  let inCodeBlock = false;
+  let tableRows = [];
 
   const flushParagraph = () => {
     if (paragraphLines.length === 0) return;
@@ -163,8 +167,47 @@ function parseMarkdownBlocks(markdown) {
     listItems = [];
   };
 
+  const flushTable = () => {
+    if (tableRows.length === 0) return;
+    blocks.push({ type: "table", headers: tableRows[0], rows: tableRows.slice(1) });
+    tableRows = [];
+  };
+
+  const parseTableRow = (line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+
   lines.forEach((line) => {
     const trimmed = line.trim();
+
+    if (trimmed.startsWith("```")) {
+      flushParagraph();
+      flushList();
+      flushTable();
+      if (inCodeBlock) {
+        blocks.push({ type: "code", language: codeLanguage, text: codeLines.join("\n") });
+        codeLines = [];
+        codeLanguage = "";
+      } else {
+        codeLanguage = trimmed.slice(3).trim();
+      }
+      inCodeBlock = !inCodeBlock;
+      return;
+    }
+
+    if (inCodeBlock) {
+      codeLines.push(line);
+      return;
+    }
+
+    if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+      const cells = parseTableRow(trimmed);
+      if (cells.every((cell) => /^:?-{3,}:?$/.test(cell))) return;
+      flushParagraph();
+      flushList();
+      tableRows.push(cells);
+      return;
+    }
+
+    flushTable();
 
     if (!trimmed) {
       flushParagraph();
@@ -214,6 +257,8 @@ function parseMarkdownBlocks(markdown) {
 
   flushParagraph();
   flushList();
+  flushTable();
+  if (inCodeBlock) blocks.push({ type: "code", language: codeLanguage, text: codeLines.join("\n") });
   return blocks;
 }
 
@@ -227,6 +272,36 @@ function renderInlineText(text) {
 
     return part;
   });
+}
+
+function renderCodeText(text, language) {
+  if (language !== "csharp") return text;
+
+  const pattern = /(\/\/[^\n]*|"(?:\\.|[^"\\])*"|\b\d+\b|\b[A-Za-z_][A-Za-z_0-9]*\b|[=+<>])/g;
+  const parts = [];
+  let lastIndex = 0;
+
+  for (const match of text.matchAll(pattern)) {
+    const token = match[0];
+    const start = match.index;
+    const end = start + token.length;
+    if (start > lastIndex) parts.push(text.slice(lastIndex, start));
+
+    let kind = "";
+    if (token.startsWith("//")) kind = "comment";
+    else if (token.startsWith('"')) kind = "string";
+    else if (/^\d/.test(token)) kind = "number";
+    else if (/^(public|private|static|class|enum|void|if|return|throw|new|var)$/.test(token)) kind = "keyword";
+    else if (text.slice(end).trimStart().startsWith("(")) kind = "method";
+    else if (/^(int|byte|sizeof|typeof)$/.test(token) || (/^[A-Z][a-z]/.test(token) && !text.slice(0, start).trimEnd().endsWith("."))) kind = "type";
+    else if (/^[=+<>]$/.test(token)) kind = "operator";
+
+    parts.push(kind ? <span className={`code-token-${kind}`} key={start}>{token}</span> : token);
+    lastIndex = end;
+  }
+
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return parts;
 }
 
 function MarkdownContent({ markdown }) {
@@ -248,6 +323,23 @@ function MarkdownContent({ markdown }) {
           ))}
         </ul>
       );
+    }
+
+    if (block.type === "table") {
+      return (
+        <div className="detail-content-table-wrap" key={key}>
+          <table className="detail-content-table">
+            <thead><tr>{block.headers.map((header, cellIndex) => <th scope="col" key={cellIndex}>{renderInlineText(header)}</th>)}</tr></thead>
+            <tbody>{block.rows.map((row, rowIndex) => (
+              <tr key={rowIndex}>{block.headers.map((_, cellIndex) => <td key={cellIndex}>{renderInlineText(row[cellIndex] ?? "")}</td>)}</tr>
+            ))}</tbody>
+          </table>
+        </div>
+      );
+    }
+
+    if (block.type === "code") {
+      return <pre className="detail-content-code" key={key}><code className={block.language ? `language-${block.language}` : undefined}>{renderCodeText(block.text, block.language)}</code></pre>;
     }
 
     if (block.type === "image") {

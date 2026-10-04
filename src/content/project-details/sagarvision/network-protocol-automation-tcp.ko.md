@@ -1,5 +1,7 @@
 SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 서버와 TCP 메시지를 주고받습니다. 공유 프로토콜 명세를 SSOT로 삼아 command와 payload offset 코드를 생성하는 스캐폴딩 흐름을 만들었습니다. TCP 상태 갱신은 Polling 구조에서 Push on State 방식으로 전환해 반응성을 개선했습니다.
 
+아래 표와 코드 스니핏은 실제 프로토콜 값이나 운영 코드를 포함하지 않는 더미 예시입니다.
+
 - Client to Server command를 이름 있는 `CommandSet` 값으로 생성했습니다.
 - Server to Client payload 정의를 이름 있는 offset helper로 생성했습니다.
 - 검증된 TCP packet을 클라이언트 workflow 계층으로 전달했습니다.
@@ -8,59 +10,136 @@ SagarVision의 Unity 클라이언트는 수술 workflow 전반에서 백엔드 �
 
 ### Protocol Data
 
-![Client to Server command spreadsheet](images_videos/sagarvision/tcp/client-to-server/ClientToServerData.png)
+| Name | Value | Section | Interaction | Description |
+| --- | --- | --- | --- | --- |
+| DUMMY_SESSION_START | 10 | System | 세션 시작 | 예시 workflow 세션을 엽니다 |
+| DUMMY_PLAN_UPDATE | 20 | Planning | 계획 전송 | 예시 계획의 변경 내용을 보냅니다 |
+| DUMMY_VIEW_RESET | 30 | AR View | 화면 초기화 | 예시 AR 화면을 기본 상태로 되돌립니다 |
 
-Planning, Landmark, AR 상태, 장비 동작 command를 공유 spreadsheet에서 관리해 단일 기준을 만들었습니다.
+예시 command 3개는 세션 시작, 계획 변경 전송, AR 화면 초기화를 나타냅니다. 각 행의 이름과 값을 이용해 클라이언트 command enum을 생성합니다.
 
 ### IMGUI Data Import
 
-![CommandSet generator editor window](images_videos/sagarvision/tcp/client-to-server/getdata.png)
+```csharp
+if (GUILayout.Button("Import Command Data"))
+{
+    GenerateCommandSet(new[]
+    {
+        ("DUMMY_SESSION_START", 10),
+        ("DUMMY_PLAN_UPDATE", 20),
+        ("DUMMY_VIEW_RESET", 30)
+    });
+}
+```
 
-Unity Editor 도구에서 command 표를 불러와 클라이언트 command 정의를 다시 생성하도록 했습니다.
+Unity Editor 도구에서 command 3개 행을 함께 불러와 클라이언트 정의를 다시 생성합니다.
 
 ### Generated Command Enum
 
-![Generated CommandSet enum](images_videos/sagarvision/tcp/client-to-server/result.png)
+```csharp
+public enum CommandSet
+{
+    DUMMY_SESSION_START = 10,
+    DUMMY_PLAN_UPDATE = 20,
+    DUMMY_VIEW_RESET = 30
+}
+```
 
-생성된 enum을 통해 런타임 코드가 숫자 대신 의미 있는 command 이름을 사용하게 했습니다.
+생성된 이름 3개를 이용해 런타임 코드가 숫자 대신 해당 동작의 command를 선택합니다.
 
 ### Runtime Usage
 
-![CommandSet usage in NetworkManager](images_videos/sagarvision/tcp/client-to-server/using.png)
+```csharp
+void StartSession() =>
+    networkManager.SendCommand(CommandSet.DUMMY_SESSION_START);
 
-화면 로직은 이름 있는 command로 서버 동작을 요청하고, packet 전송은 네트워크 계층에서 처리했습니다.
+void SubmitPlan() =>
+    networkManager.SendCommand(CommandSet.DUMMY_PLAN_UPDATE);
+
+void ResetView() =>
+    networkManager.SendCommand(CommandSet.DUMMY_VIEW_RESET);
+```
+
+각 화면 동작은 대응하는 command를 선택하고, packet 전송은 네트워크 계층에서 처리합니다.
 
 ## Server to Client
 
 ### Protocol Data
 
-![Server to Client offset spreadsheet](images_videos/sagarvision/tcp/server-to-client/ServerToClientData.png)
+| Name | Offset | Type | Length (Byte) | Section | Description |
+| --- | --- | --- | --- | --- | --- |
+| DUMMY_SESSION_STATE | 10 | Int | 4 | System | 예시 세션 상태 코드 |
+| DUMMY_PLAN_REVISION | 14 | Int | 4 | Planning | 예시 계획의 변경 버전 |
+| DUMMY_TRACKING_SCORE | 18 | Int | 4 | Tracking | 예시 트래킹 품질 점수 |
 
-서버 payload field는 Planning, Validation, Gap, Resection 화면에서 쓰는 값들을 공유 offset table로 관리했습니다.
+예시 응답은 세션 상태, 계획 버전, 트래킹 점수를 담습니다. 각 `Int` 필드는 4바이트이며 offset 10, 14, 18은 packet header를 제외한 payload 기준입니다.
 
 ### IMGUI Offset Import
 
-![ServerOffset generator editor window](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor.png)
+```csharp
+if (GUILayout.Button("Generate", GUILayout.Height(30)))
+{
+    Generate();
+}
+```
 
-Offset generator는 공유 표를 Unity 정의로 변환해, 프로토콜 변경 시 생성 파일을 갱신할 수 있게 했습니다.
+Unity Editor generator는 공유 표의 예시 3개 행을 읽어 타입이 포함된 `ServerOffset` 정의를 생성합니다.
 
 ### Generated Offset Map
 
-![Generated server offsets](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result.png)
+```csharp
+public static class Offsets
+{
+    public static class System
+    {
+        public static readonly ServerOffset DUMMY_SESSION_STATE =
+            new(10, FieldType.Int, 4);
+    }
 
-이름 있는 offset을 사용해 수신 데이터를 읽기 쉽게 만들고 수동 byte 위치 계산을 줄였습니다.
+    public static class Planning
+    {
+        public static readonly ServerOffset DUMMY_PLAN_REVISION =
+            new(14, FieldType.Int, 4);
+    }
+
+    public static class Tracking
+    {
+        public static readonly ServerOffset DUMMY_TRACKING_SCORE =
+            new(18, FieldType.Int, 4);
+    }
+}
+```
+
+실제 생성 파일처럼 각 필드는 payload offset, `FieldType`, byte 길이를 가진 `ServerOffset`으로 정의되고 section별로 묶입니다.
 
 ### Parsing Logic
 
-![ServerOffset parsing helpers](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result_parsing.png)
+```csharp
+private int Abs => NetworkManager.HEADER_SIZE + Idx;
 
-Parsing helper는 수신 buffer를 타입 값으로 변환하고, 잘못된 사용을 더 빨리 발견할 수 있게 했습니다.
+public int AsInt(byte[] buffer)
+{
+    if (!Guard(FieldType.Int) || !GuardBuffer(buffer))
+        return 0;
+
+    return BitConverter.ToInt32(buffer, Abs);
+}
+```
+
+이 코드는 실제 `ServerOffset.cs`의 흐름을 따릅니다. `AsInt()`는 필드 타입과 수신 buffer 범위를 검사한 뒤 packet header 크기를 더한 위치에서 값을 읽습니다. `GuardBuffer()`는 header에 기록된 payload 길이도 확인합니다.
 
 ### Parsed Data Conversion And Usage
 
-![Parsed server offset usage](images_videos/sagarvision/tcp/server-to-client/ServerToClientData_GetDataFromEditor_result_using.png)
+```csharp
+model.SessionState.Value =
+    Offsets.System.DUMMY_SESSION_STATE.AsInt(readBuffer);
+model.PlanRevision.Value =
+    Offsets.Planning.DUMMY_PLAN_REVISION.AsInt(readBuffer);
+model.TrackingScore.Value =
+    Offsets.Tracking.DUMMY_TRACKING_SCORE.AsInt(readBuffer);
+```
 
-변환된 값은 Model/Presenter 계층으로 전달되어 UI와 workflow 화면이 서버 상태에 반응하도록 했습니다.
+실제 프로젝트의 런타임 모델처럼 생성된 `ServerOffset` 필드로 더미 값 3개를 읽어 Model/Presenter 계층에 전달합니다.
 
 ## TCP Runtime Flow
 
