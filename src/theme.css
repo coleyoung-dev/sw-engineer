@@ -665,6 +665,69 @@ body {
   border-color: var(--theme-border);
 }
 
+.detail-content-page .project-detail-container {
+  width: min(100% - 2rem, 56rem);
+}
+
+.project-page .project-detail.detail-content-page {
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+}
+
+.detail-content-page .detail-breadcrumbs {
+  margin-bottom: 1.75rem;
+}
+
+.detail-content-page .detail-back-button {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.detail-content-page .detail-content-kicker {
+  font-size: 0.75rem;
+}
+
+.detail-content-page .project-detail-title {
+  font-size: clamp(2rem, 4vw, 3.85rem);
+}
+
+.detail-content-page .project-detail-subtitle {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.detail-content-page .detail-content-article {
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.detail-content-page .detail-content-article p,
+.detail-content-page .detail-content-article li {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.detail-content-page .detail-content-article h2 {
+  font-size: 1.15rem;
+}
+
+.detail-content-page .detail-content-article h3,
+.detail-content-page .detail-content-article h4 {
+  font-size: 1rem;
+}
+
+.detail-content-page .detail-content-figure img,
+.detail-content-page .detail-content-video video {
+  max-width: 50rem;
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.detail-content-page .detail-content-video figcaption {
+  font-size: 0.8rem;
+}
+
 :root[data-theme="light"] .language-toggle {
   --bg: rgba(255, 255, 255, 0.94);
   --stroke: rgba(36, 89, 184, 0.2);
