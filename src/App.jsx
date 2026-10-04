@@ -428,6 +428,24 @@ function Tags({ tags, className = "tags", itemClass = "tag" }) {
   );
 }
 
+function ProjectStatuses({ statuses, language, className = "project-card-statuses" }) {
+  if (!statuses?.length) return null;
+
+  return (
+    <div className={className}>
+      {statuses.map((status, index) => (
+        <div className="project-status" key={`${status.type}-${index}`}>
+          <span className="project-status-badge" data-status={status.type.toLowerCase().replace(/\s+/g, "-")}>
+            <span className="project-status-dot" aria-hidden="true" />
+            {status.type}
+          </span>
+          <span className="project-status-text">{pickLocalized(status, "text", language)}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function LinkedListItem({ item }) {
   if (typeof item === "string") {
     return <>{item}</>;
@@ -485,19 +503,7 @@ function ProjectCard({ project, language, text }) {
           <span>{text.projectDetail.open}</span>
           <i className="bi bi-arrow-right-short" aria-hidden="true" />
         </div>
-        {project.statuses?.length > 0 ? (
-          <div className="project-card-statuses">
-            {project.statuses.map((status, index) => (
-              <div className="project-card-status" key={`${status.type}-${index}`}>
-                <span className="project-card-status-badge" data-status={status.type.toLowerCase().replace(/\s+/g, "-")}>
-                  <span className="project-card-status-dot" aria-hidden="true" />
-                  {status.type}
-                </span>
-                <span className="project-card-status-text">{pickLocalized(status, "text", language)}</span>
-              </div>
-            ))}
-          </div>
-        ) : null}
+        <ProjectStatuses statuses={project.statuses} language={language} />
       </div>
     </a>
   );
@@ -623,13 +629,19 @@ function ProjectDetail({ project, language, text, onBack }) {
   const outcomes = pickLocalized(project, "outcomes", language) ?? [];
   const detailContents = getProjectDetailContents(project);
   const hasInlineCaseStudies = detailContents.some((content) => content.inline);
-  const metaItems = [
-    [text.projectDetail.role, role],
-    [text.projectDetail.timeline, timeline],
-    [text.projectDetail.team, team],
-    [text.projectDetail.category, category],
-    relatedPage ? [text.projectDetail.relatedPage, relatedPage] : null,
-  ].filter(Boolean);
+  const metaItems = project.detailMeta
+    ? project.detailMeta.map((item) => ({
+        ...item,
+        label: pickLocalized(item, "label", language),
+        value: pickLocalized(item, "value", language),
+      }))
+    : [
+        { label: text.projectDetail.role, value: role },
+        { label: text.projectDetail.timeline, value: timeline },
+        { label: text.projectDetail.team, value: team },
+        { label: text.projectDetail.category, value: category },
+        relatedPage ? { label: text.projectDetail.relatedPage, value: relatedPage } : null,
+      ].filter(Boolean);
 
   return (
     <section className="individual-section project-detail" id={detailId} aria-labelledby={`${detailId}-title`}>
@@ -645,17 +657,38 @@ function ProjectDetail({ project, language, text, onBack }) {
           {title}
         </h1>
         <p className="project-detail-subtitle">{description}</p>
+        <ProjectStatuses statuses={project.statuses} language={language} className="project-detail-statuses" />
         <Tags tags={project.tags} className="detail-chips" itemClass="detail-badge" />
 
         <div className="project-detail-grid">
           <aside className="detail-card project-detail-aside">
             <h2>{text.projectDetail.metaTitle}</h2>
             <dl className="project-detail-meta">
-              {metaItems.map(([label, value]) => (
+              {metaItems.map(({ label, value, items, listItems }) => (
                 <div key={label}>
                   <dt>{label}</dt>
                   <dd>
-                    {value?.href ? (
+                    {listItems ? (
+                      <ul className="project-detail-meta-list">
+                        {listItems.map((item) => (
+                          <li key={item.label}>{pickLocalized(item, "label", language)}</li>
+                        ))}
+                      </ul>
+                    ) : items ? (
+                      items.map((item, index) => (
+                        <React.Fragment key={item.label}>
+                          {index > 0 ? ", " : null}
+                          {item.href ? (
+                            <a className="project-detail-meta-link" href={item.href} target="_blank" rel="noreferrer">
+                              <span>{item.label}</span>
+                              <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                            </a>
+                          ) : (
+                            item.label
+                          )}
+                        </React.Fragment>
+                      ))
+                    ) : value?.href ? (
                       <a className="project-detail-meta-link" href={value.href} target="_blank" rel="noreferrer">
                         <span>{value.label}</span>
                         <i className="bi bi-box-arrow-up-right" aria-hidden="true" />

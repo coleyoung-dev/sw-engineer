@@ -679,6 +679,11 @@ a {
   line-height: 1.65;
 }
 
+.project-detail-statuses {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+}
+
 .detail-chips {
   display: flex;
   flex-wrap: wrap;
@@ -754,6 +759,15 @@ a {
   color: var(--primary-color);
   font-weight: 700;
   line-height: 1.45;
+}
+
+.project-detail-meta-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.project-detail-meta-list li + li {
+  margin-top: 0.2rem;
 }
 
 .project-detail-meta-link {

@@ -294,17 +294,17 @@ body {
   font-size: 0.88rem;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status {
+.project-status {
   display: flex;
   align-items: flex-start;
   gap: 0.6rem;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status + .project-card-status {
+.project-status + .project-status {
   margin-top: 0.5rem;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge {
+.project-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -317,41 +317,41 @@ body {
   line-height: 1.2;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-dot {
+.project-status-dot {
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
   background: #4c6a87;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="completed"] {
+.project-status-badge[data-status="completed"] {
   background: #dbeafe;
   color: #1e40af;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="completed"] .project-card-status-dot {
+.project-status-badge[data-status="completed"] .project-status-dot {
   background: #2563eb;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="approved"] {
+.project-status-badge[data-status="approved"] {
   background: #dcfce7;
   color: #166534;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="approved"] .project-card-status-dot {
+.project-status-badge[data-status="approved"] .project-status-dot {
   background: #16a34a;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="in-progress"] {
+.project-status-badge[data-status="in-progress"] {
   background: #ffedd5;
   color: #9a3412;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-badge[data-status="in-progress"] .project-card-status-dot {
+.project-status-badge[data-status="in-progress"] .project-status-dot {
   background: #ea580c;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .project-card-status-text {
+.project-status-text {
   min-width: 0;
   color: var(--theme-text);
   line-height: 1.4;
