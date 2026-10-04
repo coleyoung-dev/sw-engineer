@@ -121,12 +121,6 @@ a {
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
 }
 
-.language-toggle.is-hidden {
-  opacity: 0;
-  transform: translate3d(-50%, -0.5rem, 0);
-  pointer-events: none;
-}
-
 .header2 {
   position: fixed;
   top: 0;
@@ -1250,7 +1244,7 @@ a {
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1050px) {
   .nav_header a.nav_logo {
     max-width: calc(100% - 5rem);
     overflow: hidden;

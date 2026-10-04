@@ -34,6 +34,15 @@ function getInitialLanguage() {
   return languages.some((language) => language.code === savedLanguage) ? savedLanguage : "ko";
 }
 
+function getInitialTheme() {
+  if (typeof window === "undefined") return "dark";
+  try {
+    return window.localStorage.getItem("theme") === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+}
+
 function pickLocalized(item, key, language) {
   if (language === "en") return item[key];
   const localizedKey = `${language}${key.charAt(0).toUpperCase()}${key.slice(1)}`;
@@ -264,18 +273,10 @@ function MarkdownContent({ markdown }) {
   });
 }
 
-function useScrollProgress() {
-  const [progress, setProgress] = useState(0);
+function useActiveSection() {
   const [activeSection, setActiveSection] = useState("");
   useEffect(() => {
     const onScroll = () => {
-      const hero = document.querySelector(".hero");
-      if (hero) {
-        const rect = hero.getBoundingClientRect();
-        const raw = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1);
-        setProgress(raw);
-      }
-
       const triggerPoint = window.innerHeight / 2;
       let current = "";
       for (const item of navItems) {
@@ -303,46 +304,12 @@ function useScrollProgress() {
     };
   }, []);
 
-  return { progress, activeSection };
+  return activeSection;
 }
 
 function LanguageToggle({ language, onLanguageChange }) {
-  const [hidden, setHidden] = useState(false);
-
-  useEffect(() => {
-    let timerId = null;
-    const showDelayMs = 1200;
-    const topAlwaysShowY = 520;
-
-    const showAfterScrollStops = () => {
-      if (timerId) window.clearTimeout(timerId);
-      timerId = window.setTimeout(() => setHidden(false), showDelayMs);
-    };
-
-    const onScroll = () => {
-      const y = window.scrollY || 0;
-      if (y < topAlwaysShowY) {
-        if (timerId) window.clearTimeout(timerId);
-        setHidden(false);
-        return;
-      }
-
-      setHidden(true);
-      showAfterScrollStops();
-    };
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (timerId) window.clearTimeout(timerId);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
   return (
-    <div className={`language-toggle ${hidden ? "is-hidden" : ""}`} aria-label="Language Toggle" data-active={language}>
+    <div className="language-toggle" aria-label="Language Toggle" data-active={language}>
       {languages.map((item) => (
         <button
           id={`btn-${item.code === "ko" ? "ko" : "en"}`}
@@ -359,13 +326,12 @@ function LanguageToggle({ language, onLanguageChange }) {
   );
 }
 
-function Header({ progress, activeSection, language, text }) {
+function Header({ activeSection, language, text, theme, onLanguageChange, onThemeChange }) {
   const [open, setOpen] = useState(false);
-  const headerProgress = open || activeSection ? 1 : Math.min(Math.max((progress - 0.7) / 0.3, 0), 1);
 
   useEffect(() => {
     const close = () => {
-      if (window.innerWidth <= 960) setOpen(false);
+      if (window.innerWidth <= 1050) setOpen(false);
     };
 
     window.addEventListener("resize", close);
@@ -373,7 +339,7 @@ function Header({ progress, activeSection, language, text }) {
   }, []);
 
   return (
-    <section className="header2" style={{ opacity: headerProgress, pointerEvents: headerProgress > 0 ? "auto" : "none" }}>
+    <section className="header2">
       <nav className="nav_header">
         <a href="#top" className="nav_logo" onClick={() => setOpen(false)}>
           {text.header.logo}
@@ -403,6 +369,16 @@ function Header({ progress, activeSection, language, text }) {
             ))}
           </ul>
         </div>
+        <LanguageToggle language={language} onLanguageChange={onLanguageChange} />
+        <button
+          className="theme-toggle"
+          type="button"
+          aria-label={language === "ko" ? (theme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환") : (theme === "dark" ? "Switch to light mode" : "Switch to dark mode")}
+          title={language === "ko" ? (theme === "dark" ? "라이트 모드" : "다크 모드") : (theme === "dark" ? "Light mode" : "Dark mode")}
+          onClick={() => onThemeChange(theme === "dark" ? "light" : "dark")}
+        >
+          <i className={`bi ${theme === "dark" ? "bi-sun" : "bi-moon-stars"}`} aria-hidden="true" />
+        </button>
       </nav>
     </section>
   );
@@ -881,13 +857,13 @@ function BottomEmailContact({ text }) {
 
 export default function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
+  const [theme, setTheme] = useState(getInitialTheme);
   const [route, setRoute] = useState(getCurrentHashRoute);
-  const { progress, activeSection } = useScrollProgress();
+  const activeSection = useActiveSection();
   const reducedMotion = useMemo(
     () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     [],
   );
-  const heroProgress = reducedMotion ? 1 : progress;
   const text = uiText[language] ?? uiText.en;
   const selectedProject = useMemo(() => getProjectFromRoute(route), [route]);
   const selectedDetailContent = useMemo(() => getDetailContentFromRoute(route), [route]);
@@ -896,6 +872,15 @@ export default function App() {
     document.documentElement.lang = language === "ko" ? "ko" : "en";
     window.localStorage.setItem("lang", language);
   }, [language]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      window.localStorage.setItem("theme", theme);
+    } catch {
+      // The theme still works when storage is unavailable.
+    }
+  }, [theme]);
 
   useEffect(() => {
     const syncRouteFromHash = () => setRoute(getCurrentHashRoute());
@@ -939,13 +924,11 @@ export default function App() {
     window.location.hash = getProjectHref(project);
   };
 
-  const headerProgress = selectedProject || selectedDetailContent ? 1 : heroProgress;
   const headerActiveSection = selectedProject || selectedDetailContent ? "" : activeSection;
 
   return (
     <>
-      <LanguageToggle language={language} onLanguageChange={setLanguage} />
-      <Header progress={headerProgress} activeSection={headerActiveSection} language={language} text={text} />
+      <Header activeSection={headerActiveSection} language={language} text={text} theme={theme} onLanguageChange={setLanguage} onThemeChange={setTheme} />
       <main className={selectedProject || selectedDetailContent ? "project-page" : ""}>
         {selectedDetailContent ? (
           <>
