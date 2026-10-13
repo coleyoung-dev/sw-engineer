@@ -239,15 +239,137 @@ body {
   background: #101827;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .image img,
+.featured-projects .featured-projects-showcases .featured-projects-showcase .image > img,
 .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb {
   width: 100%;
   height: clamp(13rem, 20vw, 18rem);
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .image img:hover,
+.featured-projects .featured-projects-showcases .manager-thumbnail {
+  box-sizing: border-box;
+  width: 100%;
+  height: clamp(13rem, 20vw, 18rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 78% 25%, rgba(0, 180, 204, 0.2), transparent 32%),
+    linear-gradient(140deg, #0b1117, #152531 72%, #0b1117);
+  transition: transform 0.2s;
+}
+
+.featured-projects .featured-projects-showcases .project-card-button:hover .manager-thumbnail {
+  transform: scale(1.025);
+}
+
+.manager-thumbnail-header,
+.manager-thumbnail-flow,
+.manager-thumbnail-node {
+  display: flex;
+  align-items: center;
+}
+
+.manager-thumbnail-header {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.featured-projects .featured-projects-showcases .manager-thumbnail-header img {
+  width: clamp(5rem, 8vw, 7rem);
+  height: auto;
+  object-fit: contain;
+}
+
+.manager-thumbnail-header > span {
+  color: #77cbd7;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+}
+
+.manager-thumbnail-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.4vw, 1.2rem);
+  height: calc(100% - 2.2rem);
+}
+
+.manager-thumbnail-title {
+  font-size: clamp(1.25rem, 2.1vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.manager-thumbnail-title strong {
+  color: #49d4df;
+  font-weight: 700;
+}
+
+.manager-thumbnail-flow {
+  width: 100%;
+}
+
+.manager-thumbnail-node {
+  box-sizing: border-box;
+  flex: 0 0 27%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: clamp(3.8rem, 6vw, 5rem);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.manager-thumbnail-node > span {
+  font-size: clamp(1rem, 1.6vw, 1.45rem);
+  font-weight: 750;
+}
+
+.manager-thumbnail-node small {
+  color: #9ddbe1;
+  font-size: clamp(0.44rem, 0.65vw, 0.6rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.manager-thumbnail-hub {
+  border-color: rgba(73, 212, 223, 0.65);
+  background: rgba(0, 180, 204, 0.16);
+}
+
+.manager-thumbnail-line {
+  flex: 1 1 auto;
+  height: 1px;
+  background: #49d4df;
+}
+
+.featured-projects .featured-projects-showcases .manager-thumbnail-device img {
+  width: 1.5rem;
+  height: 1.25rem;
+  object-fit: contain;
+}
+
+.manager-thumbnail-footer {
+  color: #a5b8c4;
+  font-size: clamp(0.52rem, 0.75vw, 0.68rem);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.manager-thumbnail-footer span {
+  color: #49d4df;
+  padding-inline: 0.35rem;
+}
+
+.featured-projects .featured-projects-showcases .featured-projects-showcase .image > img:hover,
 .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb:hover,
-.featured-projects .featured-projects-showcases .project-card-button:hover .image img,
+.featured-projects .featured-projects-showcases .project-card-button:hover .image > img,
 .featured-projects .featured-projects-showcases .project-card-button:hover .image .project-thumb {
   opacity: 1;
   transform: scale(1.025);
@@ -875,7 +997,7 @@ body {
     gap: 0.8rem;
   }
 
-  .featured-projects .featured-projects-showcases .featured-projects-showcase .image img,
+  .featured-projects .featured-projects-showcases .featured-projects-showcase .image > img,
   .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb {
     height: clamp(6.5rem, 18vh, 9rem);
   }
@@ -1036,7 +1158,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .featured-projects .featured-projects-showcases .featured-projects-showcase .image img,
+  .featured-projects .featured-projects-showcases .featured-projects-showcase .image > img,
   .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb {
     height: min(65vw, 18rem);
   }

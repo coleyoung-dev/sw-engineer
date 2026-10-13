@@ -770,11 +770,12 @@ export const experiences = [
     company: "Skyve",
     companyUrl: "http://www.skyve.co.kr/",
     description:
-      "I develop Sagarvision software that supports knee replacement surgery in the Medical Technology Innovation Team. My work centers on Unity/C# applications for Android and Windows, including real-time data processing over socket connections, tracking, and 2D/3D visualization.",
+      "I develop SagarVision software that supports knee replacement surgery in the Medical Technology Innovation Team. My work spans Unity/C# clients for Android and Windows, real-time tracking and visualization, and a WPF tool for managing development devices and apps.",
     koDescription:
-      "의료기술혁신팀에서 인공 무릎 관절 치환 수술을 지원하는 Sagarvision 소프트웨어를 개발하고 있습니다. Unity/C# 기반 Android/Windows 애플리케이션 개발을 중심으로, Socket 통신을 활용한 실시간 데이터 처리, 트래킹 및 시각화(2D/3D) 기능을 담당하고 있습니다.",
+      "의료기술혁신팀에서 인공 무릎 관절 치환 수술을 지원하는 SagarVision 소프트웨어를 개발하고 있습니다. Unity/C# 기반 Android·Windows 클라이언트의 실시간 트래킹·시각화와 개발 기기·앱을 관리하는 WPF 도구를 담당합니다.",
     apps: [
       ["Sagarvision", "#featuredproject"],
+      ["Sagarvision Manager", "#/projects/sagarvision-manager"],
       ["QR Based Pose Tracking", "#/projects/qr-based-pose-tracking-system"],
     ],
   },
@@ -794,6 +795,114 @@ export const experiences = [
     ],
   },
 ];
+
+const sagarvisionManagerProject = {
+  title: "Sagarvision Manager",
+  koTitle: "Sagarvision Manager",
+  slug: "sagarvision-manager",
+  location: "Skyve Medical Technology Innovation Team / Oct 2026 - Present",
+  koLocation: "스카이브 의료기술혁신팀 / 2026.10 ~ 진행 중",
+  showLocationInOverview: false,
+  description: "Built a WPF desktop tool for managing Android and AR Glass devices used while developing and operating the SagarVision TKA navigation system.",
+  koDescription: "SagarVision TKA 내비게이션 시스템의 개발·운영 과정에서 Android 및 AR Glass 기기를 관리하는 WPF 데스크톱 도구를 개발했습니다.",
+  overview: "An internal Windows tool that brings device connection, APK installation, app launch, screen mirroring, and log inspection into one workspace for the SagarVision team.",
+  koOverview: "SagarVision 팀이 기기 연결, APK 설치, 앱 실행, 화면 미러링, 로그 확인을 한곳에서 수행하는 사내용 Windows 도구입니다.",
+  detailDescription: [
+    "The manager coordinates development and test devices around the TKA navigation system. It is an operations tool for the team, not the surgical navigation client itself.",
+    "I structured the WPF app with MVVM and dependency-injected services, then kept device commands, APK inspection, and live log streaming asynchronous so slow external tools do not stall the interface.",
+  ],
+  koDetailDescription: [
+    "TKA 내비게이션 시스템의 개발·테스트에 쓰는 기기와 앱을 관리하는 도구입니다. 수술 내비게이션 기능을 직접 수행하는 클라이언트와는 역할이 다릅니다.",
+    "WPF 화면을 MVVM과 DI 서비스로 구성하고, 외부 도구 실행·APK 분석·실시간 로그 수집을 비동기로 처리해 작업 중 UI 응답성을 유지하도록 설계했습니다.",
+  ],
+  icon: "bi-window-desktop",
+  thumbnailLayout: "manager",
+  imageAlt: "Illustration of the Sagarvision Manager device workflow using assets from the desktop app",
+  koImageAlt: "데스크톱 앱의 이미지 자산을 활용한 Sagarvision Manager 기기 관리 흐름 일러스트",
+  tags: ["WPF", "C#", ".NET 8", "MVVM", "Async/Await", "ADB", "Windows"],
+  caseStudiesTitle: "Technical Implementation Cases",
+  koCaseStudiesTitle: "기술 구현 사례",
+  caseStudiesCopy: "Three implementation paths show how the desktop app handles long-running device tasks and high-volume logs.",
+  koCaseStudiesCopy: "오래 걸리는 기기 작업과 대량 로그를 UI와 분리한 세 가지 구현 흐름을 정리했습니다.",
+  outcomesTitle: "Implemented Capabilities",
+  koOutcomesTitle: "구현 결과",
+  detailMeta: [
+    { label: "Timeline", koLabel: "기간", value: "Oct 2026 - Present", koValue: "2026.10 ~ 진행 중" },
+    { label: "Role", koLabel: "역할", value: "WPF desktop application development", koValue: "WPF 데스크톱 애플리케이션 개발" },
+    { label: "Context", koLabel: "용도", value: "Internal development and operations tool for SagarVision", koValue: "SagarVision 개발·운영용 사내 도구" },
+    { label: "Stack", koLabel: "기술", value: ".NET 8, WPF, CommunityToolkit.Mvvm, Generic Host, ADB", koValue: ".NET 8, WPF, CommunityToolkit.Mvvm, Generic Host, ADB" },
+  ],
+  outcomes: [
+    "Combined device connection, app installation and launch, mirroring, and log inspection in one desktop workflow.",
+    "Added cancellation, progress reporting, caching, and bounded concurrency to APK discovery and inspection.",
+    "Buffered live logcat output before updating the WPF collection to limit UI update frequency.",
+  ],
+  koOutcomes: [
+    "기기 연결, 앱 설치·실행, 미러링, 로그 확인을 하나의 데스크톱 작업 흐름에 모았습니다.",
+    "APK 검색·분석에 취소, 진행률, 캐시, 동시 실행 수 제한을 적용했습니다.",
+    "실시간 logcat 출력을 모아서 WPF 컬렉션에 반영해 UI 갱신 빈도를 조절했습니다.",
+  ],
+  reflection: false,
+  detailContents: [
+    {
+      slug: "apk-library",
+      title: "Asynchronous APK Discovery",
+      koTitle: "비동기 APK 검색과 분석",
+      summary: "Cancellation, progress, cache invalidation, and bounded parallel inspection.",
+      koSummary: "취소, 진행률, 캐시 무효화, 병렬 분석 수 제한",
+      markdownPath: "./content/project-details/sagarvision-manager/apk-library.en.md",
+      koMarkdownPath: "./content/project-details/sagarvision-manager/apk-library.ko.md",
+      inline: true,
+      inlineOrder: 1,
+      highlights: [
+        "Canceled superseded scans and reported progress back to the UI thread.",
+        "Inspected changed APKs with at most four concurrent aapt processes.",
+      ],
+      koHighlights: [
+        "새 검색이 시작되면 이전 검색을 취소하고 진행률을 UI에 전달했습니다.",
+        "변경된 APK만 최대 4개씩 병렬로 분석했습니다.",
+      ],
+    },
+    {
+      slug: "device-commands",
+      title: "ADB Process and Device Commands",
+      koTitle: "ADB 프로세스와 기기 명령",
+      summary: "Timeout-aware process execution and per-device results for parallel actions.",
+      koSummary: "타임아웃을 고려한 프로세스 실행과 기기별 병렬 작업 결과 처리",
+      markdownPath: "./content/project-details/sagarvision-manager/device-commands.en.md",
+      koMarkdownPath: "./content/project-details/sagarvision-manager/device-commands.ko.md",
+      inline: true,
+      inlineOrder: 2,
+      highlights: [
+        "Read stdout and stderr concurrently while awaiting process exit.",
+        "Collected success or failure separately when acting on multiple devices.",
+      ],
+      koHighlights: [
+        "표준 출력과 오류 출력을 동시에 읽으면서 프로세스 종료를 기다렸습니다.",
+        "여러 기기 작업의 성공·실패를 기기별로 모아 표시했습니다.",
+      ],
+    },
+    {
+      slug: "live-logcat",
+      title: "Live Logcat and WPF Updates",
+      koTitle: "실시간 Logcat과 WPF 화면 갱신",
+      summary: "Buffered background process output and applied 100 ms UI batches.",
+      koSummary: "백그라운드 프로세스 출력을 모아 100ms 단위로 UI에 반영",
+      markdownPath: "./content/project-details/sagarvision-manager/live-logcat.en.md",
+      koMarkdownPath: "./content/project-details/sagarvision-manager/live-logcat.ko.md",
+      inline: true,
+      inlineOrder: 3,
+      highlights: [
+        "Parsed streamed logcat lines outside the UI update path.",
+        "Batched collection changes and capped retained entries.",
+      ],
+      koHighlights: [
+        "스트리밍 로그를 파싱한 뒤 UI 갱신 경로와 분리했습니다.",
+        "컬렉션 변경을 묶고 보관할 로그 수를 제한했습니다.",
+      ],
+    },
+  ],
+};
 
 const jetsonVisionProject = {
   title: "QR Based Pose Tracking",
@@ -867,6 +976,6 @@ const jetsonVisionProject = {
   koOutcomes: ["스테레오 영상에서 마커를 식별하고 3D 위치·자세를 계산한 뒤 외부 클라이언트에 전달하는 처리 흐름을 구축했습니다. 이 과정에서 Computer Vision, 카메라 보정 파라미터 활용, 좌표계 변환 및 실시간 데이터 연동에 대한 실무 경험을 쌓았습니다."],
 };
 
-export const projects = [legacyProjects[0], jetsonVisionProject, legacyProjects[2]];
+export const projects = [legacyProjects[0], sagarvisionManagerProject, jetsonVisionProject, legacyProjects[2]];
 
 export const engineeringProjects = [visionLingoProject];

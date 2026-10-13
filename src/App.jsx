@@ -555,6 +555,37 @@ function LinkedListItem({ item }) {
   return <>{item?.text}</>;
 }
 
+function ManagerThumbnail({ alt }) {
+  return (
+    <div className="manager-thumbnail" role="img" aria-label={alt}>
+      <div className="manager-thumbnail-header">
+        <img src={assetPath("images_videos/sagarvision-manager/skyve-logo-white.png")} alt="" />
+        <span>WORKFLOW OVERVIEW</span>
+      </div>
+      <div className="manager-thumbnail-body" aria-hidden="true">
+        <div className="manager-thumbnail-title">Sagarvision <strong>Manager</strong></div>
+        <div className="manager-thumbnail-flow">
+          <div className="manager-thumbnail-node manager-thumbnail-apk">
+            <span>APK</span>
+            <small>BUILD</small>
+          </div>
+          <div className="manager-thumbnail-line" />
+          <div className="manager-thumbnail-node manager-thumbnail-hub">
+            <span>WPF</span>
+            <small>ADB · LOGCAT</small>
+          </div>
+          <div className="manager-thumbnail-line" />
+          <div className="manager-thumbnail-node manager-thumbnail-device">
+            <img src={assetPath("images_videos/sagarvision-manager/android-head.png")} alt="" />
+            <small>AR GLASS</small>
+          </div>
+        </div>
+        <div className="manager-thumbnail-footer">DEVICE CONTROL <span>·</span> ASYNC TASKS <span>·</span> LIVE LOGS</div>
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ project, language, text }) {
   const title = pickLocalized(project, "title", language);
   const highlight = pickLocalized(project, "highlight", language);
@@ -574,7 +605,9 @@ function ProjectCard({ project, language, text }) {
       aria-label={`${title} ${text.projectDetail.open}`}
     >
       <div className="image">
-        {imageSrc ? (
+        {project.thumbnailLayout === "manager" ? (
+          <ManagerThumbnail alt={imageAlt} />
+        ) : imageSrc ? (
           <img src={imageSrc} alt={imageAlt} />
         ) : (
           <div className="project-thumb">

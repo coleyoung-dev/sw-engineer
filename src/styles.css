@@ -484,25 +484,25 @@ a {
   background-color: var(--primary-color);
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .image img,
+.featured-projects .featured-projects-showcases .featured-projects-showcase .image > img,
 .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb {
   width: var(--featured-project-size);
   height: var(--project-thumb-height);
   transition: transform 0.2s;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .image img {
+.featured-projects .featured-projects-showcases .featured-projects-showcase .image > img {
   object-fit: contain;
   display: block;
 }
 
-.featured-projects .featured-projects-showcases .featured-projects-showcase .image img:hover,
+.featured-projects .featured-projects-showcases .featured-projects-showcase .image > img:hover,
 .featured-projects .featured-projects-showcases .featured-projects-showcase .image .project-thumb:hover {
   opacity: 0.5;
   transform: translateY(-5px);
 }
 
-.featured-projects .featured-projects-showcases .project-card-button:hover .image img,
+.featured-projects .featured-projects-showcases .project-card-button:hover .image > img,
 .featured-projects .featured-projects-showcases .project-card-button:hover .image .project-thumb {
   opacity: 0.78;
   transform: translateY(-5px);
